@@ -1,0 +1,18 @@
+1. Create a port-forward to the kafka-connect-ui:
+   kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "kafka-connect-ui.fullname" . }} 8080:{{ .Values.service.port }}
+
+   Then open the ui in your browser:
+
+   open http://localhost:8080
+
+{{- if .Values.ingress.enabled }}
+Ingress is enabled:
+{{- range .Values.ingress.tls }}
+{{- range .hosts }}
+  open https://{{ . }}
+{{- end }}
+{{- end }}
+{{- range .Values.ingress.hosts }}
+  open http://{{ . }}
+{{- end }}
+{{- end }}
