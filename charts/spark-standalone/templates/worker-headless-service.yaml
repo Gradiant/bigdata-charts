@@ -1,0 +1,15 @@
+#Headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spark.fullname" . }}-workers
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: {{ include "spark.name" . }}-worker
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,0 +1,18 @@
+{{- if .Values.master.prometheus.exporter.enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "spark.fullname" . }}-standalone-exporter
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec: 
+  selector:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - port: {{ .Values.master.prometheus.exporter.port }}
+      name: metrics
+{{- end }}

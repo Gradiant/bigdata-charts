@@ -1,0 +1,11 @@
+apiVersion: v1
+appVersion: "2.4.4"
+description: >
+  Apache Spark™ is a unified analytics engine for large-scale data processing.
+home: https://spark.apache.org/
+icon: https://spark.apache.org/images/spark-logo-trademark.png
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: spark-standalone
+version: 0.1.0

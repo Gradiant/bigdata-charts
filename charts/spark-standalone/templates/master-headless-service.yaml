@@ -1,0 +1,20 @@
+#Headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spark.fullname" . }}-headless
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  ports:
+    - port: {{ .Values.master.ui_port }}
+      name: gui
+    - port: {{ .Values.master.port }}
+      name: spark
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

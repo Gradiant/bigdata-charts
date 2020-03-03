@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  name: {{ include "spark.fullname" . }}-graphite-mapping
+data:
+  graphite_mapping.conf: |-
+    defaults:
+      timer_type: histogram
+      buckets: [.005, .01, .025, .05, .1, .25, .5, 1, 2.5 ]
+      match_type: glob
+      glob_disable_ordering: false
+      ttl: 0 # metrics do not expire
+    mappings:
+    - match: "test.timing.*.*.*"
+      name: "my_timer"
+      labels:
+        provider: "$2"
+        outcome: "$3"
+        job: "${1}_server"
+    - match: "other.timing.*.*.*"
+      timer_type: summary
+      name: "other_timer"
+      labels:
+        provider: "$2"
+        outcome: "$3"
+        job: "${1}_server_other"
+    - match: '*.*.jvm.*.*'
+      name: jvm_memory_usage
+      labels:
+        application: $1
+        executor_id: $2
+        mem_type: $3
+        qty: $4
+    - match: '*.*.jvm.pools.*.*'
+      name: jvm_memory_pools
+      labels:
+        application: $1
+        executor_id: $2
+        mem_type: $3
+        qty: $4
+    - match: '*.*.BlockManager.*.*'
+      name: block_manager
+      labels:
+        application: $1
+        executor_id: $2
+        type: $3
+        qty: $4
+    - match: '*.*.DAGScheduler.*.*'
+      name: DAG_scheduler
+      labels:
+        application: $1
+        executor_id: $2
+        type: $3
+        qty: $4
+    - match: '*.*.app.StreamingMetrics.*.*'
+      name: app_Metrics
+      labels:
+        application: $1
+        executor_id: $2
+        type: $3
+        qty: $4

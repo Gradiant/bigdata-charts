@@ -1,0 +1,23 @@
+# to resolve ( pod_hostname.{{ include "spark.fullname" . }}-domain ) through kubernetes DNS
+# https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-hostname-and-subdomain-fields
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spark.fullname" . }}-domain
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: domain    
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/component: client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  clusterIP: None
+  ports:
+  - name: foo # Actually, no port is needed.
+    port: 1234
+    targetPort: 1234

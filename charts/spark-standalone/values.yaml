@@ -1,0 +1,72 @@
+# Default values for spark.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## ------------------------------------------------------
+## Spark Standalone
+## ------------------------------------------------------
+
+## Number of Spark workers
+workers: 1
+
+## Image Info
+## ref: https://hub.docker.com/r/gradiant/spark
+image: gradiant/spark
+imageTag: 2.4.4-python-alpine
+
+# Set this to set ui access through ingress controller @ http://releaseName-chartName.ingressDomain
+ingressDomain: local
+
+## Specify a imagePullPolicy
+## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+imagePullPolicy: IfNotPresent
+
+worker:
+  ui_port: 8080
+
+ingress:
+  enabled: false
+
+master:
+  port: 7077
+  ui_port: 8080
+
+  ## Additional env variables
+  customEnv: {}
+
+  ## JVM Heap Option
+  heapOptions: "-Xms1G -Xmx1G"
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #  cpu: 100m
+    #  memory: 128Mi
+    # requests:
+    #  cpu: 100m
+    #  memory: 128Mi
+
+  ## Custom pod annotations
+  podAnnotations: {}
+
+  ## Node labels for pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  nodeSelector: {}
+
+  ## Taints to tolerate on node assignment:
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations: {}
+  ## Prometheus Exporter Configuration
+  ## ref: https://prometheus.io/docs/instrumenting/exporters/
+  prometheus:
+    image: prom/graphite-exporter
+    port: 9108
+    ## Exporter Configuration
+    ## ref: https://github.com/prometheus/graphite_exporter
+    exporter:
+      enabled: true
+      image: prom/graphite-exporter
+      port: 9108

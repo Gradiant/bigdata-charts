@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "spark.fullname" . }}-workers
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.workers }}
+  updateStrategy:
+    type: RollingUpdate
+  serviceName: {{ include "spark.fullname" . }}-workers 
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "spark.name" . }}-worker
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "spark.name" . }}-worker
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+    spec:
+      containers:
+      - name: {{ include "spark.fullname" . }}-worker
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        env:
+        {{- range $key, $value := .Values.master.customEnv }}
+        - name: {{ $key | quote }}
+          value: {{ $value | quote }}
+        {{- end }}
+        args:
+        - standalone
+        - worker
+        - spark://{{ include "spark.fullname" . }}:7077
+        - --webui-port {{ .Values.worker.ui_port }}
+
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}

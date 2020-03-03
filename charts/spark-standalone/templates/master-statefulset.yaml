@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "spark.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "spark.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  serviceName: {{ include "spark.fullname" . }} 
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "spark.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+    spec:
+      {{- if .Values.master.prometheus.exporter.enabled }}
+      volumes:
+      - name: spark-exporter
+        configMap:
+          name: {{ include "spark.fullname" . }}-exporter
+      - name: spark-graphite-mapping
+        configMap:
+          name: {{ include "spark.fullname" . }}-graphite-mapping
+      {{- end }}
+      containers:
+      {{- if .Values.master.prometheus.exporter.enabled }}
+      - name: {{ include "spark.fullname" . }}-exporter
+        image: "{{ .Values.master.prometheus.image }}"
+        imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+        ports:
+        - containerPort: {{ .Values.master.prometheus.port }}
+        command:
+        - /bin/graphite_exporter
+        args:
+        - --graphite.mapping-config
+        - /tmp/graphite_mapping.conf
+        volumeMounts:
+        - name: spark-graphite-mapping
+          mountPath: /tmp
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      {{- end }}
+      - name: {{ include "spark.fullname" . }}
+        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+        imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+        ports:
+        - containerPort: {{ .Values.master.port }}
+        - containerPort: {{ .Values.master.ui_port }}
+        {{- if .Values.master.prometheus.exporter.enabled }}
+        volumeMounts:
+        - name: spark-exporter
+          mountPath: /opt/spark/conf
+        {{- end }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        env:
+        {{- range $key, $value := .Values.master.customEnv }}
+        - name: {{ $key | quote }}
+          value: {{ $value | quote }}
+        {{- end }}
+        args:
+        - standalone
+        - master
+        - --port {{ .Values.master.port }}
+        - --webui-port {{ .Values.master.ui_port }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}

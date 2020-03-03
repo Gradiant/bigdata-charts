@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-canary"
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/component: client
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+    "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+spec:
+  hostname: {{ .Release.Name }}-canary
+  subdomain: {{ include "spark.fullname" . }}-domain
+  containers:
+  - name: {{ .Release.Name }}-canary
+    image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+    imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+    command:
+    - sh
+    - -c
+    - |
+      # try pi spark calculation
+      spark-submit run-example \
+      --master spark://{{ include "spark.fullname" . }}:7077 \
+      SparkPi 10
+  restartPolicy: Never

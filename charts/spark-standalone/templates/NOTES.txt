@@ -1,0 +1,43 @@
+This chart installs a spark-standalone Cluster {{ default 1 .Values.workers }} workers.
+
+To connect from a client pod in client-mode, client-pod IP must be resolved from spark-workers.
+The {{ include "spark.fullname" . }}-domain headless service is created to resolve client pod IPs.
+
+You must create pod with this labels and spec:
+- labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/component: client
+    app.kubernetes.io/instance: {{ .Release.Name }} 
+- spec:
+    subdomain: {{ include "spark.fullname" . }}-domain
+ 
+An example POD client should be like:
+
+  cat << EOF | kubectl create -f -
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    name: spark-client
+    namespace: {{ .Release.Namespace }}
+    labels:
+      app.kubernetes.io/name: {{ include "spark.name" . }}
+      app.kubernetes.io/component: client
+      app.kubernetes.io/instance: {{ .Release.Name }} 
+  spec:
+    hostname: spark-client
+    subdomain: {{ include "spark.fullname" . }}-domain
+    containers:
+    - name: spark-client
+      image: {{ .Values.image }}:{{ .Values.imageTag }}
+      command:
+        - sh
+        - -c
+        - "exec tail -f /dev/null"
+  EOF
+
+2. Log into the Pod
+
+  kubectl -n {{ .Release.Namespace }} exec -it spark-client -- /bin/bash
+
+3. Run example spark job with spark-submit command:
+  spark-submit run-example --master spark://{{ include "spark.fullname" . }}:7077 SparkPi 10
