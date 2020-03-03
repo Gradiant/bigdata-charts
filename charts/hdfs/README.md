@@ -1,38 +1,36 @@
 
-# Hadoop Chart
+# HDFS Chart
 
-** This is the readme from the original hadoop helm chart (https://github.com/helm/charts/tree/master/stable/hadoop) **
+** This chart is a modification of the original (https://github.com/helm/charts/tree/master/stable/hadoop) **
 ** This version removes yarn manager and provides advanced hadoop configuration through env variables ** 
 
-[Hadoop](https://hadoop.apache.org/) is a framework for running large scale distributed applications.
-
-This chart is primarily intended to be used for YARN and MapReduce job execution where HDFS is just used as a means to transport small artifacts within the framework and not for a distributed filesystem. Data should be read from cloud based datastores such as Google Cloud Storage, S3 or Swift.
-
-## Chart Details
+[Hadoop HDFS](https://hadoop.apache.org/) is a distributed file system designed to run on commodity hardware. 
 
 ## Installing the Chart
 
-To install the chart with the release name `hadoop` that utilizes 50% of the available node resources:
+Add gradiant helm repo:
 
 ```
-$ helm install --name hadoop $(stable/hadoop/tools/calc_resources.sh 50) stable/hadoop
+helm repo add gradiant https://gradiant.github.io/charts
 ```
 
-> Note that you need at least 2GB of free memory per NodeManager pod, if your cluster isn't large enough, not all pods will be scheduled.
+To install the chart with the release name `hdfs`:
 
-The optional [`calc_resources.sh`](./tools/calc_resources.sh) script is used as a convenience helper to set the `yarn.numNodes`, and `yarn.nodeManager.resources` appropriately to utilize all nodes in the Kubernetes cluster and a given percentage of their resources. For example, with a 3 node `n1-standard-4` GKE cluster and an argument of `50`, this would create 3 NodeManager pods claiming 2 cores and 7.5Gi of memory.
+```
+$ helm install --name hdfs gradiant/hdfs
+```
 
 ### Persistence
 
 To install the chart with persistent volumes:
 
 ```
-$ helm install --name hadoop $(stable/hadoop/tools/calc_resources.sh 50) \
+$ helm install --name hadoop 
   --set persistence.nameNode.enabled=true \
   --set persistence.nameNode.storageClass=standard \
   --set persistence.dataNode.enabled=true \
   --set persistence.dataNode.storageClass=standard \
-  stable/hadoop
+  gradiant/hdfs
 ```
 
 > Change the value of `storageClass` to match your volume driver. `standard` works for Google Container Engine clusters.
@@ -41,40 +39,58 @@ $ helm install --name hadoop $(stable/hadoop/tools/calc_resources.sh 50) \
 
 The following table lists the configurable parameters of the Hadoop chart and their default values.
 
-| Parameter                                         | Description                                                                        | Default                                                          |
-| ------------------------------------------------- | -------------------------------                                                    | ---------------------------------------------------------------- |
-| `image.repository`                                | Hadoop image ([source](https://github.com/Comcast/kube-yarn/tree/master/image))    | `danisla/hadoop`                                                 |
-| `image.tag`                                       | Hadoop image tag                                                                   | `2.9.0`                                                          |
-| `imagee.pullPolicy`                               | Pull policy for the images                                                         | `IfNotPresent`                                                   |
-| `hadoopVersion`                                   | Version of hadoop libraries being used                                             | `2.9.0`                                                          |
-| `antiAffinity`                                    | Pod antiaffinity, `hard` or `soft`                                                 | `hard`                                                           |
-| `hdfs.nameNode.pdbMinAvailable`                   | PDB for HDFS NameNode                                                              | `1`                                                              |
-| `hdfs.nameNode.resources`                         | resources for the HDFS NameNode                                                    | `requests:memory=256Mi,cpu=10m,limits:memory=2048Mi,cpu=1000m`   |
-| `hdfs.dataNode.replicas`                          | Number of HDFS DataNode replicas                                                   | `1`                                                              |
-| `hdfs.dataNode.pdbMinAvailable`                   | PDB for HDFS DataNode                                                              | `1`                                                              |
-| `hdfs.dataNode.resources`                         | resources for the HDFS DataNode                                                    | `requests:memory=256Mi,cpu=10m,limits:memory=2048Mi,cpu=1000m`   |
-| `yarn.resourceManager.pdbMinAvailable`            | PDB for the YARN ResourceManager                                                   | `1`                                                              |
-| `yarn.resourceManager.resources`                  | resources for the YARN ResourceManager                                             | `requests:memory=256Mi,cpu=10m,limits:memory=2048Mi,cpu=1000m`   |
-| `yarn.nodeManager.pdbMinAvailable`                | PDB for the YARN NodeManager                                                       | `1`                                                              |
-| `yarn.nodeManager.replicas`                       | Number of YARN NodeManager replicas                                                | `2`                                                              |
-| `yarn.nodeManager.parallelCreate`                 | Create all nodeManager statefulset pods in parallel (K8S 1.7+)                     | `false`                                                          |
-| `yarn.nodeManager.resources`                      | Resource limits and requests for YARN NodeManager pods                             | `requests:memory=2048Mi,cpu=1000m,limits:memory=2048Mi,cpu=1000m`|
-| `persistence.nameNode.enabled`                    | Enable/disable persistent volume                                                   | `false`                                                          |
-| `persistence.nameNode.storageClass`               | Name of the StorageClass to use per your volume provider                           | `-`                                                              |
-| `persistence.nameNode.accessMode`                 | Access mode for the volume                                                         | `ReadWriteOnce`                                                  |
-| `persistence.nameNode.size`                       | Size of the volume                                                                 | `50Gi`                                                           |
-| `persistence.dataNode.enabled`                    | Enable/disable persistent volume                                                   | `false`                                                          |
-| `persistence.dataNode.storageClass`               | Name of the StorageClass to use per your volume provider                           | `-`                                                              |
-| `persistence.dataNode.accessMode`                 | Access mode for the volume                                                         | `ReadWriteOnce`                                                  |
-| `persistence.dataNode.size`                       | Size of the volume                                                                 | `200Gi`                                                          |
+## Chart Values
 
-## Related charts
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| antiAffinity | string | `"soft"` |  |
+| conf.coreSite | string | `nil` |  |
+| conf.hdfsSite."dfs.replication" | int | `3` |  |
+| dataNode.pdbMinAvailable | int | `1` |  |
+| dataNode.replicas | int | `1` |  |
+| dataNode.resources.limits.cpu | string | `"1000m"` |  |
+| dataNode.resources.limits.memory | string | `"2048Mi"` |  |
+| dataNode.resources.requests.cpu | string | `"10m"` |  |
+| dataNode.resources.requests.memory | string | `"256Mi"` |  |
+| hadoopVersion | string | `"2.7.7"` |  |
+| httpfs.adminPort | int | `14001` |  |
+| httpfs.port | int | `14000` |  |
+| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.repository | string | `"gradiant/hadoop-base"` |  |
+| image.tag | string | `"2.7.7"` |  |
+| ingress.dataNode.annotations | object | `{}` |  |
+| ingress.dataNode.enabled | bool | `false` |  |
+| ingress.dataNode.hosts[0] | string | `"hdfs-datanode.local"` |  |
+| ingress.dataNode.labels | object | `{}` |  |
+| ingress.dataNode.path | string | `"/"` |  |
+| ingress.httpfs.annotations | object | `{}` |  |
+| ingress.httpfs.enabled | bool | `false` |  |
+| ingress.httpfs.hosts[0] | string | `"httpfs.local"` |  |
+| ingress.httpfs.labels | object | `{}` |  |
+| ingress.httpfs.path | string | `"/"` |  |
+| ingress.nameNode.annotations | object | `{}` |  |
+| ingress.nameNode.enabled | bool | `false` |  |
+| ingress.nameNode.hosts[0] | string | `"hdfs-namenode.local"` |  |
+| ingress.nameNode.labels | object | `{}` |  |
+| ingress.nameNode.path | string | `"/"` |  |
+| nameNode.pdbMinAvailable | int | `1` |  |
+| nameNode.port | int | `8020` |  |
+| nameNode.resources.limits.cpu | string | `"1000m"` |  |
+| nameNode.resources.limits.memory | string | `"2048Mi"` |  |
+| nameNode.resources.requests.cpu | string | `"10m"` |  |
+| nameNode.resources.requests.memory | string | `"256Mi"` |  |
+| persistence.dataNode.accessMode | string | `"ReadWriteOnce"` |  |
+| persistence.dataNode.enabled | bool | `false` |  |
+| persistence.dataNode.size | string | `"200Gi"` |  |
+| persistence.dataNode.storageClass | string | `nil` |  |
+| persistence.nameNode.accessMode | string | `"ReadWriteOnce"` |  |
+| persistence.nameNode.enabled | bool | `false` |  |
+| persistence.nameNode.size | string | `"50Gi"` |  |
+| persistence.nameNode.storageClass | string | `nil` |  |
+| prometheus.exporter.enabled | bool | `true` |  |
+| prometheus.exporter.image | string | `"marcelmay/hadoop-hdfs-fsimage-exporter:1.2"` |  |
+| prometheus.exporter.port | int | `5556` |  |
 
-The [Zeppelin Notebook](https://github.com/kubernetes/charts/tree/master/stable/zeppelin) chart can use the hadoop config for the hadoop cluster and use the YARN executor:
-
-```
-helm install --set hadoop.useConfigMap=true stable/zeppelin
-```
 
 # References
 
