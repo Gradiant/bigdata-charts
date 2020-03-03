@@ -1,21 +1,5 @@
 apiVersion: v1
 entries:
-  hbase:
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-03-03T13:33:26.862884116Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: fec97532c1445caf4ba0d551707996bb2d9438c073c257ad6089fca07264d039
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.0/hbase-0.1.0.tgz
-    version: 0.1.0
   hdfs:
   - apiVersion: v1
     appVersion: 2.7.7
@@ -34,5 +18,21 @@ entries:
     - https://github.com/apache/hadoop
     urls:
     - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.0/hdfs-0.1.0.tgz
+    version: 0.1.0
+  opentsdb:
+  - apiVersion: v1
+    appVersion: 2.3.1
+    created: "2020-03-03T13:34:04.962273999Z"
+    description: |
+      Store and serve massive amounts of time series data without losing granularity.
+    digest: 68cdcc3a1e0b32607a503bae558a9d927ea3fac00e241c6008e634d1ede18613
+    home: http://opentsdb.net/
+    icon: http://opentsdb.net/img/logo_header.png
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: opentsdb
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.0/opentsdb-0.1.0.tgz
     version: 0.1.0
 generated: "2020-03-03T12:38:26.177850739Z"
