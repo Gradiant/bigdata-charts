@@ -1,0 +1,11 @@
+apiVersion: v1
+appVersion: 2.0.1
+description: HBase is an open-source non-relational distributed database modeled after
+  Google's Bigtable and written in Java.
+home: https://hbase.apache.org/
+icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: hbase
+version: 0.1.0

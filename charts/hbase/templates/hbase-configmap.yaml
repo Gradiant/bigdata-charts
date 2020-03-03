@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hbase.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    {{- include "hbase.labels" . | nindent 4 }}
+data:
+  bootstrap.sh: |
+    #!/bin/bash
+
+    : ${HBASE_PREFIX:=/usr/local/hbase}
+
+    . $HBASE_PREFIX/conf/hbase-env.sh
+
+    # Directory to find config artifacts
+    CONFIG_DIR="/tmp/hbase-config"
+
+    # Copy config files from volume mount
+
+    for f in hbase-site.xml hbase-env.sh; do
+      if [[ -e ${CONFIG_DIR}/$f ]]; then
+        cp ${CONFIG_DIR}/$f $HBASE_PREFIX/conf/$f
+      else
+        echo "ERROR: Could not find $f in $CONFIG_DIR"
+        exit 1
+      fi
+    done
+    {{- if .Values.prometheus.enabled }}
+    _HBASE_OPTS="$HBASE_OPTS"
+    # SET HBASE_OPTS with prometheus javaagent jmx exporter port
+    export HBASE_OPTS="$_HBASE_OPTS -javaagent:/jmx-exporter/jmx_prometheus_javaagent.jar={{ .Values.prometheus.port }}:/etc/exporter/jmx-hbase-prometheus.yml"
+    {{- end }}    
+    if [[ $2 == "master" ]]; then
+      $HBASE_PREFIX/bin/hbase-daemon.sh start master
+      {{- if .Values.prometheus.enabled }}
+      # RESET HBASE_OPTS with thrift jmx exporter port
+      export HBASE_OPTS="$_HBASE_OPTS -javaagent:/jmx-exporter/jmx_prometheus_javaagent.jar={{ .Values.prometheus.thriftPort }}:/etc/exporter/jmx-hbase-prometheus.yml"
+      {{- end }}   
+      $HBASE_PREFIX/bin/hbase-daemon.sh start thrift
+    fi
+    if [[ $2 == "regionserver" ]]; then
+      #  wait up to 30 seconds for masternode
+      (while [[ $count -lt 15 && -z `curl -sf http://{{ include "hbase.fullname" . }}-master:16010` ]]; do ((count=count+1)) ; echo "Waiting for {{ include "hbase.fullname" . }}-master" ; sleep 2; done && [[ $count -lt 15 ]])
+      [[ $? -ne 0 ]] && echo "Timeout waiting for hbase-master, exiting." && exit 1
+      $HBASE_PREFIX/bin/hbase-daemon.sh start regionserver
+    fi
+    if [[ $1 == "-d" ]]; then
+      until find ${HBASE_PREFIX}/logs -mmin -1 | egrep -q '.*'; echo "`date`: Waiting for logs..." ; do sleep 2 ; done
+      tail -F ${HBASE_PREFIX}/logs/* &
+      while true; do sleep 1000; done
+    fi
+
+    if [[ $1 == "-bash" ]]; then
+      /bin/bash
+    fi
+  hbase-env.sh: |
+    # Extra Java runtime options.
+    # Below are what we set by default.  May only work with SUN JVM.
+    # For more on why as well as other possible settings,
+    # see http://hbase.apache.org/book.html#performance
+    export HBASE_OPTS="$HBASE_OPTS -XX:+UseConcMarkSweepGC"
+  hbase-site.xml: |
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+      <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+      </property>
+      <property>
+        <name>hbase.master</name>
+        <value>>{{ include "hbase.fullname" . }}-master:16000</value>
+      </property>
+      {{- if not (index .Values.conf "hbaseSite" "hbase.zookeeper.quorum")  }}
+      <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>{{- printf "%s-zookeeper:2181" .Release.Name }}</value>
+      </property>
+      {{- end }}
+      {{- if not (index .Values.conf "hbaseSite" "hbase.rootdir")  }}
+      <property>
+        <name>hbase.rootdir</name>
+        <value>{{- printf "hdfs://%s-hdfs-namenode:8020/hbase" .Release.Name }}</value>
+      </property>
+      {{- end }}
+      {{- if index .Values.conf "hbaseSite" }}
+      {{- range $key, $value := index .Values.conf "hbaseSite" }}
+      <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
+      {{- end }}
+      {{- end }}
+    </configuration>

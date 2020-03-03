@@ -1,0 +1,78 @@
+# Default values for hbase
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# The base hadoop image to use for all components.
+# See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
+image:
+  repository: gradiant/hbase-base
+  tag: 2.0.1
+  pullPolicy: IfNotPresent
+
+# The version of the hadoop libraries being used in the image.
+hbaseVersion: 2.0.1
+
+# Select antiAffinity as either hard or soft, default is soft
+antiAffinity: "soft"
+
+conf:
+  hbaseSite:
+    hbase.rootdir:  # default is "{{.Release.Name}}-hdfs-namenode:8020"
+    hbase.zookeeper.quorum:  # default is "{{.Release.Name}}-zookeeper:2181"
+
+hbase:
+  master:
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "10m"
+      limits:
+        memory: "2048Mi"
+        cpu: "1000m"
+  regionServer:
+    replicas: 1
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "10m"
+      limits:
+        memory: "2048Mi"
+        cpu: "1000m"
+
+## Prometheus Exporter Configuration
+## ref: https://prometheus.io/docs/instrumenting/exporters/
+prometheus:
+  ## JMX Exporter Configuration
+  ## ref: https://github.com/prometheus/jmx_exporter
+  ## ref: https://github.com/chuyeow/prometheus-jmx-exporter-kubernetes
+  enabled: true
+  port: 5556
+  # hbase-master pods runs two jvm processes: hbase and the thrift api.
+  thriftPort: 5557
+  resources: {}
+  image: spdigital/prometheus-jmx-exporter-kubernetes
+  imageTag: "0.3.1"
+  # prometheus jmx_exporter config https://github.com/prometheus/jmx_exporter
+  config:
+    lowercaseOutputName: true
+    lowercaseOutputLabelNames: true
+    rules:
+    - pattern: Hadoop<service=HBase, name=RegionServer, sub=Regions><>Namespace_([^\W_]+)_table_([^\W_]+)_region_([^\W_]+)_metric_(\w+)
+      name: HBase_metric_$4
+      labels:
+        namespace: "$1"
+        table: "$2"
+        region: "$3"
+    - pattern: Hadoop<service=(\w+), name=(\w+), sub=(\w+)><>([\w._]+)
+      name: hadoop_$1_$4
+      labels:
+        "name": "$2"
+        "sub": "$3"
+    - pattern: .+
+
+hdfs:
+  enabled: true
+
+zookeeper:
+  enabled: true
+  replicaCount: 1

@@ -1,0 +1,22 @@
+# A headless service to create DNS records
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hbase.fullname" . }}-regionserver
+  labels:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: regionserver
+    {{- include "hbase.labels" . | nindent 4 }}
+spec:
+  ports:
+  - name: hbase-regionserver
+    port: 16020
+    protocol: TCP
+  - name: hbase-ui
+    port: 16030
+    protocol: TCP
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: regionserver
+    app.kubernetes.io/instance: {{ .Release.Name }}

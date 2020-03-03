@@ -1,0 +1,13 @@
+{{- if .Values.prometheus.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hbase.fullname" . }}-exporter
+  labels:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: master
+    {{- include "hbase.labels" . | nindent 4 }}
+data:
+  jmx-hbase-prometheus.yml: |+
+{{ toYaml .Values.prometheus.config | indent 4 }}
+{{- end }}

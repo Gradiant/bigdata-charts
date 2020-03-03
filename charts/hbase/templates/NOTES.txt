@@ -1,0 +1,21 @@
+1. You can get an HBASE Shell by running this command:
+   kubectl exec -n {{ .Release.Namespace }} -it {{ include "hbase.fullname" . }}-master-0 -- hbase shell 
+
+2. Inspect hbase master service ports with:
+   kubectl exec -n {{ .Release.Namespace }} describe service {{ include "hbase.fullname" . }}-master
+
+3. Create a port-forward to the hbase manager UI:
+   kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "hbase.fullname" . }}-master 16010:16010
+
+   Then open the ui in your browser:
+
+   open http://localhost:16010
+
+4. Create a port-forward to the hbase thrift manager UI:
+   kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "hbase.fullname" . }}-master 9095:9095
+
+   Then open the ui in your browser:
+
+   open http://localhost:9095
+
+

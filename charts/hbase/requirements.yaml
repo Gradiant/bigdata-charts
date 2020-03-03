@@ -1,0 +1,9 @@
+dependencies:
+- name: hdfs
+  version: ~0.1.0
+  repository: https://gradiant.github.io/charts
+  condition: hdfs.enabled
+- name: zookeeper
+  version: ~2.1.0
+  repository: https://kubernetes-charts-incubator.storage.googleapis.com/
+  condition: zookeeper.enabled

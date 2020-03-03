@@ -1,0 +1,19 @@
+{{- if .Values.prometheus.enabled -}}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "hbase.fullname" . }}-master-metrics
+  labels:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: master
+    {{- include "hbase.labels" . | nindent 4 }}
+spec: 
+  selector: 
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: master
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+  - port: {{ .Values.prometheus.port }}
+    name: metrics
+    targetPort: {{ .Values.prometheus.port }}
+{{- end -}}

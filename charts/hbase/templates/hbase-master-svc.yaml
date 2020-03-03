@@ -1,0 +1,27 @@
+#Headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hbase.fullname" . }}-master
+  labels:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: master
+    {{- include "hbase.labels" . | nindent 4 }}
+spec:
+  ports:
+  - name: thrift
+    port: 9090
+    protocol: TCP
+  - name: thrift-ui
+    port: 9095
+    protocol: TCP
+  - name: hbase-master
+    port: 16000
+    protocol: TCP
+  - name: hbase-ui
+    port: 16010
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "hbase.name" . }}
+    app.kubernetes.io/component: master
+    app.kubernetes.io/instance: {{ .Release.Name }}
