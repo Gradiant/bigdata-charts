@@ -1,0 +1,45 @@
+# Default values for hbase
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# The base hadoop image to use for all components.
+# See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
+image:
+  repository: gradiant/opentsdb
+  tag: 2.4.0
+  pullPolicy: IfNotPresent
+
+# Just to use hbase client shell to create initial opentsdb tables
+hbaseImage:
+  repository: gradiant/hbase-base
+  tag: 2.0.1
+
+hbaseConfigMapName: # Default hbaseConfigMapName is {{ .Release.Name}}-hbase
+
+# Select antiAffinity as either hard or soft, default is soft
+antiAffinity: "soft"
+
+# Initial number of tsd daemons
+daemons: 1
+port: 4242
+nodePort:
+  enabled: false
+  externalPort: 31042
+
+conf:
+  tsd.storage.hbase.zk_quorum:  # default is "{{.Release.Name}}-zookeeper:2181"
+  tsd.core.auto_create_metrics: true
+  tsd.core.auto_create_tagks: true
+  tsd.core.auto_create_tagvs: true
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "10m"
+  limits:
+    memory: "2048Mi"
+    cpu: "1000m"
+
+hbase:
+  enabled: true
+

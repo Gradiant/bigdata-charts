@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: "2.3.1"
+description: >
+  Store and serve massive amounts of time series data without losing
+  granularity.
+home: http://opentsdb.net/
+icon: http://opentsdb.net/img/logo_header.png
+maintainers:
+- email: cgiraldo@gradiant.org
+  name: cgiraldo
+name: opentsdb
+version: 0.1.0

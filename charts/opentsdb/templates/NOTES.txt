@@ -1,0 +1,5 @@
+1. You can open access opentsdb CLI by running this command:
+   kubectl -n {{ .Release.Namespace }} exec -ti {{ include "opentsdb.fullname" . }}-0 -- tsdb version
+
+2. Get description of opentsdb service:
+   kubectl -n {{ .Release.Namespace }} describe service {{ include "opentsdb.fullname" . }}

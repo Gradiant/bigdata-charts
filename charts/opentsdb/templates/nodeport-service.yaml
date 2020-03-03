@@ -1,0 +1,20 @@
+{{- if .Values.nodePort.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "opentsdb.fullname" . }}-nodeport
+  labels:
+    app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+    {{- include "opentsdb.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  ports:
+    - name: external-daemon
+      port: {{ .Values.port }}
+      targetPort: {{ .Values.port }}
+      nodePort: {{ .Values.nodePort.externalPort }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

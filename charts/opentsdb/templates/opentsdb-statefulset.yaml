@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "opentsdb.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+    {{- include "opentsdb.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+      {{- include "opentsdb.labels" . | nindent 6 }}
+  serviceName: {{ include "opentsdb.fullname" . }} 
+  replicas: {{ default 1 .Values.daemons }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+        {{- include "opentsdb.labels" . | nindent 8}}
+    spec:
+      affinity:
+        podAntiAffinity:
+        {{- if eq .Values.antiAffinity "hard" }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: "kubernetes.io/hostname"
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+                {{- include "opentsdb.labels" . | nindent 16 }}
+        {{- else if eq .Values.antiAffinity "soft" }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 5
+            podAffinityTerm:
+              topologyKey: "kubernetes.io/hostname"
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: {{ include "opentsdb.name" . }}
+                  {{- include "opentsdb.labels" . | nindent 18 }}
+        {{- end }}
+      terminationGracePeriodSeconds: 0
+      initContainers:
+      - name: opentsdb-create-hbase-tables
+        image: "{{ .Values.hbaseImage.repository }}:{{ .Values.hbaseImage.tag }}"
+        command: ['bash', '/tmp/init/create_hbase_tables.sh']
+        volumeMounts:
+        - name: opentsdb-init
+          mountPath: /tmp/init
+        - name: hbase-config
+          mountPath: /tmp/hbase-config
+      containers:
+      - name: opentsdb
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 4242
+          initialDelaySeconds: 60
+          timeoutSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 4242
+          initialDelaySeconds: 60
+          timeoutSeconds: 15
+        volumeMounts:
+          - name: opentsdb-config
+            mountPath: /etc/opentsdb
+      volumes:
+      - name: opentsdb-init
+        configMap:
+          name: {{ include "opentsdb.fullname" . }}-init
+      - name: opentsdb-config
+        configMap:
+          name: {{ include "opentsdb.fullname" . }}
+      - name: hbase-config
+        configMap:
+{{- if .Values.hbaseConfigMapName  }}
+          name: {{ .Values.hbaseConfigMapName }}
+{{- else }}
+          name: {{ .Release.Name }}-hbase
+{{- end }}
