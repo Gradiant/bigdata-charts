@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property><name>dfs.datanode.use.datanode.hostname</name><value>false</value></property>
+    <property><name>dfs.client.use.datanode.hostname</name><value>false</value></property>
+    <property><name>dfs.datanode.data.dir</name><value>file:///dfs/data</value>
+    <description>DataNode directory</description>
+    </property>
+
+    <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///dfs/name</value>
+    <description>NameNode directory for namespace and transaction logs storage.</description>
+    </property>
+
+    <property>
+    <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+    <value>false</value>
+    </property>
+
+    <!-- Bind to all interfaces -->
+    <property>
+    <name>dfs.namenode.rpc-bind-host</name>
+    <value>0.0.0.0</value>
+    </property>
+    <property>
+    <name>dfs.namenode.servicerpc-bind-host</name>
+    <value>0.0.0.0</value>
+    </property>
+    <!-- /Bind to all interfaces -->
+    {{- range $key, $value := index .Values.conf "hdfsSite" }}
+    <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
+    {{- end }}
+
+</configuration>

@@ -1,0 +1,31 @@
+{{- if .Values.ingress.httpfs.enabled -}}
+{{- $fullname := include "hdfs.fullname" . -}}
+{{- $ingressPath := .Values.ingress.httpfs.path -}}
+{{- $ingressPort := .Values.httpfs.port -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}-httpfs
+  labels:
+    app.kubernetes.io/name: {{ include "hdfs.name" . }}
+    app.kubernetes.io/component: httpfs
+    {{- include "hdfs.labels" . | nindent 4 }}
+{{- if .Values.ingress.httpfs.labels }}
+{{ toYaml .Values.ingress.httpfs.labels | indent 4 }}
+{{- end }}
+{{- with .Values.ingress.httpfs.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+  {{- range .Values.ingress.httpfs.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            backend:
+              serviceName: {{ $fullname }}-httpfs
+              servicePort: {{ $ingressPort }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property><name>fs.defaultFS</name><value>hdfs://{{ include "hdfs.fullname" . }}-namenode:{{ .Values.nameNode.port }}/</value></property>
+    <property><name>hadoop.proxyuser.root.hosts</name>
+            <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.root.groups</name>
+        <value>*</value>
+    </property>
+    {{- range $key, $value := index .Values.conf "coreSite" }}
+
+    <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
+    {{- end }}
+</configuration>

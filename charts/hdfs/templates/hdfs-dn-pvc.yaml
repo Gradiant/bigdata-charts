@@ -1,0 +1,23 @@
+{{- if .Values.persistence.dataNode.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "hdfs.fullname" . }}-datanode
+  labels:
+    app.kubernetes.io/name: {{ include "hdfs.name" . }}
+    app.kubernetes.io/component: datanode
+    {{- include "hdfs.labels" . | nindent 4 }}
+spec:
+  accessModes:
+  - {{ .Values.persistence.dataNode.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.dataNode.size | quote }}
+{{- if .Values.persistence.dataNode.storageClass }}
+{{- if (eq "-" .Values.persistence.dataNode.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.dataNode.storageClass }}"
+{{- end }}
+{{- end }}
+{{- end -}}

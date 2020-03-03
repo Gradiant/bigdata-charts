@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hdfs.fullname" . }}-hadoop
+  labels:
+    app.kubernetes.io/name: {{ include "hdfs.name" . }}
+    {{- include "hdfs.labels" . | nindent 4 }}
+data:
+  bootstrap.sh: |-
+{{ tpl (.Files.Get "resources/config/bootstrap.sh") . | indent 4 }}
+  core-site.xml: |-
+{{ tpl (.Files.Get "resources/config/core-site.xml") . | indent 4 }}
+  hdfs-site.xml: |-
+{{ tpl (.Files.Get "resources/config/hdfs-site.xml") . | indent 4 }}
+  mapred-site.xml: |-
+{{ tpl (.Files.Get "resources/config/mapred-site.xml") . | indent 4 }}
+  yarn-site.xml: |-
+{{ tpl (.Files.Get "resources/config/yarn-site.xml") . | indent 4 }}
+  httpfs-site.xml: |-
+{{ tpl (.Files.Get "resources/config/httpfs-site.xml") . | indent 4 }}
+  httpfs-signature.secret: |-
+{{ tpl (.Files.Get "resources/config/httpfs-signature.secret") . | indent 4 }}
+  slaves: |
+    localhost

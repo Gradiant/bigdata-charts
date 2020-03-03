@@ -1,0 +1,98 @@
+# The base hadoop image to use for all components.
+# See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
+image:
+  repository: gradiant/hadoop-base
+  tag: 2.7.7
+  pullPolicy: IfNotPresent
+
+# The version of the hadoop libraries being used in the image.
+hadoopVersion: 2.7.7
+
+# Select antiAffinity as either hard or soft, default is soft
+antiAffinity: "soft"
+
+conf:
+  coreSite:
+  hdfsSite:
+    dfs.replication: 3
+
+
+httpfs:
+  port: 14000
+  adminPort: 14001
+
+nameNode:
+  port: 8020
+  pdbMinAvailable: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "10m"
+    limits:
+      memory: "2048Mi"
+      cpu: "1000m"
+dataNode:
+  replicas: 1
+  pdbMinAvailable: 1
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "10m"
+    limits:
+      memory: "2048Mi"
+      cpu: "1000m"
+
+ingress:
+  nameNode:
+    enabled: false
+    annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    labels: {}
+    path: /
+    hosts:
+    - "hdfs-namenode.local"
+  dataNode:
+    enabled: false
+    annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    labels: {}
+    path: /
+    hosts:
+    - "hdfs-datanode.local"
+  httpfs:
+    enabled: false
+    annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    labels: {}
+    path: /
+    hosts:
+    - "httpfs.local"
+
+persistence:
+  nameNode:
+    enabled: false
+    storageClass:
+    accessMode: ReadWriteOnce
+    size: 50Gi
+  dataNode:
+    enabled: false
+    storageClass:
+    accessMode: ReadWriteOnce
+    size: 200Gi
+
+## ------------------------------------------------------
+## Monitoring HDFS-NameNode
+## ------------------------------------------------------
+
+## Prometheus Exporter Configuration
+## ref: https://prometheus.io/docs/instrumenting/exporters/
+prometheus:
+  ## Exporter Configuration
+  ## ref: https://github.com/marcelmay/hadoop-hdfs-fsimage-exporter
+  exporter:
+    enabled: true
+    image: marcelmay/hadoop-hdfs-fsimage-exporter:1.2
+    port: 5556

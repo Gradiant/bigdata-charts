@@ -1,0 +1,10 @@
+1. You can check the status of HDFS by running this command:
+   kubectl exec -n {{ .Release.Namespace }} -it {{ include "hdfs.fullname" . }}-namenode-0 -- /usr/local/hadoop/bin/hdfs dfsadmin -report
+
+2. Create a port-forward to the hdfs manager UI:
+   kubectl port-forward -n {{ .Release.Namespace }} {{ include "hdfs.fullname" . }}-namenode-0 50070:50070
+
+   Then open the ui in your browser:
+
+   open http://localhost:50070
+

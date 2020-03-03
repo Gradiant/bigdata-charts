@@ -1,0 +1,30 @@
+{{- if .Values.ingress.nameNode.enabled -}}
+{{- $fullname := include "hdfs.fullname" . -}}
+{{- $ingressPath := .Values.ingress.nameNode.path -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullname }}-namenode
+  labels:
+    app.kubernetes.io/name: {{ include "hdfs.name" . }}
+    app.kubernetes.io/component: namenode
+    {{- include "hdfs.labels" . | nindent 4 }}
+{{- if .Values.ingress.nameNode.labels }}
+{{ toYaml .Values.ingress.nameNode.labels | indent 4 }}
+{{- end }}
+{{- with .Values.ingress.nameNode.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+  {{- range .Values.ingress.nameNode.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            backend:
+              serviceName: {{ $fullname }}-namenode
+              servicePort: 50070
+  {{- end }}
+{{- end }}

@@ -1,0 +1,18 @@
+# A headless service to create DNS records
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hdfs.fullname" . }}-httpfs
+  labels:
+    app.kubernetes.io/name: {{ include "hdfs.name" . }}
+    app.kubernetes.io/component: httpfs
+    {{- include "hdfs.labels" . | nindent 4 }}
+spec:
+  ports:
+  - name: httpfs
+    port: {{ .Values.httpfs.port }}
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "hdfs.name" . }}
+    app.kubernetes.io/component: httpfs
+    app.kubernetes.io/instance: {{ .Release.Name }}
