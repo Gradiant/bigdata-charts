@@ -19,20 +19,25 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.0/hdfs-0.1.0.tgz
     version: 0.1.0
-  spark-standalone:
+  kafka-connect-ui:
   - apiVersion: v1
-    appVersion: 2.4.4
-    created: "2020-03-03T13:34:31.023631361Z"
-    description: |
-      Apache Spark™ is a unified analytics engine for large-scale data processing.
-    digest: 9f11589ff5109dfc69b51f3750770f0a0593b64b6fc031b86ddbd05506925921
-    home: https://spark.apache.org/
-    icon: https://spark.apache.org/images/spark-logo-trademark.png
+    appVersion: 0.9.7
+    created: "2020-03-03T13:35:00.810500729Z"
+    description: Helm for Landoop/kafka-connect-ui
+    digest: d21bff08135502aef3ac069a9a5aa82fe8eb468d1a46980abb9219bf26db9713
+    home: https://github.com/Landoop/kafka-connect-ui
+    keywords:
+    - kafka
+    - kafka-connect
+    - kafka-connect-ui
     maintainers:
     - email: cgiraldo@gradiant.org
       name: cgiraldo
-    name: spark-standalone
+    name: kafka-connect-ui
+    sources:
+    - https://github.com/gradiant/charts
+    - https://github.com/astrobounce/helm-kafka-connect-ui
     urls:
-    - https://github.com/Gradiant/charts/releases/download/spark-standalone-0.1.0/spark-standalone-0.1.0.tgz
+    - https://github.com/Gradiant/charts/releases/download/kafka-connect-ui-0.1.0/kafka-connect-ui-0.1.0.tgz
     version: 0.1.0
 generated: "2020-03-03T12:38:26.177850739Z"
