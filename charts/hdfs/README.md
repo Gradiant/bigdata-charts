@@ -46,8 +46,8 @@ The following table lists the configurable parameters of the Hadoop chart and th
 | antiAffinity | string | `"soft"` |  |
 | conf.coreSite | string | `nil` |  |
 | conf.hdfsSite."dfs.replication" | int | `3` |  |
-| dataNode.pdbMinAvailable | int | `1` |  |
-| dataNode.replicas | int | `1` |  |
+| dataNode.pdbMinAvailable | int | `3` |  |
+| dataNode.replicas | int | `3` |  |
 | dataNode.resources.limits.cpu | string | `"1000m"` |  |
 | dataNode.resources.limits.memory | string | `"2048Mi"` |  |
 | dataNode.resources.requests.cpu | string | `"10m"` |  |
@@ -73,6 +73,7 @@ The following table lists the configurable parameters of the Hadoop chart and th
 | ingress.nameNode.hosts[0] | string | `"hdfs-namenode.local"` |  |
 | ingress.nameNode.labels | object | `{}` |  |
 | ingress.nameNode.path | string | `"/"` |  |
+| nameNode.replicas | int | `1` |  |
 | nameNode.pdbMinAvailable | int | `1` |  |
 | nameNode.port | int | `8020` |  |
 | nameNode.resources.limits.cpu | string | `"1000m"` |  |
