@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-canary"
+  annotations:
+    "helm.sh/hook": test-success
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+spec:
+  containers:
+  - name: {{ .Release.Name }}-canary
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+    command:
+    - sh
+    - -c
+    - |
+      # try to create a folder in hdfs
+      hdfs dfs -mkdir /test
+    volumeMounts:
+        - name: hadoop-config
+          mountPath: /tmp/hadoop-config
+  volumes:
+  - name: hadoop-config
+    configMap:
+          name: {{ include "hdfs.fullname" . }}-hadoop      
+  restartPolicy: Never
