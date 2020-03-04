@@ -1,6 +1,40 @@
 apiVersion: v1
 entries:
+  hbase:
+  - apiVersion: v1
+    appVersion: 2.0.1
+    created: "2020-03-03T13:33:26.862884116Z"
+    description: HBase is an open-source non-relational distributed database modeled
+      after Google's Bigtable and written in Java.
+    digest: fec97532c1445caf4ba0d551707996bb2d9438c073c257ad6089fca07264d039
+    home: https://hbase.apache.org/
+    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hbase
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.0/hbase-0.1.0.tgz
+    version: 0.1.0
   hdfs:
+  - apiVersion: v1
+    appVersion: 2.7.7
+    created: "2020-03-04T07:45:10.706381024Z"
+    description: The Apache Hadoop software library is a framework that allows for
+      the distributed processing of large data sets across clusters of computers using
+      simple programming models.
+    digest: dbc69539cd9a22cd881e012c07eb34fa937f43a85916655d3f6ed8202fc72153
+    home: https://hadoop.apache.org/
+    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hdfs
+    sources:
+    - https://github.com/apache/hadoop
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.1/hdfs-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v1
     appVersion: 2.7.7
     created: "2020-03-03T12:38:26.302152785Z"
@@ -40,22 +74,6 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/kafka-connect-ui-0.1.0/kafka-connect-ui-0.1.0.tgz
     version: 0.1.0
-  spark-standalone:
-  - apiVersion: v1
-    appVersion: 2.4.4
-    created: "2020-03-03T13:34:31.023631361Z"
-    description: |
-      Apache Spark™ is a unified analytics engine for large-scale data processing.
-    digest: 9f11589ff5109dfc69b51f3750770f0a0593b64b6fc031b86ddbd05506925921
-    home: https://spark.apache.org/
-    icon: https://spark.apache.org/images/spark-logo-trademark.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: spark-standalone
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/spark-standalone-0.1.0/spark-standalone-0.1.0.tgz
-    version: 0.1.0
   opentsdb:
   - apiVersion: v1
     appVersion: 2.3.1
@@ -72,21 +90,20 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.0/opentsdb-0.1.0.tgz
     version: 0.1.0
-  hbase:
+  spark-standalone:
   - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-03-03T13:33:26.862884116Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: fec97532c1445caf4ba0d551707996bb2d9438c073c257ad6089fca07264d039
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
+    appVersion: 2.4.4
+    created: "2020-03-03T13:34:31.023631361Z"
+    description: |
+      Apache Spark™ is a unified analytics engine for large-scale data processing.
+    digest: 9f11589ff5109dfc69b51f3750770f0a0593b64b6fc031b86ddbd05506925921
+    home: https://spark.apache.org/
+    icon: https://spark.apache.org/images/spark-logo-trademark.png
     maintainers:
     - email: cgiraldo@gradiant.org
       name: cgiraldo
-    name: hbase
+    name: spark-standalone
     urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.0/hbase-0.1.0.tgz
+    - https://github.com/Gradiant/charts/releases/download/spark-standalone-0.1.0/spark-standalone-0.1.0.tgz
     version: 0.1.0
 generated: "2020-03-03T13:00:26.177850739Z"
-
