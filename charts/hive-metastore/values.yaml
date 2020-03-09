@@ -1,0 +1,18 @@
+# The base hadoop image to use for all components.
+# See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
+
+postgresql:
+  postgresqlUsername: hive
+  postgresqlPassword: hive
+  postgresqlDatabase: metastore
+
+  initdbScriptsConfigMap: hive-metastore-postgresql-init
+image:
+  repository: bde2020/hive
+  tag: 2.3.2-postgresql-metastore
+  pullPolicy: IfNotPresent
+
+resources: {}
+conf:
+  hiveSite:
+    hive_metastore_uris: thrift://hive-metastore:9083

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hive.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "hive.name" . }}
+    {{- include "hive.labels" . | nindent 4 }}
+data:
+  hive-site.xml: |
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+        <property>
+          <name>javax_jdo_option_ConnectionURL</name>
+          <value>jdbc:postgresql://{{ .Release.Name }}-postgresql/metastore </value>
+        </property>
+        <property>
+          <name>javax_jdo_option_ConnectionDriverName</name>
+          <value>org.postgresql.Driver</value>
+        </property>
+        <property>
+          <name>javax_jdo_option_ConnectionUserName</name>
+          <value>{{ .Values.postgresql.postgresqlUsername }}</value>
+        </property>
+        <property>
+          <name> javax_jdo_option_ConnectionPassword</name>
+          <value> {{ .Values.postgresql.postgresqlPassword }} </value>
+        </property>
+        <property>
+          <name>datanucleus_autoCreateSchema</name>
+          <value>false</value>
+        </property>
+      {{- if index .Values.conf "hiveSite" }}
+      {{- range $key, $value := index .Values.conf "hiveSite" }}
+      <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
+      {{- end }}
+      {{- end }}
+    </configuration>
