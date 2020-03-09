@@ -1,0 +1,23 @@
+# The base hadoop image to use for all components.
+# See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
+
+
+image:
+  repository: bde2020/hive
+  tag: 2.3.2-postgresql-metastore
+  pullPolicy: IfNotPresent
+
+resources: {}
+
+conf:
+  coreSite:
+    fs.defaultFS: # default is hdfs://{{.Release.Name}}-hdfs-namenode:8020
+  hiveSite:
+    hive.metastore.uris:  # default is "thrift://{{.Release.Name}}-metastore:9083"
+
+metastore:
+  enabled: true
+
+hdfs:
+  enabled: true
+

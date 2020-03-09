@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "hive.fullname" . }}-server
+  labels:
+    app.kubernetes.io/name: {{ include "hive.name" . }}
+    app.kubernetes.io/component: server
+    {{- include "hive.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "hive.name" . }}
+      app.kubernetes.io/component: server
+      {{- include "hive.labels" . | nindent 6 }}
+  serviceName: {{ include "hive.fullname" . }}-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "hive.name" . }}
+        app.kubernetes.io/component: server
+        {{- include "hive.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: server
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        env:
+        # TODO change this to use hadoop Configmap instead of env variables
+          - name: CORE_CONF_fs_defaultFS
+            {{- if not (index .Values.conf "coreSite" "fs.defaultFS")  }}
+            value: hdfs://{{.Release.Name}}-hdfs-namenode:8020
+            {{- else }}
+            value: {{ index .Values.conf "coreSite" "fs.defaultFS" }}
+            {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 10002
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 10002
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+        volumeMounts:
+        - name: hive-config
+          mountPath: /opt/hive/conf
+      volumes:
+      - name: hive-config
+        configMap:
+          name: {{ include "hive.fullname" . }}

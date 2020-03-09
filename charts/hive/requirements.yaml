@@ -1,0 +1,10 @@
+dependencies:
+- name: hive-metastore
+  alias: metastore
+  version: ~0.1.0
+  repository: file://../hive-metastore
+  condition: metastore.enabled
+- name: hdfs
+  version: ~0.1.0
+  repository: file://../hdfs
+  condition: hdfs.enabled

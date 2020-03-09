@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hive.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "hive.name" . }}
+    {{- include "hive.labels" . | nindent 4 }}
+data:
+  hive-site.xml: |
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+        {{- if not (index .Values.conf "hiveSite" "hive.metastore.uris")  }}
+        <property>
+          <name>hive.metastore.uris</name>
+          <value>{{- printf "thrift://%s-metastore" .Release.Name }}:9083</value>
+        </property>
+      {{- end }}
+      {{- if index .Values.conf "hiveSite" }}
+      {{- range $key, $value := index .Values.conf "hiveSite" }}
+      <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
+      {{- end }}
+      {{- end }}
+    </configuration>
