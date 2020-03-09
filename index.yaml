@@ -124,4 +124,26 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/spark-standalone-0.1.0/spark-standalone-0.1.0.tgz
     version: 0.1.0
-generated: "2020-03-03T13:00:26.177850739Z"
+  hive-metastore:
+  - apiVersion: v1
+    appVersion: 2.3.6
+    created: "2020-03-09T15:09:07.37293847+01:00"
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: 88a743d8b9938fbe976236bd9ac32d676b1b4b38890344bf350e63f175d8c8d4
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive-metastore
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://gradiant.github.io/charts/hive-metastore-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-03-09T15:09:07.370039567+01:00"
