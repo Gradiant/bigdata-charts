@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "hive.name" -}}
+{{- define "hiveMetastore.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -12,7 +12,7 @@ We truncate at 54 chars because some Kubernetes name fields are limited to 63 (b
 as we append -datanode or -namenode to the names
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "hive.fullname" -}}
+{{- define "hiveMetastore.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 54 | trimSuffix "-" -}}
 {{- else -}}
@@ -29,7 +29,7 @@ If release name contains chart name it will be used as a full name.
 Standard Labels from Helm documentation https://helm.sh/docs/chart_best_practices/#labels-and-annotations
 */}}
 
-{{- define "hive.labels" -}}
+{{- define "hiveMetastore.labels" -}}
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}

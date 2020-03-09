@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "hive.fullname" . }}-metastore
+  name: {{ include "hiveMetastore.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "hive.name" . }}
+    app.kubernetes.io/name: {{ include "hiveMetastore.name" . }}
     app.kubernetes.io/component: metastore
-    {{- include "hive.labels" . | nindent 4 }}
+    {{- include "hiveMetastore.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "hive.name" . }}
+      app.kubernetes.io/name: {{ include "hiveMetastore.name" . }}
       app.kubernetes.io/component: metastore
-      {{- include "hive.labels" . | nindent 6 }}
-  serviceName: {{ include "hive.fullname" . }}-metastore
+      {{- include "hiveMetastore.labels" . | nindent 6 }}
+  serviceName: {{ include "hiveMetastore.fullname" . }}
   replicas: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "hive.name" . }}
+        app.kubernetes.io/name: {{ include "hiveMetastore.name" . }}
         app.kubernetes.io/component: metastore
-        {{- include "hive.labels" . | nindent 8 }}
+        {{- include "hiveMetastore.labels" . | nindent 8 }}
     spec:
       containers:
       - name: metastore
@@ -28,8 +28,7 @@ spec:
         command:
         - "/bin/sh"
         - "-c"
-        - "while true; do sleep 10; done"
-        #- "/opt/hive/bin/hive --service metastore"
+        - "/opt/hive/bin/hive --service metastore"
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         # readinessProbe:
@@ -50,4 +49,4 @@ spec:
       volumes:
       - name: hive-config
         configMap:
-          name: {{ include "hive.fullname" . }}
+          name: {{ include "hiveMetastore.fullname" . }}
