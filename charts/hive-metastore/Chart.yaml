@@ -8,8 +8,9 @@ icon: https://hive.apache.org/images/hive_logo_medium.jpg
 maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
-name: hive
+name: hive-metastore
 sources:
-- https://github.com/apache/hadoop
+- https://github.com/apache/hive
+- https://github.com/gradiant/charts
 - https://github.com/big-data-europe/docker-hive
 version: 0.1.0
