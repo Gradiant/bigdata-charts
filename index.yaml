@@ -71,6 +71,28 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.0/hdfs-0.1.0.tgz
     version: 0.1.0
+  hive-metastore:
+  - apiVersion: v1
+    appVersion: 2.3.6
+    created: "2020-03-09T14:33:13.492344794Z"
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: 36d567f08df713a2d49c0716eb9eb219245cf5569af8f5bfdf6758ec3a0ef893
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive-metastore
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.0/hive-metastore-0.1.0.tgz
+    version: 0.1.0
   kafka-connect-ui:
   - apiVersion: v1
     appVersion: 0.9.7
