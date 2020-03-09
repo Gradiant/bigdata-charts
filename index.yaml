@@ -71,6 +71,28 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.0/hdfs-0.1.0.tgz
     version: 0.1.0
+  hive:
+  - apiVersion: v1
+    appVersion: 2.3.6
+    created: "2020-03-09T17:10:52.00400826Z"
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: f7c0fc4f7c3f2491addf06bf49b9437d70be970a91a5586b355ff963347d3309
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-0.1.0/hive-0.1.0.tgz
+    version: 0.1.0
   hive-metastore:
   - apiVersion: v1
     appVersion: 2.3.6
