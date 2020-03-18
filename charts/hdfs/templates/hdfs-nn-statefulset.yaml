@@ -44,7 +44,6 @@ spec:
                   app.kubernetes.io/component: namenode
                   {{- include "hdfs.labels" . | nindent 18 }}
         {{- end }}
-      terminationGracePeriodSeconds: 0
       containers:
       - name: namenode
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

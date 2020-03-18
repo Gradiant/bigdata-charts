@@ -37,7 +37,6 @@ spec:
                   app.kubernetes.io/name: {{ include "opentsdb.name" . }}
                   {{- include "opentsdb.labels" . | nindent 18 }}
         {{- end }}
-      terminationGracePeriodSeconds: 0
       initContainers:
       - name: opentsdb-create-hbase-tables
         image: "{{ .Values.hbaseImage.repository }}:{{ .Values.hbaseImage.tag }}"
