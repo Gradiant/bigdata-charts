@@ -44,7 +44,6 @@ spec:
                   app.kubernetes.io/component: regionserver
                   {{- include "hbase.labels" . | nindent 18 }}
         {{- end }}
-      terminationGracePeriodSeconds: 0
       {{- if .Values.prometheus.enabled }}      
       initContainers:
       - name: inject-exporter-jar
