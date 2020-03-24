@@ -1,0 +1,17 @@
+name: "jupyter"
+version: "0.1.0"
+description: "Helm for jupyter single server  with pyspark support"
+keywords:
+  - jupyter
+  - notebook
+  - spark
+home: "https://jupyter.org"
+icon: https://jupyter.org/assets/main-logo.svg
+sources:
+  - "https://github.com/gradiant/charts"
+  - "https://github.com/astrobounce/helm-jupyter"
+maintainers:
+- name: "cgiraldo"
+  email: "cgiraldo@gradiant.org"
+apiVersion: v1
+appVersion: "6.0.1"

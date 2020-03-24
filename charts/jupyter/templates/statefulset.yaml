@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "jupyter.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "jupyter.name" . }}
+    {{- include "jupyter.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "jupyter.name" . }}
+      {{- include "jupyter.labels" . | nindent 6 }}
+  serviceName: {{ include "jupyter.fullname" . }} 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "jupyter.name" . }}
+        {{- include "jupyter.labels" . | nindent 8}}
+    spec:
+      containers:
+      - name: jupyter
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        env:
+        - name: JUPYTER_ENABLE_LAB
+          value: "{{ .Values.lab }}"
+        args:
+        - --ip=0.0.0.0
+        ports:
+        - name: web
+          containerPort: 8888
+          protocol: TCP
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8888
+          initialDelaySeconds: 60
+          timeoutSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8888
+          initialDelaySeconds: 60
+          timeoutSeconds: 15
+        volumeMounts:
+        - name: jupyter
+          mountPath: /home/jovyan
+      volumes:
+      {{- if not .Values.persistence.enabled }}
+      - name: jupyter
+        emptyDir: {}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- if .Values.persistence.enabled }}
+  volumeClaimTemplates:
+  - metadata:
+      name: jupyter
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: "{{ .Values.persistence.size }}"
+      {{- if .Values.persistence.storageClass }}
+      {{- if (eq "-" .Values.persistence.storageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: "{{ .Values.persistence.storageClass }}"
+      {{- end }}
+      {{- end }}
+  {{- end }}
+
+

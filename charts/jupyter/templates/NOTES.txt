@@ -1,0 +1,23 @@
+1. Get access token from jupyter server log:
+   kubectl logs -f -n {{ .Release.Namespace }} svc/{{ include "jupyter.fullname" . }}
+
+1. Create a port-forward to the jupyter:
+   kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "jupyter.fullname" . }} 8888:{{ .Values.service.externalPort }}
+
+Then open the ui in your browser and use the access token:
+   open http://localhost:88888
+
+If you set up your own password, remember to restart jupyter server to update the configuration.
+  File -> Shut Down  
+
+{{- if .Values.ingress.enabled }}
+Ingress is enabled:
+{{- range .Values.ingress.tls }}
+{{- range .hosts }}
+  open https://{{ . }}
+{{- end }}
+{{- end }}
+{{- range .Values.ingress.hosts }}
+  open http://{{ . }}
+{{- end }}
+{{- end }}
