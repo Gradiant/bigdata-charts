@@ -166,6 +166,28 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.0/hive-metastore-0.1.0.tgz
     version: 0.1.0
+  jupyter:
+  - apiVersion: v1
+    appVersion: 6.0.1
+    created: "2020-03-24T07:04:31.995326699Z"
+    description: Helm for jupyter single server  with pyspark support
+    digest: 8be2ce7a851234adfee17e1aea8fd1030d536992e2538c0bfe3c94762a8cb9eb
+    home: https://jupyter.org
+    icon: https://jupyter.org/assets/main-logo.svg
+    keywords:
+    - jupyter
+    - notebook
+    - spark
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: jupyter
+    sources:
+    - https://github.com/gradiant/charts
+    - https://github.com/astrobounce/helm-jupyter
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.0/jupyter-0.1.0.tgz
+    version: 0.1.0
   kafka-connect-ui:
   - apiVersion: v1
     appVersion: 0.9.7
