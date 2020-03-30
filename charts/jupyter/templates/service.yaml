@@ -14,8 +14,6 @@ spec:
     - name: web
       protocol: TCP
       port: {{ .Values.service.externalPort | default 8888 }}
-      targetPort: http
-      name: http
       {{- if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort.http))) }}
       nodePort: {{ .Values.service.nodePort.http }}
       {{- end }}

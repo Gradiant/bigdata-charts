@@ -1,5 +1,5 @@
 name: "jupyter"
-version: "0.1.0"
+version: "0.1.1"
 description: "Helm for jupyter single server  with pyspark support"
 keywords:
   - jupyter
@@ -14,4 +14,4 @@ maintainers:
 - name: "cgiraldo"
   email: "cgiraldo@gradiant.org"
 apiVersion: v1
-appVersion: "6.0.1"
+appVersion: "6.0.3"

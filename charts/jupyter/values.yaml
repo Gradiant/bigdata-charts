@@ -4,7 +4,7 @@
 
 image:
   repository: gradiant/jupyter
-  tag: 6.0.1
+  tag: 6.0.3
   pullPolicy: IfNotPresent
 
 lab: true
