@@ -168,6 +168,27 @@ entries:
     version: 0.1.0
   jupyter:
   - apiVersion: v1
+    appVersion: 6.0.3
+    created: "2020-03-30T09:23:07.470083634Z"
+    description: Helm for jupyter single server  with pyspark support
+    digest: 8e0bfaba2f2d5175df0735c3608167026e30f0acf3de618c800973c69f7035ca
+    home: https://jupyter.org
+    icon: https://jupyter.org/assets/main-logo.svg
+    keywords:
+    - jupyter
+    - notebook
+    - spark
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: jupyter
+    sources:
+    - https://github.com/gradiant/charts
+    - https://github.com/astrobounce/helm-jupyter
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.1/jupyter-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
     appVersion: 6.0.1
     created: "2020-03-24T07:04:31.995326699Z"
     description: Helm for jupyter single server  with pyspark support
