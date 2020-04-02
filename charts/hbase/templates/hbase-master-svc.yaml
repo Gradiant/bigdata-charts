@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/component: master
     {{- include "hbase.labels" . | nindent 4 }}
 spec:
+  clusterIP: None
   ports:
   - name: thrift
     port: 9090
