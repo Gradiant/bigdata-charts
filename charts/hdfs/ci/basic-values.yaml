@@ -1,0 +1,4 @@
+---
+dataNode:
+  replicas: 5
+  pdbMinAvailable: 3
