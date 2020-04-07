@@ -14,8 +14,10 @@ antiAffinity: "soft"
 
 conf:
   coreSite:
+    # fs.trash.interval: "10080"  # trash auto purge in minutes
   hdfsSite:
     dfs.replication: 3  # when changing this value ensure that dataNode.replicas is equal or higher than this value
+    # dfs.datanode.du.reserved: "4294967296"  # number of bytes to reserve on disk to block hitting disk full, must be quoted for large numbers, because of gotemplate converting large numbers to float with scientific notation
 
 # httpsfs service
 httpfs:
@@ -35,7 +37,7 @@ nameNode:
 
 dataNode:
   replicas: 3  # ensure this value is higher or equal to 'conf.hdfsSite.dfs.replication'
-  pdbMinAvailable: 3  
+  pdbMinAvailable: 3  # ensure to set this value before deploying
   resources:
     requests:
       memory: "256Mi"
