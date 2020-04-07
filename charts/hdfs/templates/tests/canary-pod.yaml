@@ -11,11 +11,14 @@ spec:
     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
     imagePullPolicy: "{{ .Values.image.pullPolicy }}"
     command:
-    - sh
+    - bash
     - -c
     - |
+      # configure data for hadoop container
+      . /tmp/hadoop-config/bootstrap.sh || exit 1
       # try to create a folder in hdfs
-      hdfs dfs -mkdir /test
+      hdfs dfs -mkdir /test || exit 1
+      hdfs fsck / || exit 1
     volumeMounts:
         - name: hadoop-config
           mountPath: /tmp/hadoop-config
