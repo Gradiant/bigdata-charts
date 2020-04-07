@@ -75,10 +75,12 @@ persistence:
 ```
 
 - You can provide multiple files in `ci/` folder - for each `ci/*-values.yaml` there will be separate deployment
-- Execute test:
+- Execute full test with linting, installing, upgrading:
 
 ```bash
 scripts/ct.sh lint-and-install \
+    --check-version-increment \
+    --upgrade \
     --charts charts/hdfs/ \
     --chart-repos incubator=https://kubernetes-charts-incubator.storage.googleapis.com/,gradiant=https://gradiant.github.io/charts \
     | tee reports/hdfs.log
