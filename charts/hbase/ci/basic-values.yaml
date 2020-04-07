@@ -1,0 +1,6 @@
+---
+hbase:
+  master:
+    replicas: 3
+  regionServer:
+    replicas: 3
