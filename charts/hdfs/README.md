@@ -75,7 +75,6 @@ For more details ensure to see `values.yaml` file directly.
 | ingress.nameNode.hosts[0] | string | `"hdfs-namenode.local"` |  |
 | ingress.nameNode.labels | object | `{}` |  |
 | ingress.nameNode.path | string | `"/"` |  |
-| nameNode.replicas | int | `1` |  |
 | nameNode.pdbMinAvailable | int | `1` |  |
 | nameNode.port | int | `8020` |  |
 | nameNode.resources.limits.cpu | string | `"1000m"` |  |
