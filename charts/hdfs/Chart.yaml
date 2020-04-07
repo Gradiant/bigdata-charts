@@ -11,4 +11,4 @@ maintainers:
 name: hdfs
 sources:
 - https://github.com/apache/hadoop
-version: 0.1.4
+version: 0.1.5

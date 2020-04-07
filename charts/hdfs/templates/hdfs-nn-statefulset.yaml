@@ -15,7 +15,7 @@ spec:
       app.kubernetes.io/component: namenode
       {{- include "hdfs.labels" . | nindent 6 }}
   serviceName: {{ include "hdfs.fullname" . }}-namenode  
-  replicas: {{ .Values.nameNode.replicas }}
+  replicas: 1
   template:
     metadata:
       labels:
