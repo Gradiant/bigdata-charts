@@ -10,6 +10,11 @@ spec:
   - name: {{ .Release.Name }}-canary
     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
     imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+    env:
+      - name: MY_POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
     command:
     - bash
     - -c
@@ -17,8 +22,10 @@ spec:
       # configure data for hadoop container
       . /tmp/hadoop-config/bootstrap.sh || exit 1
       # try to create a folder in hdfs
-      hdfs dfs -mkdir /test || exit 1
-      hdfs fsck / || exit 1
+      hdfs dfs -mkdir -p /test || exit 1
+      hdfs dfs -mkdir /test/$MY_POD_NAME || exit 1
+      hdfs fsck /test/$MY_POD_NAME | grep 'is HEALTHY' || exit 1
+      hdfs dfs -rm -r -R -f /test/$MY_POD_NAME || exit 1
     volumeMounts:
         - name: hadoop-config
           mountPath: /tmp/hadoop-config
