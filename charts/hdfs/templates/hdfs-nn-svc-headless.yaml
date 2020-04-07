@@ -15,6 +15,7 @@ spec:
   - name: webhdfs
     port: 50070
   clusterIP: None
+  publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/name: {{ include "hdfs.name" . }}
     app.kubernetes.io/component: namenode
