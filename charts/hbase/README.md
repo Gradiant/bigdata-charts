@@ -2,7 +2,7 @@ hbase
 =====
 HBase is an open-source non-relational distributed database modeled after Google's Bigtable and written in Java.
 
-Current chart version is `0.1.0`
+Current chart version is `0.1.3`
 
 Source code can be found [here](https://hbase.apache.org/)
 
@@ -10,7 +10,7 @@ Source code can be found [here](https://hbase.apache.org/)
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://gradiant.github.io/charts | hdfs | ~0.1.0 |
+| https://gradiant.github.io/charts | hdfs | ~0.1.4 |
 | https://kubernetes-charts-incubator.storage.googleapis.com/ | zookeeper | ~2.1.0 |
 
 ## Installing the Chart

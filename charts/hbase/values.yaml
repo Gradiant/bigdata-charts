@@ -12,7 +12,8 @@ image:
 # The version of the hadoop libraries being used in the image.
 hbaseVersion: 2.0.1
 
-# Select antiAffinity as either hard or soft, default is soft
+# Select antiAffinity as either hard or soft, default is 'soft'
+# 'hard' is recommended for higher availaility
 antiAffinity: "soft"
 
 conf:
@@ -22,6 +23,7 @@ conf:
 
 hbase:
   master:
+    replicas: 1
     resources:
       requests:
         memory: "256Mi"
@@ -70,9 +72,11 @@ prometheus:
         "sub": "$3"
     - pattern: .+
 
+# manage hdfs from dependencies
 hdfs:
   enabled: true
 
+# manage zookeeper from dependencies
 zookeeper:
   enabled: true
   replicaCount: 1
