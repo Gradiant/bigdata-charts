@@ -34,10 +34,12 @@ $ helm install --name hadoop
 ```
 
 > Change the value of `storageClass` to match your volume driver. `standard` works for Google Container Engine clusters.
+> Or create custom storage class with `WaitForFirstConsumer` prior deployment of the chart - see [Enabling delayed volume binding](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/local-ssd#delay) especially for multi-zone clusters.
 
 ## Configuration
 
 The following table lists the configurable parameters of the Hadoop chart and their default values.
+For more details ensure to see `values.yaml` file directly.
 
 ## Chart Values
 
