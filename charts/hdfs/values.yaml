@@ -8,15 +8,18 @@ image:
 # The version of the hadoop libraries being used in the image.
 hadoopVersion: 2.7.7
 
-# Select antiAffinity as either hard or soft, default is soft
+# Select antiAffinity as either hard or soft, default is 'soft'
+# 'hard' is sugested for production setup
 antiAffinity: "soft"
 
 conf:
   coreSite:
+    # fs.trash.interval: "10080"  # trash auto purge in minutes
   hdfsSite:
-    dfs.replication: 3
+    dfs.replication: 3  # when changing this value ensure that dataNode.replicas is equal or higher than this value
+    # dfs.datanode.du.reserved: "4294967296"  # number of bytes to reserve on disk to block hitting disk full, must be quoted for large numbers, because of gotemplate converting large numbers to float with scientific notation
 
-
+# httpsfs service
 httpfs:
   port: 14000
   adminPort: 14001
@@ -31,9 +34,10 @@ nameNode:
     limits:
       memory: "2048Mi"
       cpu: "1000m"
+
 dataNode:
-  replicas: 3
-  pdbMinAvailable: 3
+  replicas: 3  # ensure this value is higher or equal to 'conf.hdfsSite.dfs.replication'
+  pdbMinAvailable: 3  # ensure to set this value before deploying
   resources:
     requests:
       memory: "256Mi"
