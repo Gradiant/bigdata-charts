@@ -41,6 +41,11 @@ spec:
       - name: opentsdb-create-hbase-tables
         image: "{{ .Values.hbaseImage.repository }}:{{ .Values.hbaseImage.tag }}"
         command: ['bash', '/tmp/init/create_hbase_tables.sh']
+        env:
+        {{- range $key, $value := .Values.env.init }}
+        - name: {{ $key | quote }}
+          value: {{ $value | quote }}
+        {{- end }}
         volumeMounts:
         - name: opentsdb-init
           mountPath: /tmp/init
@@ -50,11 +55,16 @@ spec:
       - name: opentsdb
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        env:
+        {{- range $key, $value := .Values.env.opentsdb }}
+        - name: {{ $key | quote }}
+          value: {{ $value | quote }}
+        {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         readinessProbe:
           httpGet:
-            path: /
+            path: /stats  # it triggers connection to hbase
             port: 4242
           initialDelaySeconds: 60
           timeoutSeconds: 15

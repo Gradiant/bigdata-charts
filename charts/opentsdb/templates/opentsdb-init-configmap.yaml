@@ -8,3 +8,5 @@ metadata:
 data:
   create_hbase_tables.sh: |-
 {{ tpl (.Files.Get "resources/config/create_hbase_tables.sh") . | indent 4 }}
+  hbase_script.txt: |-
+{{ .Values.init_hbase_script | indent 4 }}
