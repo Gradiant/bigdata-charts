@@ -1,5 +1,6 @@
 hbase
 =====
+
 HBase is an open-source non-relational distributed database modeled after Google's Bigtable and written in Java.
 
 Current chart version is `0.1.3`
