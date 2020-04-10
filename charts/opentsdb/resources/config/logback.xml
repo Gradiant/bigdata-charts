@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="60 seconds" >
+  <!-- reference https://logback.qos.ch/manual/appenders.html -->
+  <!--<jmxConfigurator/>-->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!--
+    deny all events with a level below INFO, that is TRACE and DEBUG
+    https://logback.qos.ch/manual/filters.html
+    -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>{{ default "DEBUG" .Values.logback.level_treshold }}</level>
+    </filter>
+    <encoder>
+      <pattern>
+        {{ default "%d{ISO8601} %-5level [%thread] %logger{0}: %msg%n" .Values.logback.pattern }}
+      </pattern>
+    </encoder>
+  </appender>
+  <logger name="net.opentsdb.core" level="{{ default "DEBUG" .Values.logback.level_core }}"/>
+  <logger name="net.opentsdb.graph" level="{{ default "DEBUG" .Values.logback.level_graph }}"/>
+  <logger name="net.opentsdb.meta" level="{{ default "DEBUG" .Values.logback.level_meta }}"/>
+  <logger name="net.opentsdb.search" level="{{ default "DEBUG" .Values.logback.level_search }}"/>
+  <logger name="net.opentsdb.stats" level="{{ default "DEBUG" .Values.logback.level_stats }}"/>
+  <logger name="net.opentsdb.tools" level="{{ default "DEBUG" .Values.logback.level_tools }}"/>
+  <logger name="net.opentsdb.tree" level="{{ default "DEBUG" .Values.logback.level_tree }}"/>
+  <logger name="net.opentsdb.tsd" level="{{ default "DEBUG" .Values.logback.level_tsd }}"/>
+  <logger name="net.opentsdb.tsd.ConnectionManager" level="{{ default "DEBUG" .Values.logback.level_conn_mgr }}"/>
+  <logger name="net.opentsdb.tsd.GraphHandler" level="{{ default "DEBUG" .Values.logback.level_graph_handler }}"/>
+  <logger name="net.opentsdb.tsd.HttpQuery" level="{{ default "DEBUG" .Values.logback.level_query }}"/>
+  <logger name="net.opentsdb.uid" level="{{ default "DEBUG" .Values.logback.level_uid }}"/>
+  <logger name="net.opentsdb.utils" level="{{ default "DEBUG" .Values.logback.level_utils }}"/>
+  <!-- Per class logger levels -->
+  <logger name="QueryLog" level="{{ default "DEBUG" .Values.logback.level_querylog }}" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.hbase.async" level="{{ default "DEBUG" .Values.logback.level_hbase }}"/>
+  <logger name="com.stumbleupon.async" level="{{ default "DEBUG" .Values.logback.level_stumbleupon }}"/>
+  <!-- Fallthrough root logger and router -->
+  <root level="{{ default "DEBUG" .Values.logback.level_root }}">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

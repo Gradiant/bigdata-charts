@@ -1,0 +1,101 @@
+---
+env:
+  init:  # env values for init container
+    BLOOMFILTER: "ROW"
+    META_TABLE: "month-tsdb-meta"
+    TREE_TABLE: "month-tsdb-tree"
+    TSDB_TABLE: "month-tsdb"
+    UID_TABLE: "month-tsdb-uid"
+    COMPRESSION: "GZ"  # Use one of LZO ZSTD GZ LZ4 NONE Algorithm BZIP2 SNAPPY, based on your hbase and hadoop config
+    TSDB_TTL: "2592000"  # 30d
+    DATA_BLOCK_ENCODING: "DIFF"
+  opentsdb:
+
+init_hbase_script: |
+  create '$UID_TABLE',
+    {NAME => 'id', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER', DATA_BLOCK_ENCODING => '$DATA_BLOCK_ENCODING'},
+    {NAME => 'name', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER', DATA_BLOCK_ENCODING => '$DATA_BLOCK_ENCODING'}
+  create '$TSDB_TABLE',
+    {NAME => 't', VERSIONS => 1, COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER', DATA_BLOCK_ENCODING => '$DATA_BLOCK_ENCODING', TTL => '$TSDB_TTL'}
+  create '$TREE_TABLE',
+    {NAME => 't', VERSIONS => 1, COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER', DATA_BLOCK_ENCODING => '$DATA_BLOCK_ENCODING'}
+  create '$META_TABLE',
+    {NAME => 'name', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER', DATA_BLOCK_ENCODING => '$DATA_BLOCK_ENCODING'}
+
+antiAffinity: "hard"
+daemons: 3
+
+conf:
+  # tsd.storage.hbase.zk_quorum: "zk-zookeeper:2181"
+  tsd.http.request.enable_chunked: "true"
+  tsd.http.request.max_chunk: "262144"
+  tsd.query.skip_unresolved_tagvs: "true"
+  tsd.http.request.cors_domains: "*"
+  tsd.storage.hbase.data_table: "month-tsdb"
+  tsd.storage.hbase.meta_table: "month-tsdb-meta"
+  tsd.storage.hbase.tree_table: "month-tsdb-tree"
+  tsd.storage.hbase.uid_table: "month-tsdb-uid"
+
+# empty entries, force all logging to debug level
+logback:
+  level_root:
+  level_treshold:
+  level_querylog:
+  level_hbase:
+  level_stumbleupon:
+  level_core:
+  level_graph:
+  level_meta:
+  level_search:
+  level_stats:
+  level_tools:
+  level_tree:
+  level_tsd:
+  level_conn_mgr:
+  level_graph_handler:
+  level_query:
+  level_uid:
+  level_utils:
+  pattern:
+
+
+# hbase configmap, needed to create tables in hbase
+# hbaseConfigMapName: "hbase-hbase"
+
+# dependencies
+hbase:
+  enabled: true
+  antiAffinity: "hard"
+  hbase:
+    master:
+      replicas: 3
+    regionServer:
+      replicas: 3
+  hdfs:
+    enabled: true
+    antiAffinity: "hard"
+    dataNode:
+      replicas: 5
+    persistence:
+      nameNode:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 5Gi
+      dataNode:
+        enabled: true
+        accessMode: ReadWriteOnce
+        size: 10Gi
+  zookeeper:
+    enabled: true
+    replicaCount: 3
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: "kubernetes.io/hostname"
+            labelSelector:
+              matchLabels:
+                release: zookeeper
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi

@@ -14,23 +14,76 @@ hbaseImage:
   repository: gradiant/hbase-base
   tag: 2.0.1
 
-hbaseConfigMapName: # Default hbaseConfigMapName is {{ .Release.Name}}-hbase
+hbaseConfigMapName:  # Default hbaseConfigMapName is {{ .Release.Name}}-hbase
 
-# Select antiAffinity as either hard or soft, default is soft
+# Select antiAffinity as either hard or soft, default is 'soft'
+# 'hard' is for production setups
 antiAffinity: "soft"
 
-# Initial number of tsd daemons
+# Initial number of tsd replicas
 daemons: 1
 port: 4242
 nodePort:
   enabled: false
   externalPort: 31042
 
+# pass env vars to the opentsdb or init-container
+env:
+  init:  # env values for init container
+    # BLOOMFILTER: 'ROW'
+    # META_TABLE: 'tsdb-meta'
+    # TREE_TABLE: 'tsdb-tree'
+    # TSDB_TABLE: 'tsdb'
+    # UID_TABLE: tsdb-uid'
+    COMPRESSION: "GZ"  # Use one of LZO ZSTD GZ LZ4 NONE Algorithm BZIP2 SNAPPY
+    # TSDB_TTL: 'FOREVER'
+    # DATA_BLOCK_ENCODING: 'DIFF'
+  opentsdb:
+
+# hbase init script to create hbase tables, where $VARS are env vars from env.init (above), if empty then default will be used
+init_hbase_script: |
+  create '$UID_TABLE',
+  {NAME => 'id', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'},
+  {NAME => 'name', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'}
+  create '$TSDB_TABLE',
+  {NAME => 't', VERSIONS => 1, COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'}
+  create '$TREE_TABLE',
+  {NAME => 't', VERSIONS => 1, COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'}
+  create '$META_TABLE',
+  {NAME => 'name', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'}
+
+# configure /etc/opentsdb/opentsdb.conf contents
 conf:
   tsd.storage.hbase.zk_quorum:  # default is "{{.Release.Name}}-zookeeper:2181"
   tsd.core.auto_create_metrics: true
   tsd.core.auto_create_tagks: true
   tsd.core.auto_create_tagvs: true
+  # tsd.storage.hbase.data_table: tsdb
+  # tsd.storage.hbase.meta_table: tsdb-meta
+  # tsd.storage.hbase.tree_table: tsdb-tree
+  # tsd.storage.hbase.uid_table: tsdb-uid
+
+# configure /etc/opentsdb/logback.xml contents
+logback:
+  level_root: "DEBUG"  # main java logger level
+  level_treshold: "WARN"  # change to INFO to see more in the logs itself
+  level_querylog: "WARN"
+  level_hbase: "WARN"
+  level_stumbleupon: "WARN"
+  level_core: "INFO"
+  level_graph: "INFO"
+  level_meta: "INFO"
+  level_search: "INFO"
+  level_stats: "INFO"
+  level_tools: "INFO"
+  level_tree: "INFO"
+  level_tsd: "INFO"
+  level_conn_mgr: "WARN"
+  level_graph_handler: "WARN"
+  level_query: "WARN"
+  level_uid: "INFO"
+  level_utils: "INFO"
+  pattern: "%d{ISO8601} %-5level [%thread] %logger{0}: %msg%n"
 
 resources:
   requests:
@@ -40,6 +93,6 @@ resources:
     memory: "2048Mi"
     cpu: "1000m"
 
+# manage hbase from dependencies
 hbase:
   enabled: true
-

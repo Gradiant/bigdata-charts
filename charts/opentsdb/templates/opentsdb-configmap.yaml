@@ -8,3 +8,5 @@ metadata:
 data:
   opentsdb.conf: |-
 {{ tpl (.Files.Get "resources/config/opentsdb.conf") . | indent 4 }}
+  logback.xml: |
+{{ tpl (.Files.Get "resources/config/logback.xml") . | indent 4 }}
