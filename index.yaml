@@ -281,6 +281,21 @@ entries:
   opentsdb:
   - apiVersion: v1
     appVersion: 2.3.1
+    created: "2020-04-10T20:16:50.427496767Z"
+    description: |
+      Store and serve massive amounts of time series data without losing granularity.
+    digest: f902e838a3a8c7d61eb1f8fd3717d9da935bed9fd92c6d94441281be8cfd1ca1
+    home: http://opentsdb.net/
+    icon: http://opentsdb.net/img/logo_header.png
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: opentsdb
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.2/opentsdb-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v1
+    appVersion: 2.3.1
     created: "2020-03-18T07:42:32.098521434Z"
     description: |
       Store and serve massive amounts of time series data without losing granularity.
