@@ -64,6 +64,24 @@ entries:
   hdfs:
   - apiVersion: v1
     appVersion: 2.7.7
+    created: "2020-04-14T15:18:42.327739732Z"
+    description: The Apache Hadoop software library is a framework that allows for
+      the distributed processing of large data sets across clusters of computers using
+      simple programming models.
+    digest: ffc1bb7fe8fc590f16020a14df86c9c9b2a4868def986c973e9fad8cc76a721d
+    home: https://hadoop.apache.org/
+    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hdfs
+    sources:
+    - https://github.com/apache/hadoop
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.7/hdfs-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v1
+    appVersion: 2.7.7
     created: "2020-04-08T05:41:19.519881659Z"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
@@ -323,6 +341,23 @@ entries:
     name: opentsdb
     urls:
     - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.0/opentsdb-0.1.0.tgz
+    version: 0.1.0
+  prestosql:
+  - apiVersion: v1
+    appVersion: "331"
+    created: "2020-04-14T15:18:42.403161996Z"
+    description: Distributed SQL query engine for running interactive analytic queries
+    digest: 3eaed387177894e42ae7a90e352fd20a60c438715474630c5c014f1b5b2b2a2c
+    home: https://prestosql.io
+    icon: https://prestodb.io/static/presto.png
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: prestosql
+    sources:
+    - https://github.com/prestosql/presto
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/prestosql-0.1.0/prestosql-0.1.0.tgz
     version: 0.1.0
   spark-standalone:
   - apiVersion: v1
