@@ -54,7 +54,6 @@ For more details ensure to see `values.yaml` file directly.
 | dataNode.resources.limits.memory | string | `"2048Mi"` |  |
 | dataNode.resources.requests.cpu | string | `"10m"` |  |
 | dataNode.resources.requests.memory | string | `"256Mi"` |  |
-| hadoopVersion | string | `"2.7.7"` |  |
 | httpfs.adminPort | int | `14001` |  |
 | httpfs.port | int | `14000` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |

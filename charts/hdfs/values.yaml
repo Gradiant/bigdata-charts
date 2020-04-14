@@ -1,12 +1,9 @@
 # The base hadoop image to use for all components.
 # See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
 image:
-  repository: gradiant/hadoop-base
+  repository: gradiant/hdfs
   tag: 2.7.7
   pullPolicy: IfNotPresent
-
-# The version of the hadoop libraries being used in the image.
-hadoopVersion: 2.7.7
 
 # Select antiAffinity as either hard or soft, default is 'soft'
 # 'hard' is sugested for production setup
