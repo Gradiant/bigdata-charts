@@ -44,6 +44,20 @@ spec:
                   app.kubernetes.io/component: namenode
                   {{- include "hdfs.labels" . | nindent 18 }}
         {{- end }}
+      initContainers:
+      - name: "chown"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+        command:
+        - /bin/bash
+        - -c
+        - chown -R hdfs:hadoop /dfs &&
+          chmod g+s /dfs
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - mountPath: /dfs
+          name: dfs
       containers:
       - name: namenode
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
