@@ -1,35 +1,43 @@
-# Default values for hbase
+# Default values for opentsdb
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# The base hadoop image to use for all components.
-# See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
+# image - The base opentsdb image to use for all components.
+# for default see https://github.com/Gradiant/dockerized-opentsdb
 image:
   repository: gradiant/opentsdb
   tag: 2.4.0
   pullPolicy: IfNotPresent
 
-# Just to use hbase client shell to create initial opentsdb tables
+# hbaseImage -- container umage used to run hbase client shell to create
+# initial opentsdb tables
 hbaseImage:
   repository: gradiant/hbase-base
   tag: 2.0.1
 
-hbaseConfigMapName:  # Default hbaseConfigMapName is {{ .Release.Name}}-hbase
+# hbaseConfigMapName -- name of the configmap used to fetch hbase configuration
+# default hbaseConfigMapName is {{ .Release.Name}}-hbase
+hbaseConfigMapName:
 
-# Select antiAffinity as either hard or soft, default is 'soft'
+# antiAffinity -- Select antiAffinity as either hard or soft, default is 'soft'
 # 'hard' is for production setups
 antiAffinity: "soft"
 
-# Initial number of tsd replicas
+# daemons -- Initial number of tsd replicas
 daemons: 1
+# port -- expose port when using nodePort
 port: 4242
+
 nodePort:
+  # nodePort.enabled -- set to 'true' to change to nodeport instead of ClusterIP
   enabled: false
+  # nodePort.externalPort -- sport to use to expose service
   externalPort: 31042
 
 # pass env vars to the opentsdb or init-container
 env:
-  init:  # env values for init container
+  # env.init -- values for init container when creating hbase tables
+  init:
     # BLOOMFILTER: 'ROW'
     # META_TABLE: 'tsdb-meta'
     # TREE_TABLE: 'tsdb-tree'
@@ -38,9 +46,11 @@ env:
     COMPRESSION: "GZ"  # Use one of LZO ZSTD GZ LZ4 NONE Algorithm BZIP2 SNAPPY
     # TSDB_TTL: 'FOREVER'
     # DATA_BLOCK_ENCODING: 'DIFF'
+  # env.opentsdb -- env values to pass to opentsdb, for example JAVA_OPTS
   opentsdb:
 
-# hbase init script to create hbase tables, where $VARS are env vars from env.init (above), if empty then default will be used
+# init_hbase_script -- hbase init script to create hbase tables,
+# where $VARS are env vars from env.init (above), if empty then default will be used
 init_hbase_script: |
   create '$UID_TABLE',
   {NAME => 'id', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'},
@@ -52,9 +62,10 @@ init_hbase_script: |
   create '$META_TABLE',
   {NAME => 'name', COMPRESSION => '$COMPRESSION', BLOOMFILTER => '$BLOOMFILTER'}
 
-# configure /etc/opentsdb/opentsdb.conf contents
+# conf -- configure /etc/opentsdb/opentsdb.conf contents
 conf:
-  tsd.storage.hbase.zk_quorum:  # default is "{{.Release.Name}}-zookeeper:2181"
+  # tsd.storage.hbase.zk_quorum -- default is "{{.Release.Name}}-zookeeper:2181"
+  tsd.storage.hbase.zk_quorum:
   tsd.core.auto_create_metrics: true
   tsd.core.auto_create_tagks: true
   tsd.core.auto_create_tagvs: true
@@ -63,7 +74,7 @@ conf:
   # tsd.storage.hbase.tree_table: tsdb-tree
   # tsd.storage.hbase.uid_table: tsdb-uid
 
-# configure /etc/opentsdb/logback.xml contents
+# logback -- configure /etc/opentsdb/logback.xml contents for more detailed logging
 logback:
   level_root: "DEBUG"  # main java logger level
   level_treshold: "WARN"  # change to INFO to see more in the logs itself
@@ -85,6 +96,7 @@ logback:
   level_utils: "INFO"
   pattern: "%d{ISO8601} %-5level [%thread] %logger{0}: %msg%n"
 
+# resources -- container resource requests and limits
 resources:
   requests:
     memory: "256Mi"
@@ -93,6 +105,7 @@ resources:
     memory: "2048Mi"
     cpu: "1000m"
 
-# manage hbase from dependencies
+# hbase -- pass vars towards hbase chart, from dependencies
 hbase:
+  # hbase.enabled -- set to 'false' to disable automatically deploying dependent charts
   enabled: true
