@@ -337,6 +337,31 @@ entries:
     version: 0.1.0
   opentsdb:
   - apiVersion: v1
+    appVersion: 2.4.0
+    created: "2020-04-17T07:28:32.106924239Z"
+    description: |
+      Store and serve massive amounts of time series data without losing granularity.
+    digest: 64a456997427c545889600a8c5c5f2730804ca9149e51dbba083214c83b7bc47
+    home: https://github.com/Gradiant/charts
+    icon: http://opentsdb.net/img/logo_header.png
+    keywords:
+    - hadoop
+    - hbase
+    - hdfs
+    - opentsdb
+    - zookeeper
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: opentsdb
+    sources:
+    - http://opentsdb.net/
+    - https://github.com/Gradiant/charts
+    - https://github.com/Gradiant/dockerized-opentsdb
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.3/opentsdb-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v1
     appVersion: 2.3.1
     created: "2020-04-10T20:16:50.427496767Z"
     description: |
