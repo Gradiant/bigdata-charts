@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "presto.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "presto.name" . }}
+    {{- include "presto.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app.kubernetes.io/name: {{ include "presto.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: coordinator
+  ports:
+    - name: http-coord
+      protocol: TCP
+      port: {{ .Values.service.externalPort }}
+      {{- if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort.http))) }}
+      nodePort: {{ .Values.service.nodePort.http }}
+      {{- end }}
+      targetPort: 8080

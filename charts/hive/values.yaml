@@ -11,7 +11,7 @@ resources: {}
 
 conf:
   coreSite:
-    fs.defaultFS: # default is hdfs://{{.Release.Name}}-hdfs-namenode:8020
+    fs.defaultFS: # default is hdfs://{{.Release.Name}}-hdfs:8020
   hiveSite:
     hive.metastore.uris:  # default is "thrift://{{.Release.Name}}-metastore:9083"
 

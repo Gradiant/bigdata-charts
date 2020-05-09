@@ -29,9 +29,11 @@ spec:
 {{ toYaml .Values.resources | indent 10 }}
         env:
         # TODO change this to use hadoop Configmap instead of env variables
+          - name: HADOOP_USER_NAME
+            value: hdfs
           - name: CORE_CONF_fs_defaultFS
             {{- if not (index .Values.conf "coreSite" "fs.defaultFS")  }}
-            value: hdfs://{{.Release.Name}}-hdfs-namenode:8020
+            value: hdfs://{{.Release.Name}}-hdfs:8020
             {{- else }}
             value: {{ index .Values.conf "coreSite" "fs.defaultFS" }}
             {{- end }}

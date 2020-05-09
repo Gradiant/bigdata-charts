@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "presto.coordinator" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "presto.name" . }}
+    app.kubernetes.io/component: coordinator
+    {{- include "presto.labels" . | nindent 4 }}
+data:
+  node.properties: |
+    node.environment={{ .Values.server.node.environment }}
+    node.data-dir=/data/presto
+    plugin.dir=/usr/lib/presto/plugin
+  jvm.config: |
+    -server
+    -Xmx{{ .Values.server.jvm.maxHeapSize }}
+    -XX:-UseBiasedLocking
+    -XX:+{{ .Values.server.jvm.gcMethod.type }}
+    -XX:G1HeapRegionSize={{ .Values.server.jvm.gcMethod.g1.heapRegionSize }}
+    -XX:+ExplicitGCInvokesConcurrent
+    -XX:+HeapDumpOnOutOfMemoryError
+    -XX:+UseGCOverheadLimit
+    -XX:+ExitOnOutOfMemoryError
+    -XX:ReservedCodeCacheSize=256M
+    -Djdk.attach.allowAttachSelf=true
+    -Djdk.nio.maxCachedBufferSize=2000000
+
+  config.properties: |
+    coordinator=true
+    {{- if gt (int .Values.server.workers) 0 }}
+    node-scheduler.include-coordinator=false
+    {{- else }}
+    node-scheduler.include-coordinator=true
+    {{- end }}
+    http-server.http.port=8080
+    discovery-server.enabled=true
+    discovery.uri=http://{{ template "presto.fullname" . }}:{{ .Values.service.externalPort }}
+    {{- range $key, $value := index .Values.conf "coordinator" }}
+    {{ $key }}={{ $value }}
+    {{- end }}
+  log.properties: |
+    com.facebook.presto={{ .Values.server.log.presto.level }}
+---

@@ -1,0 +1,67 @@
+{{- if gt (int .Values.server.workers) 0 }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "presto.worker" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "presto.name" . }}
+    app.kubernetes.io/component: worker
+    {{- include "presto.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "presto.name" . }}
+      app.kubernetes.io/component: worker
+      {{- include "presto.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "presto.name" . }}
+        app.kubernetes.io/component: worker
+        {{- include "presto.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "presto.name" . }}-worker
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /etc/presto
+              name: config-volume
+            - mountPath: /data/presto
+              name: data-volume
+          #livenessProbe:
+          #  exec:
+          #    command:
+          #      - /bin/bash
+          #      - /etc/presto/health_check.sh
+          #  initialDelaySeconds: 10
+          #  periodSeconds: 25
+          #readinessProbe:
+          #  exec:
+          #    command:
+          #      - /bin/bash
+          #      - /etc/presto/health_check.sh
+          #  initialDelaySeconds: 5
+          #  periodSeconds: 10
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "presto.worker" . }}
+        - name: data-volume
+          emptyDir: {}      
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+{{- end }}

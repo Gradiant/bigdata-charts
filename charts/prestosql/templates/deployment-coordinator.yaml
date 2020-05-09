@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "presto.coordinator" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "presto.name" . }}
+    app.kubernetes.io/component: coordinator
+    {{- include "presto.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "presto.name" . }}
+      app.kubernetes.io/component: coordinator
+      {{- include "presto.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "presto.name" . }}
+        app.kubernetes.io/component: coordinator
+        {{- include "presto.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "presto.name" . }}-coordinator
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /etc/presto
+              name: config-volume
+            - mountPath: /data/presto
+              name: data-volume
+          ports:
+            - name: http-coord
+              containerPort: 8080
+              protocol: TCP
+          #livenessProbe:
+          #  httpGet:
+          #    path: /v1/cluster
+          #    port: http-coord
+          #readinessProbe:
+          #  httpGet:
+          #    path: /v1/cluster
+          #    port: http-coord
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "presto.coordinator" . }}
+        - name: data-volume
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

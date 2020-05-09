@@ -1,0 +1,5 @@
+1. Create a port-forward to the presto service:
+   kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "presto.fullname" . }} 8080:{{ .Values.service.externalPort }}
+
+Then open the ui in your browser and use the access token:
+   open http://localhost:8080
