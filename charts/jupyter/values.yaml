@@ -31,7 +31,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - jupyter.127-0-0-1.nip
+    - jupyter.127-0-0-1.nip.io
   tls: []
     # - secretName: jupyter-tls
     #   hosts:

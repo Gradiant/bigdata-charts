@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "jupyter.fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
 {{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -35,6 +34,6 @@ spec:
           - path: {{ $ingressPath }}
             backend:
               serviceName: {{ $fullName }}
-              servicePort: {{ $servicePort }}
+              servicePort: web
   {{- end }}
 {{- end }}
