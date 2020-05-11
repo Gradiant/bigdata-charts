@@ -5,6 +5,6 @@ dependencies:
   repository: file://../hive-metastore
   condition: metastore.enabled
 - name: hdfs
-  version: ~0.1.0
+  version: ~0.1.8
   repository: file://../hdfs
   condition: hdfs.enabled
