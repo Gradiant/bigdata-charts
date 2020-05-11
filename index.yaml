@@ -214,7 +214,7 @@ entries:
       and managing large datasets residing in distributed storage using SQL. Structure
       can be projected onto data already in storage. A command line tool and JDBC
       driver are provided to connect users to Hive.
-    digest: f7f631b65276e1ea4a0e0134c1691b55f94170e0b12ca50736a9169cd7d483c7
+    digest: da57f2a3286cdca9b791faa8c17bbcf47e0d10ac008ca4f7d6f4f15b77127c49
     home: https://hive.apache.org/
     icon: https://hive.apache.org/images/hive_logo_medium.jpg
     maintainers:
