@@ -13,4 +13,4 @@ sources:
 - https://github.com/apache/hive
 - https://github.com/gradiant/charts
 - https://github.com/big-data-europe/docker-hive
-version: 0.1.1
+version: 0.1.2

@@ -9,15 +9,28 @@ image:
 
 resources: {}
 
-conf:
-  coreSite:
-    fs.defaultFS: # default is hdfs://{{.Release.Name}}-hdfs-namenode:8020
-  hiveSite:
-    hive.metastore.uris:  # default is "thrift://{{.Release.Name}}-metastore:9083"
-
+# Also deploy hive-metastore requirement
 metastore:
   enabled: true
 
+# Also deploy hdfs requirement
 hdfs:
   enabled: true
+
+conf:
+  hiveSite:
+    # if not set, default hive.metastore.uris is default uri 
+    # from metastore requirement: "thrift://{{.Release.Name}}-metastore:9083"
+    hive.metastore.uris:  
+  hdfsAdminUser: hdfs
+  # if not set, default is configMap from hdfs requirement {{.Release.Name}}-hdfs-hadoop
+  hadoopConfigMap:
+  # to manually provide hadoop config attributes instead of hadoopConfigMap.
+  # hadoopSite:
+  #   coreSite:
+  #     fs.defaultFS: hdfs://hdfs-cluster:8020
+  #   hdfsSite:
+  #   ...
+
+
 

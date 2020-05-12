@@ -6,19 +6,7 @@ metadata:
     app.kubernetes.io/name: {{ include "hive.name" . }}
     {{- include "hive.labels" . | nindent 4 }}
 data:
+  startup.sh: |-
+{{ tpl (.Files.Get "resources/startup.sh") . | indent 4 }}
   hive-site.xml: |
-    <?xml version="1.0"?>
-    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-    <configuration>
-        {{- if not (index .Values.conf "hiveSite" "hive.metastore.uris")  }}
-        <property>
-          <name>hive.metastore.uris</name>
-          <value>{{- printf "thrift://%s-metastore" .Release.Name }}:9083</value>
-        </property>
-      {{- end }}
-      {{- if index .Values.conf "hiveSite" }}
-      {{- range $key, $value := index .Values.conf "hiveSite" }}
-      <property><name>{{ $key }}</name><value>{{ $value }}</value></property>
-      {{- end }}
-      {{- end }}
-    </configuration>
+{{ tpl (.Files.Get "resources/config/hive-site.xml") . | indent 4 }}
