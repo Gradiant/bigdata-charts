@@ -64,6 +64,9 @@ spec:
            - "/tmp/hbase-config/bootstrap.sh"
            - "-d"
            - "regionserver"
+        env:
+        - name: HADOOP_USER_NAME
+          value: {{ .Values.conf.hadoopUserName }}
         resources:
 {{ toYaml .Values.hbase.regionServer.resources | indent 10 }}
         readinessProbe:

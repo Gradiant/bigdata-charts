@@ -64,6 +64,9 @@ spec:
         - "/tmp/hbase-config/bootstrap.sh"
         - "-d"
         - "master"
+        env:
+        - name: HADOOP_USER_NAME
+          value: {{ .Values.conf.hadoopUserName }}
         resources:
 {{ toYaml .Values.hbase.master.resources | indent 10 }}
         readinessProbe:
