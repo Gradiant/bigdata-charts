@@ -3,6 +3,21 @@ entries:
   hbase:
   - apiVersion: v1
     appVersion: 2.0.1
+    created: "2020-05-13T12:40:45.008241494Z"
+    description: HBase is an open-source non-relational distributed database modeled
+      after Google's Bigtable and written in Java.
+    digest: 6e47e3db6eae868d4b1470e82b8fb466243912244f1a206cceb9bda6a3ce8664
+    home: https://hbase.apache.org/
+    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hbase
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.4/hbase-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v1
+    appVersion: 2.0.1
     created: "2020-04-10T13:06:34.459220174Z"
     description: HBase is an open-source non-relational distributed database modeled
       after Google's Bigtable and written in Java.
