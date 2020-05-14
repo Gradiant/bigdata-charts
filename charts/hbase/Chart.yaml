@@ -8,4 +8,4 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: hbase
-version: 0.1.4
+version: 0.1.5

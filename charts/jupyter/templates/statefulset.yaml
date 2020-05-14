@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "jupyter.name" . }}
-      {{- include "jupyter.labels" . | nindent 6 }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   serviceName: {{ include "jupyter.fullname" . }} 
   replicas: 1
   template:
