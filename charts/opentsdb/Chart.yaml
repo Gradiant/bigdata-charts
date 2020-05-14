@@ -13,7 +13,7 @@ maintainers:
 - email: cgiraldo@gradiant.org
   name: cgiraldo
 name: opentsdb
-version: 0.1.4
+version: 0.1.5
 keywords:
   - hadoop
   - hbase
