@@ -13,7 +13,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "hdfs.name" . }}
       app.kubernetes.io/component: datanode
-      {{- include "hdfs.labels" . | nindent 6 }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   serviceName: {{ include "hdfs.fullname" . }}-datanode
   replicas: {{ .Values.dataNode.replicas }}
   template:
@@ -21,7 +21,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "hdfs.name" . }}
         app.kubernetes.io/component: datanode
-        {{- include "hdfs.labels" . | nindent 8 }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
       affinity:
         podAntiAffinity:

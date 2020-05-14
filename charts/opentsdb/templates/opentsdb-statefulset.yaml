@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "opentsdb.name" . }}
-      {{- include "opentsdb.labels" . | nindent 6 }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   serviceName: {{ include "opentsdb.fullname" . }} 
   replicas: {{ default 1 .Values.daemons }}
   template:

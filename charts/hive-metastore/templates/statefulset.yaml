@@ -11,7 +11,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "hiveMetastore.name" . }}
       app.kubernetes.io/component: metastore
-      {{- include "hiveMetastore.labels" . | nindent 6 }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   serviceName: {{ include "hiveMetastore.fullname" . }}
   replicas: 1
   template:
@@ -19,7 +19,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "hiveMetastore.name" . }}
         app.kubernetes.io/component: metastore
-        {{- include "hiveMetastore.labels" . | nindent 8 }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
       containers:
       - name: metastore

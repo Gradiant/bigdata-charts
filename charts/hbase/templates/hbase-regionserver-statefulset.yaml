@@ -13,7 +13,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "hbase.name" . }}
       app.kubernetes.io/component: regionserver
-      {{- include "hbase.labels" . | nindent 6 }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
   serviceName: {{ include "hbase.fullname" . }}-regionserver
   replicas: {{ .Values.hbase.regionServer.replicas }}
   template:
@@ -21,7 +21,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "hbase.name" . }}
         app.kubernetes.io/component: regionserver
-        {{- include "hbase.labels" . | nindent 8 }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
     spec:
       affinity:
         podAntiAffinity:
