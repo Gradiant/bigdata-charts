@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "opentsdb.fullname" . }}
   labels:
@@ -10,7 +10,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "opentsdb.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name | quote }}
-  serviceName: {{ include "opentsdb.fullname" . }} 
   replicas: {{ default 1 .Values.daemons }}
   template:
     metadata:
@@ -77,6 +76,7 @@ spec:
         volumeMounts:
           - name: opentsdb-config
             mountPath: /etc/opentsdb
+      terminationGracePeriodSeconds: 60
       volumes:
       - name: opentsdb-init
         configMap:
