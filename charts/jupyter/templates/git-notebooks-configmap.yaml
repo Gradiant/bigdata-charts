@@ -1,0 +1,25 @@
+{{- if .Values.gitNotebooks }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "jupyter.fullname" . }}-git-notebooks
+  labels:
+    app.kubernetes.io/name: {{ include "jupyter.name" . }}
+    {{- include "jupyter.labels" . | nindent 4 }}
+data:
+  git-notebooks.sh: |-
+    #!/bin/sh
+    set -x
+    cd /home/jovyan
+    echo "Loading notebooks from git repo"
+    {{- range .Values.gitNotebooks }}
+    if [ ! -d "/home/jovyan/{{ .name }}" ]
+    then
+      echo "Cloning {{ .name }} notebook repository"
+      git clone {{ .repo }} {{ .name }}
+    else 
+      echo "{{ .name }} notebook repository already cloned"
+    fi
+    {{- end }}
+
+{{- end }}

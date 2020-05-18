@@ -1,5 +1,5 @@
 name: "jupyter"
-version: "0.1.4"
+version: "0.1.5"
 description: "Helm for jupyter single server  with pyspark support"
 keywords:
   - jupyter

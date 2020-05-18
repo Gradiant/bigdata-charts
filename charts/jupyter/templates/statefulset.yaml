@@ -18,6 +18,20 @@ spec:
         app.kubernetes.io/name: {{ include "jupyter.name" . }}
         {{- include "jupyter.labels" . | nindent 8}}
     spec:
+      {{- if .Values.gitNotebooks }}
+      initContainers:
+      - name: git-notebooks
+        image: alpine/git
+        command:
+        - /bin/sh
+        - /git-notebooks.sh
+        volumeMounts:
+        - name: git-notebooks
+          mountPath: /git-notebooks.sh
+          subPath: git-notebooks.sh
+        - name: jupyter
+          mountPath: /home/jovyan
+      {{- end }}
       containers:
       - name: jupyter
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -50,6 +64,11 @@ spec:
         - name: jupyter
           mountPath: /home/jovyan
       volumes:
+      {{- if .Values.gitNotebooks }}
+      - name: git-notebooks
+        configMap:
+          name: {{ include "jupyter.fullname" . }}-git-notebooks
+      {{- end }}
       {{- if not .Values.persistence.enabled }}
       - name: jupyter
         emptyDir: {}

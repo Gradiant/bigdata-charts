@@ -9,6 +9,10 @@ image:
 
 lab: true
 
+#gitNotebooks:
+#  - name: gradiant
+#    repo: https://github.com/Gradiant/notebooks.git 
+
 service:
   type: ClusterIP
   externalPort: 8888
