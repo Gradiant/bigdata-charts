@@ -21,5 +21,7 @@ data:
       echo "{{ .name }} notebook repository already cloned"
     fi
     {{- end }}
+    # exit code 0 to continue deployment even if git clone fails
+    exit 0
 
 {{- end }}
