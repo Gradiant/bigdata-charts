@@ -385,6 +385,27 @@ entries:
   jupyter:
   - apiVersion: v1
     appVersion: 6.0.3
+    created: "2020-05-29T10:30:06.661974752Z"
+    description: Helm for jupyter single server with pyspark support
+    digest: f04be833a9690dca72e5c956ee84945e68b6be28facaf741f536a104e8657d34
+    home: https://jupyter.org
+    icon: https://jupyter.org/assets/main-logo.svg
+    keywords:
+    - jupyter
+    - notebook
+    - spark
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: jupyter
+    sources:
+    - https://github.com/gradiant/charts
+    - https://github.com/astrobounce/helm-jupyter
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.6/jupyter-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v1
+    appVersion: 6.0.3
     created: "2020-05-18T14:30:43.810394112Z"
     description: Helm for jupyter single server  with pyspark support
     digest: 51344e65682aa103e8ad2b6f2fa6fb4bc15e2c52d175d498fae58112f57ef12f
@@ -531,6 +552,31 @@ entries:
     - https://github.com/Gradiant/charts/releases/download/kafka-connect-ui-0.1.0/kafka-connect-ui-0.1.0.tgz
     version: 0.1.0
   opentsdb:
+  - apiVersion: v1
+    appVersion: 2.4.0
+    created: "2020-05-29T10:30:06.768802143Z"
+    description: |
+      Store and serve massive amounts of time series data without losing granularity.
+    digest: b2490dce235417813579394a6c1b31ecc9b2f8cc7f47922c1e21f07b81834c6c
+    home: https://github.com/Gradiant/charts
+    icon: http://opentsdb.net/img/logo_header.png
+    keywords:
+    - hadoop
+    - hbase
+    - hdfs
+    - opentsdb
+    - zookeeper
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: opentsdb
+    sources:
+    - http://opentsdb.net/
+    - https://github.com/Gradiant/charts
+    - https://github.com/Gradiant/dockerized-opentsdb
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.6/opentsdb-0.1.6.tgz
+    version: 0.1.6
   - apiVersion: v1
     appVersion: 2.4.0
     created: "2020-05-18T14:27:46.557979033Z"
