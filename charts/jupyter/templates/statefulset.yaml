@@ -31,6 +31,10 @@ spec:
           subPath: git-notebooks.sh
         - name: jupyter
           mountPath: /home/jovyan
+        {{- if .Values.gitNotebooks.secretName }}
+        - name: git-secret
+          mountPath: "/tmp/.ssh"
+        {{- end }}
       {{- end }}
       containers:
       - name: jupyter
@@ -68,6 +72,11 @@ spec:
       - name: git-notebooks
         configMap:
           name: {{ include "jupyter.fullname" . }}-git-notebooks
+      {{- if .Values.gitNotebooks.secretName }}
+      - name: git-secret
+        secret:
+          secretName: {{ .Values.gitNotebooks.secretName }}
+      {{- end }}
       {{- end }}
       {{- if not .Values.persistence.enabled }}
       - name: jupyter

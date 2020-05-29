@@ -10,8 +10,12 @@ image:
 lab: true
 
 #gitNotebooks:
-#  - name: gradiant
-#    repo: https://github.com/Gradiant/notebooks.git 
+#  secretName: the name of the secret with ssh keys
+#  repos:
+#    - name: gradiant
+#      repo: https://github.com/Gradiant/notebooks.git 
+#    - name: grad-git
+#      repo: git@github.com:Gradiant/notebooks.git
 
 service:
   type: ClusterIP
