@@ -3,7 +3,7 @@
 
 
 image:
-  repository: bde2020/hive
+  repository: gradiant/hive
   tag: 2.3.2-postgresql-metastore
   pullPolicy: IfNotPresent
 
@@ -31,6 +31,3 @@ conf:
   #     fs.defaultFS: hdfs://hdfs-cluster:8020
   #   hdfsSite:
   #   ...
-
-
-

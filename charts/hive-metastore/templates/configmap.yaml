@@ -36,6 +36,12 @@ data:
           <value>thrift://{{ include "hiveMetastore.fullname" . }}:9083</value>
         </property>
       {{- end }}
+      {{- if not (index .Values.conf "hiveSite" "hive.metastore.warehouse.dir")  }}
+      <property>
+        <name>hive.metastore.warehouse.dir</name>
+        <value>hdfs://{{ .Release.Name }}-hdfs:8020/user/hive/warehouse</value>
+      </property>
+    {{- end }}
       {{- if index .Values.conf "hiveSite" }}
       {{- range $key, $value := index .Values.conf "hiveSite" }}
       <property><name>{{ $key }}</name><value>{{ $value }}</value></property>

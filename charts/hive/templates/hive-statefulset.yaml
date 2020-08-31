@@ -46,7 +46,7 @@ spec:
         - name: hive-config
           mountPath: /opt/hive/conf
         - name: hadoop-config
-          mountPath: /tmp/hadoop-config
+          mountPath: /opt/hadoop/etc/hadoop
       volumes:
       - name: hadoop-config
         configMap:
