@@ -257,6 +257,27 @@ entries:
   hive:
   - apiVersion: v1
     appVersion: 2.3.6
+    created: "2020-08-31T06:42:51.451195476Z"
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: ad7b162e2272b6820012a356f4056e0fa138872c52812502c335b3c53b7eef3a
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-0.1.4/hive-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v1
+    appVersion: 2.3.6
     created: "2020-05-14T10:30:50.851980198Z"
     description: The Apache Hive ™ data warehouse software facilitates reading, writing,
       and managing large datasets residing in distributed storage using SQL. Structure
@@ -340,6 +361,27 @@ entries:
     - https://github.com/Gradiant/charts/releases/download/hive-0.1.0/hive-0.1.0.tgz
     version: 0.1.0
   hive-metastore:
+  - apiVersion: v1
+    appVersion: 2.3.6
+    created: "2020-08-31T06:42:51.574766216Z"
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: fae15be08197a6ec5a145ab94438dcd3e06e3aaf2c7d30d58da668ef8f8d97b6
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive-metastore
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.2/hive-metastore-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v1
     appVersion: 2.3.6
     created: "2020-05-14T10:30:50.939088683Z"
