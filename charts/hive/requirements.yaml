@@ -4,10 +4,6 @@ dependencies:
   version: ~0.1.2
   repository: https://gradiant.github.io/charts
   condition: metastore.enabled
-- name: postgresql
-  version: ~8.6.0
-  repository: https://charts.bitnami.com/bitnami
-  condition: metastore.enabled
 - name: hdfs
   version: ~0.1.8
   repository: https://gradiant.github.io/charts
