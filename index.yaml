@@ -257,6 +257,27 @@ entries:
   hive:
   - apiVersion: v1
     appVersion: 2.3.6
+    created: "2020-11-16T15:33:07.970443281Z"
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: f67cfeebdcf7f07fdff1184a429c4d584928617bb3951b73df80bd502aa4bf34
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-0.1.5/hive-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v1
+    appVersion: 2.3.6
     created: "2020-08-31T06:42:51.451195476Z"
     description: The Apache Hive ™ data warehouse software facilitates reading, writing,
       and managing large datasets residing in distributed storage using SQL. Structure
