@@ -9,15 +9,21 @@ image:
 
 resources: {}
 
-# Also deploy hive-metastore requirement
+# Also deploy an internal postgresql hive-metastore requirement
 metastore:
   enabled: true
-
+postgresql:
+  postgresqlUsername: hive
+  postgresqlPassword: hive
+  postgresqlDatabase: metastore
+  initdbScriptsConfigMap: hive-metastore-postgresql-init
+#####################################################
 # Also deploy hdfs requirement
 hdfs:
   enabled: true
 
 conf:
+  logLevel: INFO
   hiveSite:
     # if not set, default hive.metastore.uris is default uri 
     # from metastore requirement: "thrift://{{.Release.Name}}-metastore:9083"
