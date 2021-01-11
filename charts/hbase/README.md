@@ -1,6 +1,6 @@
 # hbase
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![AppVersion: 2.0.1](https://img.shields.io/badge/AppVersion-2.0.1-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![AppVersion: 2.0.1](https://img.shields.io/badge/AppVersion-2.0.1-informational?style=flat-square)
 
 HBase is an open-source non-relational distributed database modeled after Google's Bigtable and written in Java.
 
@@ -17,7 +17,7 @@ HBase is an open-source non-relational distributed database modeled after Google
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | zookeeper | ~6.3.0 |
-| https://gradiant.github.io/charts | hdfs | ~0.1.8 |
+| https://gradiant.github.io/charts | hdfs | ~0.1.10 |
 
 ## Values
 
