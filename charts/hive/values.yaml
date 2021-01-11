@@ -25,9 +25,9 @@ hdfs:
 conf:
   logLevel: INFO
   hiveSite:
-    # if not set, default hive.metastore.uris is default uri 
-    # from metastore requirement: "thrift://{{.Release.Name}}-metastore:9083"
-    hive.metastore.uris:  
+    # if not set, default hive.metastore.uris is default uri from metastore requirement:
+    # "thrift://{{.Release.Name}}-metastore:9083"
+    hive.metastore.uris:
   hdfsAdminUser: hdfs
   # if not set, default is configMap from hdfs requirement {{.Release.Name}}-hdfs-hadoop
   hadoopConfigMap:

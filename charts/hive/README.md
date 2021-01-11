@@ -1,6 +1,6 @@
 # hive
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![AppVersion: 2.3.6](https://img.shields.io/badge/AppVersion-2.3.6-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![AppVersion: 2.3.6](https://img.shields.io/badge/AppVersion-2.3.6-informational?style=flat-square)
 
 The Apache Hive ™ data warehouse software facilitates reading, writing, and managing large datasets residing in distributed storage using SQL. Structure can be projected onto data already in storage. A command line tool and JDBC driver are provided to connect users to Hive.
 
@@ -22,7 +22,6 @@ The Apache Hive ™ data warehouse software facilitates reading, writing, and ma
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | ~8.6.0 |
 | https://gradiant.github.io/charts | hdfs | ~0.1.8 |
 | https://gradiant.github.io/charts | hive-metastore | ~0.1.2 |
 
