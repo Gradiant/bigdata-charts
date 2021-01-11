@@ -26,8 +26,6 @@ jobs:
         run: |
           helm init --client-only
           helm repo add gradiant https://gradiant.github.io/charts/
-          helm repo add stable https://kubernetes-charts.storage.googleapis.com
-          helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.0.0-alpha.2
