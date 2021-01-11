@@ -1,5 +1,5 @@
 dependencies:
 - name: hbase
-  version: ~0.1.0
+  version: ~0.1.6
   repository: https://gradiant.github.io/charts
   condition: hbase.enabled
