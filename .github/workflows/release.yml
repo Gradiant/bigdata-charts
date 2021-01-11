@@ -17,17 +17,7 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Install Helm 2
-        uses: azure/setup-helm@v1
-        with:
-          version: 'v2.16.3'
-
-      - name: Install Helm repositories
-        run: |
-          helm init --client-only
-          helm repo add gradiant https://gradiant.github.io/charts/
-
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.0.0-alpha.2
+        uses: helm/chart-releaser-action@v1.0.0
         env:
           CR_TOKEN: "${{ secrets.CR_TOKEN }}"
