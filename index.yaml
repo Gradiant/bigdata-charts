@@ -426,6 +426,31 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: 2.3.6
+    created: "2021-01-11T15:49:55.562398712Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ~10.2.1
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: 4392dd563b9ed07a402908117bc2dc8c506dab0188e7b8ad5794bb9f81f358e8
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive-metastore
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.3/hive-metastore-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v1
+    appVersion: 2.3.6
     created: "2020-08-31T06:42:51.574766216Z"
     description: The Apache Hive ™ data warehouse software facilitates reading, writing,
       and managing large datasets residing in distributed storage using SQL. Structure
