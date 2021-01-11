@@ -3,6 +3,30 @@ entries:
   hbase:
   - apiVersion: v1
     appVersion: 2.0.1
+    created: "2021-01-11T15:48:17.786742144Z"
+    dependencies:
+    - condition: hdfs.enabled
+      name: hdfs
+      repository: https://gradiant.github.io/charts
+      version: ~0.1.10
+    - condition: zookeeper.enabled
+      name: zookeeper
+      repository: https://charts.bitnami.com/bitnami
+      version: ~6.3.0
+    description: HBase is an open-source non-relational distributed database modeled
+      after Google's Bigtable and written in Java.
+    digest: b061f992b3e06a5a72ce7da89c9e9bd7a567f7f44144650f3c3c801801e89b39
+    home: https://hbase.apache.org/
+    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hbase
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.6/hbase-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v1
+    appVersion: 2.0.1
     created: "2020-05-14T10:30:50.65683517Z"
     description: HBase is an open-source non-relational distributed database modeled
       after Google's Bigtable and written in Java.
