@@ -715,6 +715,36 @@ entries:
   opentsdb:
   - apiVersion: v1
     appVersion: 2.4.0
+    created: "2021-01-11T16:47:39.46710461Z"
+    dependencies:
+    - condition: hbase.enabled
+      name: hbase
+      repository: https://gradiant.github.io/charts
+      version: ~0.1.6
+    description: |
+      Store and serve massive amounts of time series data without losing granularity.
+    digest: 9dff24ab5a5c9b18a8842d5cc0dc97ef78446cfeb4a7564cd1d6f29b57c5d515
+    home: https://github.com/Gradiant/charts
+    icon: http://opentsdb.net/img/logo_header.png
+    keywords:
+    - hadoop
+    - hbase
+    - hdfs
+    - opentsdb
+    - zookeeper
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: opentsdb
+    sources:
+    - http://opentsdb.net/
+    - https://github.com/Gradiant/charts
+    - https://github.com/Gradiant/dockerized-opentsdb
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.7/opentsdb-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v1
+    appVersion: 2.4.0
     created: "2020-05-29T10:30:06.768802143Z"
     description: |
       Store and serve massive amounts of time series data without losing granularity.
