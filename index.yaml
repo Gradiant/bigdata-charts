@@ -299,6 +299,37 @@ entries:
   hive:
   - apiVersion: v1
     appVersion: 2.3.6
+    created: "2021-01-11T16:13:25.224974609Z"
+    dependencies:
+    - alias: metastore
+      condition: metastore.enabled
+      name: hive-metastore
+      repository: https://gradiant.github.io/charts
+      version: ~0.1.3
+    - condition: hdfs.enabled
+      name: hdfs
+      repository: https://gradiant.github.io/charts
+      version: ~0.1.10
+    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
+      and managing large datasets residing in distributed storage using SQL. Structure
+      can be projected onto data already in storage. A command line tool and JDBC
+      driver are provided to connect users to Hive.
+    digest: febe8ecca92c149033e7a03c7d5490ccf937eacf0ab1a99824e43f91b1dfff0c
+    home: https://hive.apache.org/
+    icon: https://hive.apache.org/images/hive_logo_medium.jpg
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: hive
+    sources:
+    - https://github.com/apache/hive
+    - https://github.com/gradiant/charts
+    - https://github.com/big-data-europe/docker-hive
+    urls:
+    - https://github.com/Gradiant/charts/releases/download/hive-0.1.6/hive-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v1
+    appVersion: 2.3.6
     created: "2020-11-16T15:33:07.970443281Z"
     description: The Apache Hive ™ data warehouse software facilitates reading, writing,
       and managing large datasets residing in distributed storage using SQL. Structure
