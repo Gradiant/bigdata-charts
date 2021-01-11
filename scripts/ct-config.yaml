@@ -1,0 +1,4 @@
+chart-repos:
+ - bitnami=https://charts.bitnami.com/bitnami
+ - gradiant=https://gradiant.github.io/charts
+helm-extra-args: "--timeout 300s"
