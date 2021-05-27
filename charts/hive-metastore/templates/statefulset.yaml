@@ -30,7 +30,7 @@ spec:
         - "-c"
         - "/opt/hive/bin/hive --service metastore"
         resources:
-{{ toYaml .Values.resources | indent 10 }}
+{{ toYaml .Values.resources | indent 8 }}
         # readinessProbe:
         #   httpGet:
         #     path: /
