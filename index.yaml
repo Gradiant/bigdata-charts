@@ -1,13 +1,13 @@
 apiVersion: v1
 entries:
   hbase:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 2.0.1
-    created: "2021-01-11T15:48:17.786742144Z"
+    created: "2021-09-06T13:55:22.237565542+02:00"
     dependencies:
     - condition: hdfs.enabled
       name: hdfs
-      repository: https://gradiant.github.io/charts
+      repository: file://../hdfs
       version: ~0.1.10
     - condition: zookeeper.enabled
       name: zookeeper
@@ -15,7 +15,7 @@ entries:
       version: ~6.3.0
     description: HBase is an open-source non-relational distributed database modeled
       after Google's Bigtable and written in Java.
-    digest: b061f992b3e06a5a72ce7da89c9e9bd7a567f7f44144650f3c3c801801e89b39
+    digest: aafd6437a84ffb4aac6b3b89bbe89f7749cc4612b068c3df3970263d39d32297
     home: https://hbase.apache.org/
     icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
     maintainers:
@@ -25,104 +25,14 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hbase-0.1.6/hbase-0.1.6.tgz
     version: 0.1.6
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-05-14T10:30:50.65683517Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: 7b536df0972cd1aae07d71763534e2b17609eb40b117e9eae9cba34388264163
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.5/hbase-0.1.5.tgz
-    version: 0.1.5
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-05-13T12:40:45.008241494Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: 6e47e3db6eae868d4b1470e82b8fb466243912244f1a206cceb9bda6a3ce8664
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.4/hbase-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-04-10T13:06:34.459220174Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: c5c6ce7613db71225c3c17494f61cd76b9b881583b3feaf30cd8d09cc35e14c4
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.3/hbase-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-04-02T11:12:07.945791138Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: c8671efcfcdbca74d523fe918afe1bde1cd1f93def994ca57afb9a62abb01917
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.2/hbase-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-03-18T07:42:31.910727441Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: 49954096d7c7950afbe7e1a11d2d450ab12f38b8b960c09116dbc692a6d205e2
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.1/hbase-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: 2.0.1
-    created: "2020-03-03T13:33:26.862884116Z"
-    description: HBase is an open-source non-relational distributed database modeled
-      after Google's Bigtable and written in Java.
-    digest: fec97532c1445caf4ba0d551707996bb2d9438c073c257ad6089fca07264d039
-    home: https://hbase.apache.org/
-    icon: http://hbase.apache.org/images/hbase_logo_with_orca.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hbase
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hbase-0.1.0/hbase-0.1.0.tgz
-    version: 0.1.0
   hdfs:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 2.7.7
-    created: "2021-01-11T14:50:28.702549358Z"
+    created: "2021-09-06T13:55:22.532997417+02:00"
     description: The Apache Hadoop software library is a framework that allows for
       the distributed processing of large data sets across clusters of computers using
       simple programming models.
-    digest: 6ffa162c947e5f705a7524ff7ca70dfc5ee4269c70ae7ad74fee236b2706bbf1
+    digest: 9ffc4517c528b8f40e63d13917aa82fb0e862af62fd736b0781b04983710ec74
     home: https://hadoop.apache.org/
     icon: http://hadoop.apache.org/images/hadoop-logo.jpg
     maintainers:
@@ -134,187 +44,25 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.10/hdfs-0.1.10.tgz
     version: 0.1.10
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-05-14T10:30:50.7470982Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: a791d6741f901bd77a4b5a11cdabb1d8b1fca7460d5b0668817651aef82fe73a
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.9/hdfs-0.1.9.tgz
-    version: 0.1.9
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-04-15T08:48:30.401722955Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: f8d4a59c712b6ac4bbb7b80317ad052715a9314317e8d9970308ba87e3d82d75
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.8/hdfs-0.1.8.tgz
-    version: 0.1.8
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-04-14T15:18:42.327739732Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: ffc1bb7fe8fc590f16020a14df86c9c9b2a4868def986c973e9fad8cc76a721d
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.7/hdfs-0.1.7.tgz
-    version: 0.1.7
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-04-08T05:41:19.519881659Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: 463904acdb5ab0354dd6a349c20aefc3de232ac1a5a23ab9f2db9a2408494228
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.6/hdfs-0.1.6.tgz
-    version: 0.1.6
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-03-20T13:49:09.792241417Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: 8ced737d53cf7a2f5e3ba91445bdf0c8b8188f82da7d17031b976c23e6bec608
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.4/hdfs-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-03-18T07:42:31.997611583Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: 2a822a0bb4bb341682bd556180896bd4e3078850e2f5e9f71ec8db3359334b2c
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.3/hdfs-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-03-04T09:40:41.830291214Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: 1d0ab82629e5223407f2ab07a236d95c047395fb170d317b5d316ff43e1ef614
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.2/hdfs-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-03-04T07:45:10.706381024Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: dbc69539cd9a22cd881e012c07eb34fa937f43a85916655d3f6ed8202fc72153
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.1/hdfs-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: 2.7.7
-    created: "2020-03-03T12:38:26.302152785Z"
-    description: The Apache Hadoop software library is a framework that allows for
-      the distributed processing of large data sets across clusters of computers using
-      simple programming models.
-    digest: d416029ac95def63ccbb803f942bcdc16aec5744bd5b310041a3f9d24a555fc1
-    home: https://hadoop.apache.org/
-    icon: http://hadoop.apache.org/images/hadoop-logo.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hdfs
-    sources:
-    - https://github.com/apache/hadoop
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hdfs-0.1.0/hdfs-0.1.0.tgz
-    version: 0.1.0
   hive:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 2.3.6
-    created: "2021-01-11T16:13:25.224974609Z"
+    created: "2021-09-06T13:55:22.84193429+02:00"
     dependencies:
     - alias: metastore
       condition: metastore.enabled
       name: hive-metastore
-      repository: https://gradiant.github.io/charts
+      repository: file://../hive-metastore
       version: ~0.1.3
     - condition: hdfs.enabled
       name: hdfs
-      repository: https://gradiant.github.io/charts
+      repository: file://../hdfs
       version: ~0.1.10
     description: The Apache Hive ™ data warehouse software facilitates reading, writing,
       and managing large datasets residing in distributed storage using SQL. Structure
       can be projected onto data already in storage. A command line tool and JDBC
       driver are provided to connect users to Hive.
-    digest: febe8ecca92c149033e7a03c7d5490ccf937eacf0ab1a99824e43f91b1dfff0c
+    digest: 359ba840d40a7b7ed386ea4d3fa5af1dedf5fd594a48de52e7c6bc639a944d65
     home: https://hive.apache.org/
     icon: https://hive.apache.org/images/hive_logo_medium.jpg
     maintainers:
@@ -328,136 +76,10 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hive-0.1.6/hive-0.1.6.tgz
     version: 0.1.6
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-11-16T15:33:07.970443281Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: f67cfeebdcf7f07fdff1184a429c4d584928617bb3951b73df80bd502aa4bf34
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-0.1.5/hive-0.1.5.tgz
-    version: 0.1.5
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-08-31T06:42:51.451195476Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: ad7b162e2272b6820012a356f4056e0fa138872c52812502c335b3c53b7eef3a
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-0.1.4/hive-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-05-14T10:30:50.851980198Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: 78345357ae080427787bb4b36c1b3a734ea8f9a77e5ad6aa74db16045941b083
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-0.1.3/hive-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-05-12T07:57:59.210543661Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: e411818c0c02a44df8abf110c94ef18b1f5ccd3da7c23137dc1a0c8782c16f1e
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-0.1.2/hive-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-05-11T08:22:08.310380818Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: da57f2a3286cdca9b791faa8c17bbcf47e0d10ac008ca4f7d6f4f15b77127c49
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-0.1.1/hive-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-03-09T17:10:52.00400826Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: f7c0fc4f7c3f2491addf06bf49b9437d70be970a91a5586b355ff963347d3309
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-0.1.0/hive-0.1.0.tgz
-    version: 0.1.0
   hive-metastore:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 2.3.6
-    created: "2021-01-11T15:49:55.562398712Z"
+    created: "2021-09-06T13:55:23.053135028+02:00"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -466,7 +88,7 @@ entries:
       and managing large datasets residing in distributed storage using SQL. Structure
       can be projected onto data already in storage. A command line tool and JDBC
       driver are provided to connect users to Hive.
-    digest: 4392dd563b9ed07a402908117bc2dc8c506dab0188e7b8ad5794bb9f81f358e8
+    digest: 5bee2095103c30ad84315ab755099a7dfdd00b839704acb168fc4ba4d6fe560b
     home: https://hive.apache.org/
     icon: https://hive.apache.org/images/hive_logo_medium.jpg
     maintainers:
@@ -480,79 +102,24 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.3/hive-metastore-0.1.3.tgz
     version: 0.1.3
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-08-31T06:42:51.574766216Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: fae15be08197a6ec5a145ab94438dcd3e06e3aaf2c7d30d58da668ef8f8d97b6
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive-metastore
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.2/hive-metastore-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-05-14T10:30:50.939088683Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: 05d1e5375c43ef5c84f30df235baac4f74dd5364c7b220054c9d291d2c868ca1
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive-metastore
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.1/hive-metastore-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: 2.3.6
-    created: "2020-03-09T14:33:13.492344794Z"
-    description: The Apache Hive ™ data warehouse software facilitates reading, writing,
-      and managing large datasets residing in distributed storage using SQL. Structure
-      can be projected onto data already in storage. A command line tool and JDBC
-      driver are provided to connect users to Hive.
-    digest: 36d567f08df713a2d49c0716eb9eb219245cf5569af8f5bfdf6758ec3a0ef893
-    home: https://hive.apache.org/
-    icon: https://hive.apache.org/images/hive_logo_medium.jpg
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: hive-metastore
-    sources:
-    - https://github.com/apache/hive
-    - https://github.com/gradiant/charts
-    - https://github.com/big-data-europe/docker-hive
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/hive-metastore-0.1.0/hive-metastore-0.1.0.tgz
-    version: 0.1.0
   jupyter:
-  - apiVersion: v1
+  - annotations:
+      category: bigdata
+    apiVersion: v2
     appVersion: 6.0.3
-    created: "2020-05-29T10:30:06.661974752Z"
+    created: "2021-09-06T13:55:23.252708801+02:00"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
     description: Helm for jupyter single server with pyspark support
-    digest: f04be833a9690dca72e5c956ee84945e68b6be28facaf741f536a104e8657d34
+    digest: 5690cd0459620d4641d1c45a53fc32776f4454e18c901dce9cbce9fe85fc4aed
     home: https://jupyter.org
     icon: https://jupyter.org/assets/main-logo.svg
     keywords:
-    - jupyter
+    - juypter
     - notebook
     - spark
     maintainers:
@@ -563,140 +130,14 @@ entries:
     - https://github.com/gradiant/charts
     - https://github.com/astrobounce/helm-jupyter
     urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.6/jupyter-0.1.6.tgz
-    version: 0.1.6
-  - apiVersion: v1
-    appVersion: 6.0.3
-    created: "2020-05-18T14:30:43.810394112Z"
-    description: Helm for jupyter single server  with pyspark support
-    digest: 51344e65682aa103e8ad2b6f2fa6fb4bc15e2c52d175d498fae58112f57ef12f
-    home: https://jupyter.org
-    icon: https://jupyter.org/assets/main-logo.svg
-    keywords:
-    - jupyter
-    - notebook
-    - spark
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: jupyter
-    sources:
-    - https://github.com/gradiant/charts
-    - https://github.com/astrobounce/helm-jupyter
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.5/jupyter-0.1.5.tgz
-    version: 0.1.5
-  - apiVersion: v1
-    appVersion: 6.0.3
-    created: "2020-05-14T10:30:51.016481314Z"
-    description: Helm for jupyter single server  with pyspark support
-    digest: d109254bce8b98aa763d50a253e6299880f03317d6deb858785748ba1ee87adc
-    home: https://jupyter.org
-    icon: https://jupyter.org/assets/main-logo.svg
-    keywords:
-    - jupyter
-    - notebook
-    - spark
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: jupyter
-    sources:
-    - https://github.com/gradiant/charts
-    - https://github.com/astrobounce/helm-jupyter
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.4/jupyter-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v1
-    appVersion: 6.0.3
-    created: "2020-05-11T07:08:17.302696674Z"
-    description: Helm for jupyter single server  with pyspark support
-    digest: 06f22b6d22244b5263c4062b8041265255ac681f31d7b77bfbea4e0fe6a28ffb
-    home: https://jupyter.org
-    icon: https://jupyter.org/assets/main-logo.svg
-    keywords:
-    - jupyter
-    - notebook
-    - spark
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: jupyter
-    sources:
-    - https://github.com/gradiant/charts
-    - https://github.com/astrobounce/helm-jupyter
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.3/jupyter-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v1
-    appVersion: 6.0.3
-    created: "2020-04-15T10:25:55.038031433Z"
-    description: Helm for jupyter single server  with pyspark support
-    digest: e6c3743d66037c6fd1f15037218af8688775da3c2242145a5b13cb1bcc537e99
-    home: https://jupyter.org
-    icon: https://jupyter.org/assets/main-logo.svg
-    keywords:
-    - jupyter
-    - notebook
-    - spark
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: jupyter
-    sources:
-    - https://github.com/gradiant/charts
-    - https://github.com/astrobounce/helm-jupyter
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.2/jupyter-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v1
-    appVersion: 6.0.3
-    created: "2020-03-30T09:23:07.470083634Z"
-    description: Helm for jupyter single server  with pyspark support
-    digest: 8e0bfaba2f2d5175df0735c3608167026e30f0acf3de618c800973c69f7035ca
-    home: https://jupyter.org
-    icon: https://jupyter.org/assets/main-logo.svg
-    keywords:
-    - jupyter
-    - notebook
-    - spark
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: jupyter
-    sources:
-    - https://github.com/gradiant/charts
-    - https://github.com/astrobounce/helm-jupyter
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.1/jupyter-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: 6.0.1
-    created: "2020-03-24T07:04:31.995326699Z"
-    description: Helm for jupyter single server  with pyspark support
-    digest: 8be2ce7a851234adfee17e1aea8fd1030d536992e2538c0bfe3c94762a8cb9eb
-    home: https://jupyter.org
-    icon: https://jupyter.org/assets/main-logo.svg
-    keywords:
-    - jupyter
-    - notebook
-    - spark
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: jupyter
-    sources:
-    - https://github.com/gradiant/charts
-    - https://github.com/astrobounce/helm-jupyter
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.0/jupyter-0.1.0.tgz
-    version: 0.1.0
+    - https://github.com/Gradiant/charts/releases/download/jupyter-0.1.7/jupyter-0.1.7.tgz
+    version: 0.1.7
   kafka-connect-ui:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 0.9.7
-    created: "2020-03-03T13:35:00.810500729Z"
+    created: "2021-09-06T13:55:23.652686113+02:00"
     description: Helm for Landoop/kafka-connect-ui
-    digest: d21bff08135502aef3ac069a9a5aa82fe8eb468d1a46980abb9219bf26db9713
+    digest: 8e51bbb0d579ae4bc83dcaf09dab6aa622f5ed03b996afce3f11214a654167c1
     home: https://github.com/Landoop/kafka-connect-ui
     keywords:
     - kafka
@@ -713,17 +154,17 @@ entries:
     - https://github.com/Gradiant/charts/releases/download/kafka-connect-ui-0.1.0/kafka-connect-ui-0.1.0.tgz
     version: 0.1.0
   opentsdb:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 2.4.0
-    created: "2021-01-11T16:47:39.46710461Z"
+    created: "2021-09-06T13:55:23.884282372+02:00"
     dependencies:
     - condition: hbase.enabled
       name: hbase
-      repository: https://gradiant.github.io/charts
+      repository: file://../hbase
       version: ~0.1.6
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: 9dff24ab5a5c9b18a8842d5cc0dc97ef78446cfeb4a7564cd1d6f29b57c5d515
+    description: 'Store and serve massive amounts of time series data without losing
+      granularity. '
+    digest: ac5a21fff5dd6cd92e6d5e8c097689a3a7a9fbab57abde574fd207fc44c3dbb4
     home: https://github.com/Gradiant/charts
     icon: http://opentsdb.net/img/logo_header.png
     keywords:
@@ -743,175 +184,13 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.7/opentsdb-0.1.7.tgz
     version: 0.1.7
-  - apiVersion: v1
-    appVersion: 2.4.0
-    created: "2020-05-29T10:30:06.768802143Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: b2490dce235417813579394a6c1b31ecc9b2f8cc7f47922c1e21f07b81834c6c
-    home: https://github.com/Gradiant/charts
-    icon: http://opentsdb.net/img/logo_header.png
-    keywords:
-    - hadoop
-    - hbase
-    - hdfs
-    - opentsdb
-    - zookeeper
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    sources:
-    - http://opentsdb.net/
-    - https://github.com/Gradiant/charts
-    - https://github.com/Gradiant/dockerized-opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.6/opentsdb-0.1.6.tgz
-    version: 0.1.6
-  - apiVersion: v1
-    appVersion: 2.4.0
-    created: "2020-05-18T14:27:46.557979033Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: 51b8f364c6920e8117e8c5eed067c922b8190c24f7377458de117e5dcdf586ab
-    home: https://github.com/Gradiant/charts
-    icon: http://opentsdb.net/img/logo_header.png
-    keywords:
-    - hadoop
-    - hbase
-    - hdfs
-    - opentsdb
-    - zookeeper
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    sources:
-    - http://opentsdb.net/
-    - https://github.com/Gradiant/charts
-    - https://github.com/Gradiant/dockerized-opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.5/opentsdb-0.1.5.tgz
-    version: 0.1.5
-  - apiVersion: v1
-    appVersion: 2.4.0
-    created: "2020-05-14T10:30:51.102103666Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: cc2095124b0ced52032fe212fcc71faeac49b14e2eae50f78d801153134b372b
-    home: https://github.com/Gradiant/charts
-    icon: http://opentsdb.net/img/logo_header.png
-    keywords:
-    - hadoop
-    - hbase
-    - hdfs
-    - opentsdb
-    - zookeeper
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    sources:
-    - http://opentsdb.net/
-    - https://github.com/Gradiant/charts
-    - https://github.com/Gradiant/dockerized-opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.4/opentsdb-0.1.4.tgz
-    version: 0.1.4
-  - apiVersion: v1
-    appVersion: 2.4.0
-    created: "2020-04-17T07:28:32.106924239Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: 64a456997427c545889600a8c5c5f2730804ca9149e51dbba083214c83b7bc47
-    home: https://github.com/Gradiant/charts
-    icon: http://opentsdb.net/img/logo_header.png
-    keywords:
-    - hadoop
-    - hbase
-    - hdfs
-    - opentsdb
-    - zookeeper
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    sources:
-    - http://opentsdb.net/
-    - https://github.com/Gradiant/charts
-    - https://github.com/Gradiant/dockerized-opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.3/opentsdb-0.1.3.tgz
-    version: 0.1.3
-  - apiVersion: v1
-    appVersion: 2.3.1
-    created: "2020-04-10T20:16:50.427496767Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: f902e838a3a8c7d61eb1f8fd3717d9da935bed9fd92c6d94441281be8cfd1ca1
-    home: http://opentsdb.net/
-    icon: http://opentsdb.net/img/logo_header.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.2/opentsdb-0.1.2.tgz
-    version: 0.1.2
-  - apiVersion: v1
-    appVersion: 2.3.1
-    created: "2020-03-18T07:42:32.098521434Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: c607340587dca2be945f40796796a0f97f4c8052646d750e06c8898595bcbef1
-    home: http://opentsdb.net/
-    icon: http://opentsdb.net/img/logo_header.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.1/opentsdb-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v1
-    appVersion: 2.3.1
-    created: "2020-03-03T13:34:04.962273999Z"
-    description: |
-      Store and serve massive amounts of time series data without losing granularity.
-    digest: 68cdcc3a1e0b32607a503bae558a9d927ea3fac00e241c6008e634d1ede18613
-    home: http://opentsdb.net/
-    icon: http://opentsdb.net/img/logo_header.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: opentsdb
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/opentsdb-0.1.0/opentsdb-0.1.0.tgz
-    version: 0.1.0
-  prestosql:
-  - apiVersion: v1
-    appVersion: "331"
-    created: "2020-04-14T15:18:42.403161996Z"
-    description: Distributed SQL query engine for running interactive analytic queries
-    digest: 3eaed387177894e42ae7a90e352fd20a60c438715474630c5c014f1b5b2b2a2c
-    home: https://prestosql.io
-    icon: https://prestodb.io/static/presto.png
-    maintainers:
-    - email: cgiraldo@gradiant.org
-      name: cgiraldo
-    name: prestosql
-    sources:
-    - https://github.com/prestosql/presto
-    urls:
-    - https://github.com/Gradiant/charts/releases/download/prestosql-0.1.0/prestosql-0.1.0.tgz
-    version: 0.1.0
   spark-standalone:
-  - apiVersion: v1
+  - apiVersion: v2
     appVersion: 2.4.4
-    created: "2020-03-03T13:34:31.023631361Z"
-    description: |
-      Apache Spark™ is a unified analytics engine for large-scale data processing.
-    digest: 9f11589ff5109dfc69b51f3750770f0a0593b64b6fc031b86ddbd05506925921
+    created: "2021-09-06T13:55:24.086104185+02:00"
+    description: 'Apache Spark™ is a unified analytics engine for large-scale data
+      processing. '
+    digest: 61dcf0652a693ff54be228aa7d89a8c2d848e1c1d803ad43c8802dc41d4a8cb1
     home: https://spark.apache.org/
     icon: https://spark.apache.org/images/spark-logo-trademark.png
     maintainers:
@@ -921,4 +200,4 @@ entries:
     urls:
     - https://github.com/Gradiant/charts/releases/download/spark-standalone-0.1.0/spark-standalone-0.1.0.tgz
     version: 0.1.0
-generated: "2020-03-09T15:09:07.370039567+01:00"
+generated: "2021-09-06T13:55:24.086112998+02:00"
