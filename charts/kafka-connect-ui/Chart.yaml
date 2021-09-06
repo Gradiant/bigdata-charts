@@ -12,5 +12,5 @@ sources:
 maintainers:
 - name: "cgiraldo"
   email: "cgiraldo@gradiant.org"
-apiVersion: v1
+apiVersion: v2
 appVersion: "0.9.7"
