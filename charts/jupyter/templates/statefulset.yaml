@@ -1,98 +1,127 @@
-apiVersion: apps/v1
+apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
 kind: StatefulSet
 metadata:
-  name: {{ include "jupyter.fullname" . }}
-  labels:
-    app.kubernetes.io/name: {{ include "jupyter.name" . }}
-    {{- include "jupyter.labels" . | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels:
-      app.kubernetes.io/name: {{ include "jupyter.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
-  serviceName: {{ include "jupyter.fullname" . }} 
-  replicas: 1
+    matchLabels: {{ include "common.labels.matchLabels" . | nindent 6 }}
+  serviceName: {{ template "common.names.fullname" . }}
+  {{- if .Values.updateStrategy }}
+  updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- end }}
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: {{ include "jupyter.name" . }}
-        {{- include "jupyter.labels" . | nindent 8}}
-    spec:
-      {{- if .Values.gitNotebooks }}
-      initContainers:
-      - name: git-notebooks
-        image: alpine/git
-        command:
-        - /bin/sh
-        - /git-notebooks.sh
-        volumeMounts:
-        - name: git-notebooks
-          mountPath: /git-notebooks.sh
-          subPath: git-notebooks.sh
-        - name: jupyter
-          mountPath: /home/jovyan
-        {{- if .Values.gitNotebooks.secretName }}
-        - name: git-secret
-          mountPath: "/tmp/.ssh"
+      {{- if .Values.podAnnotations }}
+      annotations: {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" $) | nindent 8 }}
+      {{- end }}
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        {{- if .Values.podLabels }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
+    spec:
+      {{- include "jupyter.imagePullSecrets" . | nindent 6 }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" .) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.podSecurityContext.enabled }}
+      securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.gitNotebooks.enabled }}
+      initContainers:
+        - name: git-notebooks
+          image: alpine/git
+          command:
+            - /bin/sh
+            - /git-notebooks.sh
+          volumeMounts:
+            - name: git-notebooks
+              mountPath: /git-notebooks.sh
+              subPath: git-notebooks.sh
+            - name: jupyter
+              mountPath: /home/jovyan
+            {{- if .Values.gitNotebooks.secretName }}
+            - name: git-secret
+              mountPath: "/tmp/.ssh"
+            {{- end }}
       {{- end }}
       containers:
-      - name: jupyter
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
-        env:
-        - name: JUPYTER_ENABLE_LAB
-          value: "{{ .Values.lab }}"
-        args:
-        - start-notebook.sh
-        - --ip=0.0.0.0
-        ports:
-        - name: web
-          containerPort: 8888
-          protocol: TCP
-        resources:
-{{ toYaml .Values.resources | indent 10 }}
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8888
-          initialDelaySeconds: 60
-          timeoutSeconds: 15
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8888
-          initialDelaySeconds: 60
-          timeoutSeconds: 15
-        volumeMounts:
         - name: jupyter
-          mountPath: /home/jovyan
+          image: {{ template "jupyter.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
+          env:
+            - name: JUPYTER_ENABLE_LAB
+              value: "{{ .Values.lab }}"
+          args:
+            - start-notebook.sh
+            - --ip=0.0.0.0
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPorts.http }}
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: http
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+          {{- else if .Values.customLivenessProbe }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.path }}
+              port: http
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+          {{- else if .Values.customReadinessProbe }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
+          {{- end }}
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}         
+          volumeMounts:
+            - name: jupyter
+              mountPath: /home/jovyan
+              subPath: "git-notebooks.sh"
       volumes:
       {{- if .Values.gitNotebooks }}
-      - name: git-notebooks
-        configMap:
-          name: {{ include "jupyter.fullname" . }}-git-notebooks
-      {{- if .Values.gitNotebooks.secretName }}
-      - name: git-secret
-        secret:
-          secretName: {{ .Values.gitNotebooks.secretName }}
-      {{- end }}
-      {{- end }}
-      {{- if not .Values.persistence.enabled }}
-      - name: jupyter
-        emptyDir: {}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
+        - name: git-notebooks
+          configMap:
+            name: {{ template "common.names.fullname" . }}-git
+        {{- if .Values.gitNotebooks.secretName }}
+        - name: git-secret
+          secret:
+            secretName: {{ .Values.gitNotebooks.secretName }}
+        {{- end }}
+        {{- end }}
+        {{- if not .Values.persistence.enabled }}
+        - name: jupyter
+          emptyDir: {}
       {{- end }}
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
@@ -111,5 +140,3 @@ spec:
       {{- end }}
       {{- end }}
   {{- end }}
-
-

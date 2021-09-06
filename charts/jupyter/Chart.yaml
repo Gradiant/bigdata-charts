@@ -1,17 +1,27 @@
-name: "jupyter"
-version: "0.1.6"
-description: "Helm for jupyter single server with pyspark support"
-keywords:
-  - jupyter
-  - notebook
-  - spark
+annotations:
+  category: bigdata
+apiVersion: v2
+appVersion: 6.0.3
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+description: Helm for jupyter single server with pyspark support
+engine: gotpl
 home: "https://jupyter.org"
 icon: https://jupyter.org/assets/main-logo.svg
-sources:
-  - "https://github.com/gradiant/charts"
-  - "https://github.com/astrobounce/helm-jupyter"
+keywords:
+  - juypter
+  - notebook
+  - spark
 maintainers:
-- name: "cgiraldo"
-  email: "cgiraldo@gradiant.org"
-apiVersion: v1
-appVersion: "6.0.3"
+  - email: cgiraldo@gradiant.org
+    name: cgiraldo
+name: jupyter
+sources:
+  - https://github.com/gradiant/charts
+  - "https://github.com/astrobounce/helm-jupyter"
+version: 0.1.7
+
