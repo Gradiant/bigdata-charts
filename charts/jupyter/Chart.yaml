@@ -23,5 +23,5 @@ name: jupyter
 sources:
   - https://github.com/gradiant/charts
   - "https://github.com/astrobounce/helm-jupyter"
-version: 0.1.7
+version: 0.1.8
 
