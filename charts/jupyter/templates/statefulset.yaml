@@ -107,7 +107,6 @@ spec:
           volumeMounts:
             - name: jupyter
               mountPath: /home/jovyan
-              subPath: "git-notebooks.sh"
       volumes:
       {{- if .Values.gitNotebooks }}
         - name: git-notebooks
