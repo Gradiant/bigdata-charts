@@ -6,8 +6,8 @@ description: The Apache Hive ™ data warehouse software facilitates reading, wr
 home: https://hive.apache.org/
 icon: https://hive.apache.org/images/hive_logo_medium.jpg
 maintainers:
-- email: cgiraldo@gradiant.org
-  name: cgiraldo
+- email: itzhang89@163.com
+  name: itzhang89
 name: hive-metastore
 sources:
 - https://github.com/apache/hive
@@ -16,5 +16,5 @@ sources:
 version: 0.1.3
 dependencies:
 - name: postgresql
-  version: ~10.2.1
+  version: ~11.6.0
   repository: https://charts.bitnami.com/bitnami

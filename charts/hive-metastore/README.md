@@ -10,7 +10,7 @@ The Apache Hive ™ data warehouse software facilitates reading, writing, and ma
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| cgiraldo | cgiraldo@gradiant.org |  |
+| itzhang89 | itzhang89@163.com |  |
 
 ## Source Code
 
