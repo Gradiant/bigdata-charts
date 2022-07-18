@@ -8,8 +8,7 @@
 CONFIG_DIR="/tmp/hadoop-config"
 
 # Copy config files from volume mount
-
-for f in slaves core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml; do
+for f in slaves core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml httpfs-site.xml; do
     if [[ -e ${CONFIG_DIR}/$f ]]; then
     cp ${CONFIG_DIR}/$f $HADOOP_HOME/etc/hadoop/$f
     else
@@ -32,7 +31,7 @@ if [[ $2 == "datanode" ]]; then
     mkdir -p /dfs/data
     fi
     #  wait up to 30 seconds for namenode
-    (while [[ $count -lt 15 && -z `curl -sf http://{{ include "hdfs.fullname" . }}-namenode:50070` ]]; do ((count=count+1)) ; echo "Waiting for {{ include "hdfs.fullname" . }}-namenode" ; sleep 2; done && [[ $count -lt 15 ]])
+    (while [[ $count -lt 15 && -z $(curl -sf http://{{ include "hdfs.fullname" . }}-namenode:9870) && -z $(curl -sf http://{{ include "hdfs.fullname" . }}-namenode:50070) ]]; do ((count=count+1)) ; echo "Waiting for {{ include "hdfs.fullname" . }}-namenode" ; sleep 2; done && [[ $count -lt 15 ]])
     [[ $? -ne 0 ]] && echo "Timeout waiting for hdfs namenode, exiting." && exit 1
 
     $HADOOP_HOME/sbin/hadoop-daemon.sh start datanode

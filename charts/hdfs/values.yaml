@@ -2,7 +2,7 @@
 # See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
 image:
   repository: gradiant/hdfs
-  tag: 2.7.7
+  tag: 3.2.2
   pullPolicy: IfNotPresent
 
 # Select antiAffinity as either hard or soft, default is 'soft'
@@ -23,7 +23,9 @@ httpfs:
 
 nameNode:
   pdbMinAvailable: 1
-  port: 8020
+  port: 9820
+  httpPort: 9870
+  httpsPort: 9871
   resources:
     requests:
       memory: "256Mi"
@@ -35,6 +37,9 @@ nameNode:
 dataNode:
   replicas: 3  # ensure this value is higher or equal to 'conf.hdfsSite.dfs.replication'
   pdbMinAvailable: 3  # ensure to set this value before deploying
+  port: 9867
+  httpPort: 9864
+  httpsPort: 9865
   resources:
     requests:
       memory: "256Mi"
@@ -46,27 +51,30 @@ dataNode:
 ingress:
   nameNode:
     enabled: false
-    annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    annotations: {
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    }
     labels: {}
     path: /
     hosts:
     - "hdfs-namenode.local"
   dataNode:
     enabled: false
-    annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    annotations: {
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    }
     labels: {}
     path: /
     hosts:
     - "hdfs-datanode.local"
   httpfs:
     enabled: false
-    annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    annotations: {
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    }
     labels: {}
     path: /
     hosts:

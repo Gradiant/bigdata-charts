@@ -13,7 +13,9 @@ spec:
     port: {{ .Values.nameNode.port }}
     protocol: TCP
   - name: webhdfs
-    port: 50070
+    port: {{ .Values.nameNode.httpPort }}
+  - name: webshdfs
+    port: {{ .Values.nameNode.httpsPort }}
   clusterIP: None
   publishNotReadyAddresses: true
   selector:

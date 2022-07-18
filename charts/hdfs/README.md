@@ -1,6 +1,6 @@
 # hdfs
 
-![Version: 0.1.10](https://img.shields.io/badge/Version-0.1.10-informational?style=flat-square) ![AppVersion: 2.7.7](https://img.shields.io/badge/AppVersion-2.7.7-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![AppVersion: 3.2.2](https://img.shields.io/badge/AppVersion-3.2.2-informational?style=flat-square)
 
 The Apache Hadoop software library is a framework that allows for the distributed processing of large data sets across clusters of computers using simple programming models.
 
@@ -23,7 +23,10 @@ The Apache Hadoop software library is a framework that allows for the distribute
 | antiAffinity | string | `"soft"` |  |
 | conf.coreSite | string | `nil` |  |
 | conf.hdfsSite."dfs.replication" | int | `3` |  |
+| dataNode.httpPort | int | `9864` |  |
+| dataNode.httpsPort | int | `9865` |  |
 | dataNode.pdbMinAvailable | int | `3` |  |
+| dataNode.port | int | `9867` |  |
 | dataNode.replicas | int | `3` |  |
 | dataNode.resources.limits.cpu | string | `"1000m"` |  |
 | dataNode.resources.limits.memory | string | `"2048Mi"` |  |
@@ -33,7 +36,7 @@ The Apache Hadoop software library is a framework that allows for the distribute
 | httpfs.port | int | `14000` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"gradiant/hdfs"` |  |
-| image.tag | string | `"2.7.7"` |  |
+| image.tag | string | `"3.2.2"` |  |
 | ingress.dataNode.annotations | object | `{}` |  |
 | ingress.dataNode.enabled | bool | `false` |  |
 | ingress.dataNode.hosts[0] | string | `"hdfs-datanode.local"` |  |
@@ -49,8 +52,10 @@ The Apache Hadoop software library is a framework that allows for the distribute
 | ingress.nameNode.hosts[0] | string | `"hdfs-namenode.local"` |  |
 | ingress.nameNode.labels | object | `{}` |  |
 | ingress.nameNode.path | string | `"/"` |  |
+| nameNode.httpPort | int | `9870` |  |
+| nameNode.httpsPort | int | `9871` |  |
 | nameNode.pdbMinAvailable | int | `1` |  |
-| nameNode.port | int | `8020` |  |
+| nameNode.port | int | `9820` |  |
 | nameNode.resources.limits.cpu | string | `"1000m"` |  |
 | nameNode.resources.limits.memory | string | `"2048Mi"` |  |
 | nameNode.resources.requests.cpu | string | `"10m"` |  |

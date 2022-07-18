@@ -10,7 +10,9 @@ metadata:
 spec:
   ports:
   - name: webhdfs
-    port: 50075
+    port: {{ .Values.dataNode.httpPort }}
+  - name: webshdfs
+    port: {{ .Values.dataNode.httpsPort }}
   clusterIP: None
   publishNotReadyAddresses: true
   selector:

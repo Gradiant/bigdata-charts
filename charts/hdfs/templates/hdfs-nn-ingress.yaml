@@ -1,6 +1,7 @@
 {{- if .Values.ingress.nameNode.enabled -}}
 {{- $fullname := include "hdfs.fullname" . -}}
 {{- $ingressPath := .Values.ingress.nameNode.path -}}
+{{- $httpPort := .Values.nameNode.httpPort -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -25,6 +26,6 @@ spec:
           - path: {{ $ingressPath }}
             backend:
               serviceName: {{ $fullname }}-namenode
-              servicePort: 50070
+              servicePort: {{ $httpPort }}
   {{- end }}
 {{- end }}

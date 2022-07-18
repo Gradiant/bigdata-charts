@@ -39,7 +39,7 @@ spec:
         #livenessProbe:
         #  httpGet:
         #    path: /
-        #    port: 50070
+        #    port: {{ .Values.nameNode.httpPort }}
         #  initialDelaySeconds: 10
         #  timeoutSeconds: 2
         volumeMounts:

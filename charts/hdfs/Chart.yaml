@@ -1,5 +1,5 @@
 apiVersion: v2
-appVersion: 2.7.7
+appVersion: 3.2.2
 description: The Apache Hadoop software library is a framework that allows for the
   distributed processing of large data sets across clusters of computers using simple
   programming models.
@@ -11,4 +11,4 @@ maintainers:
 name: hdfs
 sources:
 - https://github.com/apache/hadoop
-version: 0.1.10
+version: 1.0.1

@@ -12,7 +12,9 @@ spec:
     port: {{ .Values.nameNode.port }}
     protocol: TCP
   - name: webhdfs
-    port: 50070
+    port: {{ .Values.nameNode.httpPort }}
+  - name: webshdfs
+    port: {{ .Values.nameNode.httpsPort }}
   selector:
     app.kubernetes.io/name: {{ include "hdfs.name" . }}
     app.kubernetes.io/component: namenode
