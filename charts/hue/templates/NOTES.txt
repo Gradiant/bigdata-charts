@@ -1,0 +1,35 @@
+Congratulations, you've launched the Hue SQL Editor for Data Warehouses!
+
+To check the status of your installation run:
+
+  helm list --filter {{ .Release.Name }}
+
+
+Get the recommended URL below and start executing queries:
+
+{{ if ne .Values.ingress.type "nginx-ssl" }}
+  export WEB_HOST=$(kubectl get node -o jsonpath="{.items[0].metadata.name}")
+{{- end -}}
+
+{{ if and .Values.ingress.create (eq .Values.ingress.type "nginx") }}
+
+  echo http://$WEB_HOST
+
+{{ else if and .Values.ingress.create (eq .Values.ingress.type "nginx-ssl") }}
+
+  https://{{ .Values.ingress.domain }}
+
+{{ else if .Values.balancer.enabled }}
+
+  export WEB_PORT=$(kubectl get service hue-balancer -o jsonpath="{.spec.ports[*].nodePort}" --namespace {{ .Release.Namespace }})
+
+  echo http://$WEB_HOST:$WEB_PORT
+
+{{ else }}
+
+  export WEB_PORT=$(kubectl get service hue -o jsonpath="{.spec.ports[*].nodePort}" --namespace {{ .Release.Namespace }})
+
+  echo http://$WEB_HOST:$WEB_PORT
+
+{{ end }}
+Happy Querying!

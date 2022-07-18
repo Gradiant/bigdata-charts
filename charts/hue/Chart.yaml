@@ -1,0 +1,19 @@
+apiVersion: v1
+appVersion: "1"
+description: Hue is an SQL Cloud Editor for Data Warehouses and Databases.
+home: http://gethue.com/
+icon: https://raw.githubusercontent.com/cloudera/hue/master/docs/images/hue_logo.png
+keywords:
+- Hue
+- SQL
+- Editor
+- Catalog
+- Visualization
+maintainers:
+- email: romain.rigaux@gmail.com
+  name: romainr
+name: hue
+sources:
+- https://github.com/cloudera/hue
+- https://hub.docker.com/u/gethue
+version: 1.0.3

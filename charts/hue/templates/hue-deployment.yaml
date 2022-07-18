@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hue.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "hue.name" . }}
+    app.kubernetes.io/component: hue
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+{{ if .Values.monitoring.enabled }}
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+{{ end }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "hue.name" . }}
+      app.kubernetes.io/component: hue
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  replicas: {{ .Values.hue.replicas }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "hue.name" . }}
+        app.kubernetes.io/component: hue
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+{{- with .Values.podLabels }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/hue-configmap.yaml") . | sha256sum }}
+        checksum/config-extra: {{ include (print $.Template.BasePath "/hue-extra-configmap.yaml") . | sha256sum }}
+        checksum/config-hive: {{ include (print $.Template.BasePath "/hue-hive-configmap.yaml") . | sha256sum }}
+{{- with .Values.podAnnotations }}
+{{ toYaml . | indent 8 }}
+{{- end }}
+    spec:
+{{ if eq .Values.hue.database.engine "postgresql_psycopg2" }}
+      initContainers:
+        - name: hue-init
+          image: {{ .Values.image.registry }}/hue:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - /bin/sh
+            - -c
+            - >
+              set -x;
+              while [ $(curl -s --connect-timeout 1 {{ .Values.hue.database.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}:{{ .Values.hue.database.port }} || echo $?) -ne 52 ]; do
+                sleep 1;
+              done
+{{ end }}
+      containers:
+      - name: hue
+        image: {{ .Values.image.registry }}/hue:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: 8888
+        resources:
+          requests:
+            # memory: "350Mi"
+            cpu: "50m"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /usr/share/hue/desktop/conf/z-hue.ini
+          subPath: hue-ini
+        - name: config-volume-extra
+          mountPath: /usr/share/hue/desktop/conf/zz-hue.ini
+          subPath: hue-ini
+        - name: hive-config-volume
+          mountPath: /etc/hive/conf/hive-site.xml
+          subPath: hive-site
+        readinessProbe:
+          httpGet:
+            path: /desktop/debug/is_alive
+            port: 8888
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 30
+{{ if .Values.balancer.enabled }}
+      - name: nginx
+        image: {{ .Values.image.registry }}/nginx:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: 80
+        resources:
+          requests:
+            # memory: "64Mi"
+            cpu: "20m"
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/sites-available/hue
+          subPath: hue
+{{ end }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "hue.fullname" . }}-config
+        - name: config-volume-extra
+          configMap:
+            name: {{ include "hue.fullname" . }}-config-extra
+        - name: hive-config-volume
+          configMap:
+            name: {{ include "hue.fullname" . }}-hive-config
+{{ if .Values.balancer.enabled }}
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+{{ end }}

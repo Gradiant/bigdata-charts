@@ -1,0 +1,88 @@
+image:
+  registry: "gethue"
+  tag: "4.10.0"
+  pullPolicy: "Always"
+hue:
+  replicas: 1
+  database:
+    create: true
+    persist: true
+    engine: "postgresql_psycopg2"
+    host: ~
+    port: 5432
+    user: "hue"
+    password: "hue"
+    name: "hue"
+    storageName: "microk8s-hostpath"
+  interpreters: |-
+    [[[postgresql]]]
+    name = postgresql
+    interface=sqlalchemy
+    options='{"url": "postgresql://hue:hue@my-hue-postgres:5432/hue"}'
+  ini: |
+    [desktop]
+    secret_key=hue123
+    app_blacklist=filebrowser,search,hbase,security,jobbrowser,oozie
+    django_debug_mode=false
+    gunicorn_work_class=sync
+    enable_prometheus=true
+
+    [[task_server]]
+    enabled=false
+    broker_url=redis://redis:6379/0
+    result_cache='{"BACKEND": "django_redis.cache.RedisCache", "LOCATION": "redis://redis:6379/0", "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},"KEY_PREFIX": "queries"}'
+    celery_result_backend=redis://redis:6379/0
+balancer:
+  enabled: false
+api:
+  enabled: false
+  domain: api.gethue.com
+workers:
+  enabled: false
+  replicas: 1
+scheduler:
+  enabled: false
+websocket:
+  enabled: false
+  replicas: 1
+monitoring:
+  enabled: false
+alerting:
+  enabled: false
+tracing:
+  enabled: false
+cron:
+  enabled: false
+  emailStats: "0 13 * * WED,SUN"
+ingress:
+  create: false
+  hasAuth: false
+  type: "nginx"
+  # type: "nginx-ssl"
+  # type: "nginx-ssl-staging"
+  # type: "traefik"
+  domain: "demo.gethue.com"
+  # extraHosts:
+  # - "demo.hue.com"
+  # annotations: {}
+  email: "team@gethue.com"
+  loadBalancerIp: "127.0.0.1"
+aws:
+  accessKeyId: ""
+  secretAccessKey: ""
+  awsRegion: "us-east-1"
+hive:
+  site: |
+    <!--
+    <property>
+      <name>hive.support.concurrency</name>
+      <value>false</value>
+      <description>Whether hive supports concurrency or not. A zookeeper instance must be up and running for the default hive lock manager to support read-write locks.</description>
+    </property>
+    -->
+
+## Pod Annotations
+# podAnnotations: {}
+
+## Pod Labels
+# podLabels: {}
