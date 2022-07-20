@@ -14,11 +14,11 @@ hue:
     password: "hue"
     name: "hue"
     storageName: "microk8s-hostpath"
-  interpreters: |-
-    [[[postgresql]]]
-    name = postgresql
-    interface=sqlalchemy
-    options='{"url": "postgresql://hue:hue@my-hue-postgres:5432/hue"}'
+#  interpreters: |-
+#    [[[postgresql]]]
+#    name = postgresql
+#    interface=sqlalchemy
+#    options='{"url": "postgresql://hue:hue@my-hue-postgres:5432/hue"}'
   ini: |
     [desktop]
     secret_key=hue123
@@ -32,28 +32,6 @@ hue:
     broker_url=redis://redis:6379/0
     result_cache='{"BACKEND": "django_redis.cache.RedisCache", "LOCATION": "redis://redis:6379/0", "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},"KEY_PREFIX": "queries"}'
     celery_result_backend=redis://redis:6379/0
-balancer:
-  enabled: false
-api:
-  enabled: false
-  domain: api.gethue.com
-workers:
-  enabled: false
-  replicas: 1
-scheduler:
-  enabled: false
-websocket:
-  enabled: false
-  replicas: 1
-monitoring:
-  enabled: false
-alerting:
-  enabled: false
-tracing:
-  enabled: false
-cron:
-  enabled: false
-  emailStats: "0 13 * * WED,SUN"
 ingress:
   create: false
   hasAuth: false

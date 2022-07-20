@@ -1,5 +1,5 @@
 apiVersion: v1
-appVersion: "1"
+appVersion: "4.10.0"
 description: Hue is an SQL Cloud Editor for Data Warehouses and Databases.
 home: http://gethue.com/
 icon: https://raw.githubusercontent.com/cloudera/hue/master/docs/images/hue_logo.png

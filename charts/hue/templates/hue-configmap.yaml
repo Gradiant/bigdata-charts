@@ -27,4 +27,10 @@ data:
 
     [notebook]
     [[interpreters]]
+    [[[postgresql]]]
+    name = postgresql
+    interface=sqlalchemy
+    options='{"url": "postgresql://{{ .Values.hue.database.user }}:{{ .Values.hue.database.password }}@{{ .Values.hue.database.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}:{{ .Values.hue.database.port }}/{{ .Values.hue.database.name }}"}'
+    {{- if .Values.hue.interpreters }}
     {{ .Values.hue.interpreters | indent 4 }}
+    {{- end }}

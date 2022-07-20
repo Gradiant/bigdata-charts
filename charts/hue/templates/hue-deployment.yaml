@@ -6,10 +6,6 @@ metadata:
     app.kubernetes.io/name: {{ include "hue.name" . }}
     app.kubernetes.io/component: hue
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
-{{ if .Values.monitoring.enabled }}
-  annotations:
-    "sidecar.jaegertracing.io/inject": "true"
-{{ end }}
 spec:
   selector:
     matchLabels:
@@ -75,21 +71,6 @@ spec:
           initialDelaySeconds: 3
           periodSeconds: 3
           failureThreshold: 30
-{{ if .Values.balancer.enabled }}
-      - name: nginx
-        image: {{ .Values.image.registry }}/nginx:{{ .Values.image.tag }}
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-          - containerPort: 80
-        resources:
-          requests:
-            # memory: "64Mi"
-            cpu: "20m"
-        volumeMounts:
-        - name: nginx-config
-          mountPath: /etc/nginx/sites-available/hue
-          subPath: hue
-{{ end }}
       volumes:
         - name: config-volume
           configMap:
@@ -100,8 +81,3 @@ spec:
         - name: hive-config-volume
           configMap:
             name: {{ include "hue.fullname" . }}-hive-config
-{{ if .Values.balancer.enabled }}
-        - name: nginx-config
-          configMap:
-            name: nginx-config
-{{ end }}
