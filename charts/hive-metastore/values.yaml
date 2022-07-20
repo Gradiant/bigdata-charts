@@ -1,10 +1,11 @@
 # The base hadoop image to use for all components.
 # See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
-
-postgresql:
-  postgresqlUsername: hive
-  postgresqlPassword: hive
-  postgresqlDatabase: metastore
+global:
+  auth:
+    postgresPassword: "Root@2022"
+    database: "metastore"
+    username: "hive"
+    password: "hive"
 
   initdbScriptsConfigMap: hive-metastore-postgresql-init
 image:
@@ -12,9 +13,11 @@ image:
   tag: 2.3.2-postgresql-metastore
   pullPolicy: IfNotPresent
 
-resources: {}
+resources: { }
 conf:
   hiveSite:
-    hive_metastore_uris: thrift://hive-metastore:9083
+    hive.metastore.uris: thrift://my-hive-metastore.bigdata.svc.cluster.local:9083
+    hive.metastore.warehouse.dir: hdfs://my-hdfs.bigdata.svc.cluster.local:9820/user/hive/warehouse
+    hive.metastore.schema.verification: false
     # if not set, default hive.metastore.warehouse.dir is default to: "hdfs://{{.Release.Name}}-hdfs:8020/user/hive/warehouse"
     # hive.metastore.warehouse.dir:

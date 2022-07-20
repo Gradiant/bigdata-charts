@@ -20,14 +20,16 @@ postgresql:
 #####################################################
 # Also deploy hdfs requirement
 hdfs:
-  enabled: true
+  enabled: false
 
 conf:
   logLevel: INFO
   hiveSite:
     # if not set, default hive.metastore.uris is default uri from metastore requirement:
     # "thrift://{{.Release.Name}}-metastore:9083"
-    hive.metastore.uris:
+    hive.metastore.uris: thrift://my-hive-metastore.bigdata.svc.cluster.local:9083
+    hive.metastore.warehouse.dir: hdfs://my-hdfs.bigdata.svc.cluster.local:9820/user/hive/warehouse
+    hive.metastore.schema.verification: false
   hdfsAdminUser: hdfs
   # if not set, default is configMap from hdfs requirement {{.Release.Name}}-hdfs-hadoop
   hadoopConfigMap:
