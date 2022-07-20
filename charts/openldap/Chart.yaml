@@ -1,0 +1,24 @@
+apiVersion: v2
+appVersion: 2.4.47
+dependencies:
+- condition: ltb-passwd.enabled
+  name: ltb-passwd
+  repository: ""
+  version: 0.1.x
+- condition: phpldapadmin.enabled
+  name: phpldapadmin
+  repository: ""
+  version: 0.1.x
+description: Community developed LDAP software
+home: https://www.openldap.org
+icon: http://www.openldap.org/images/headers/LDAPworm.gif
+keywords:
+- ldap
+- openldap
+maintainers:
+- email: jp-gouin@hotmail.fr
+  name: Jean-Philippe Gouin
+name: openldap
+sources:
+- https://github.com/kubernetes/charts
+version: 2.0.4

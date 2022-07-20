@@ -1,0 +1,13 @@
+apiVersion: v1
+appVersion: 0.7.1
+description: Web-based LDAP browser to manage your LDAP server
+home: http://phpldapadmin.sourceforge.net
+icon: http://phpldapadmin.sourceforge.net/wiki/images/d/d4/Logo.jpg
+keywords:
+- phpldapadmin
+- openldap
+- userrights
+maintainers:
+- name: Jean-Philippe Gouin
+name: phpldapadmin
+version: 0.1.2
