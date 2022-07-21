@@ -47,4 +47,4 @@ jobs:
         with:
           context: ./images/hive
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hive:2.3.2-postgresql-metastore
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hive:3.1.3-postgresql-metastore
