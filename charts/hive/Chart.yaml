@@ -1,15 +1,15 @@
 apiVersion: v2
 appVersion: 3.1.3
 dependencies:
-- alias: metastore
-  condition: metastore.enabled
-  name: hive-metastore
-  repository: file://../hive-metastore
-  version: ~0.1.3
-- condition: hdfs.enabled
-  name: hdfs
-  repository: file://../hdfs
-  version: ~1.0.0
+  - alias: metastore
+    condition: metastore.enabled
+    name: hive-metastore
+    repository: https://yutianaiqingtian.github.io/bigdata-charts
+    version: ~0.1.4
+  - condition: hdfs.enabled
+    name: hdfs
+    repository: https://yutianaiqingtian.github.io/bigdata-charts
+    version: ~1.0.0
 description: The Apache Hive ™ data warehouse software facilitates reading, writing,
   and managing large datasets residing in distributed storage using SQL. Structure
   can be projected onto data already in storage. A command line tool and JDBC driver
@@ -17,11 +17,11 @@ description: The Apache Hive ™ data warehouse software facilitates reading, wr
 home: https://hive.apache.org/
 icon: https://hive.apache.org/images/hive_logo_medium.jpg
 maintainers:
-- email: itzhang89@163.com
-  name: itzhang89
+  - email: itzhang89@163.com
+    name: itzhang89
 name: hive
 sources:
-- https://github.com/apache/hive
-- https://github.com/gradiant/charts
-- https://github.com/big-data-europe/docker-hive
-version: 0.1.6
+  - https://github.com/apache/hive
+  - https://github.com/big-data-europe/docker-hive
+  - https://github.com/yutianaiqingtian/bigdata-charts
+version: 0.1.7
