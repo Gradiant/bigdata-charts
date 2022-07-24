@@ -11,9 +11,9 @@ maintainers:
 name: hive-metastore
 sources:
   - https://github.com/apache/hive
-  - https://github.com/gradiant/charts
   - https://github.com/big-data-europe/docker-hive
-version: 0.1.3
+  - https://github.com/yutianaiqingtian/bigdata-charts
+version: 0.1.4
 dependencies:
   - name: postgresql
     version: ~11.6.0
