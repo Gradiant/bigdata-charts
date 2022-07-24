@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y wget procps && \
 	rm -rf /var/lib/apt/lists/*
 
 # replace the low version guava jar on hive
-RUN rm -rf $HIVE_HOME/lib/guava-19.0.jar && cp $HADOOP_HOME/share/hadoop/common/lib/guava-27.0-jre.jar $HIVE_HOME/lib/
+RUN rm -rf $HIVE_HOME/lib/guava-19.0.jar && cp $HADOOP_HOME/share/hadoop/common/lib/guava-27.0-jre.jar $HIVE_HOME/lib/ && rm -rf $HIVE_HOME/lib/postgresql-9.4.1208.jre7.jar
 
 #Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
@@ -41,6 +41,9 @@ ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 
 COPY startup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
+
+COPY startup-metastore.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/startup-metastore.sh
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
