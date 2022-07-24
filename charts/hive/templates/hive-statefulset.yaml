@@ -48,17 +48,13 @@ spec:
         - name: hadoop-config
           mountPath: /opt/hadoop/etc/hadoop
       volumes:
+      - name: hive-config
+        configMap:
+          name: {{ include "hive.fullname" . }}-hive-config
       - name: hadoop-config
         configMap:
-          {{- if .Values.conf.hadoopSite }}
-          name: {{ include "hive.fullname" . }}-hadoop
-          {{- else }}
           {{- if .Values.conf.hadoopConfigMap }}
           name: {{ .Values.conf.hadoopConfigMap }}
           {{- else }}
-          name: {{ .Release.Name }}-hdfs-hadoop
+          name: {{ include "hive.fullname" . }}-hadoop-config
           {{- end }}
-          {{- end }}
-      - name: hive-config
-        configMap:
-          name: {{ include "hive.fullname" . }}

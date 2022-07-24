@@ -12,7 +12,7 @@ data:
     <configuration>
         <property>
             <name>javax.jdo.option.ConnectionURL</name>
-            <value>jdbc:postgresql://{{ .Release.Name }}-postgresql/metastore</value>
+            <value>jdbc:postgresql://{{ .Release.Name }}-postgresql/{{ .Values.postgresql.auth.database }}</value>
         </property>
         <property>
             <name>javax.jdo.option.ConnectionDriverName</name>
@@ -20,28 +20,26 @@ data:
         </property>
         <property>
             <name>javax.jdo.option.ConnectionUserName</name>
-            <value>{{ .Values.postgresql.postgresqlUsername }}</value>
+            <value>{{ .Values.postgresql.auth.username }}</value>
         </property>
         <property>
             <name> javax.jdo.option.ConnectionPassword</name>
-            <value>{{ .Values.postgresql.postgresqlPassword }}</value>
+            <value>{{ .Values.postgresql.auth.password }}</value>
         </property>
         <property>
             <name>datanucleus.autoCreateSchema</name>
             <value>false</value>
         </property>
+        <property>
+            <name>hive.metastore.event.db.notification.api.auth</name>
+            <value>false</value>
+        </property>
         {{- if not (index .Values.conf "hiveSite" "hive.metastore.uris")  }}
         <property>
             <name>hive.metastore.uris</name>
-            <value>thrift://my-hive-metastore.bigdata.svc.cluster.local:9083</value>
+            <value>thrift://{{ .Release.Name }}-postgresql:9083</value>
         </property>
       {{- end }}
-      {{- if not (index .Values.conf "hiveSite" "hive.metastore.warehouse.dir")  }}
-        <property>
-            <name>hive.metastore.warehouse.dir</name>
-            <value>hdfs://my-hdfs.bigdata.svc.cluster.local:9820/user/hive/warehouse</value>
-        </property>
-    {{- end }}
       {{- if index .Values.conf "hiveSite" }}
       {{- range $key, $value := index .Values.conf "hiveSite" }}
         <property>

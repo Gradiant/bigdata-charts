@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "hive.fullname" . }}
+  name: {{ include "hive.fullname" . }}-hive-config
   labels:
     app.kubernetes.io/name: {{ include "hive.name" . }}
     {{- include "hive.labels" . | nindent 4 }}

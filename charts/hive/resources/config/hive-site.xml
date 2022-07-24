@@ -2,15 +2,19 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
-    {{- if not (index .Values.conf "hiveSite" "hive.metastore.uris")  }}
+    {{- if not (index .Values.conf "hiveSite" "hive.metastore.uris") }}
     <property>
-    <name>hive.metastore.uris</name>
-    <value>{{- printf "thrift://%s-metastore" .Release.Name }}:9083</value>
+        <name>hive.metastore.uris</name>
+        <value>{{- printf "thrift://%s-metastore" .Release.Name }}:9083</value>
     </property>
-{{- end }}
-{{- if index .Values.conf "hiveSite" }}
-{{- range $key, $value := index .Values.conf "hiveSite" }}
-<property><name>{{ $key }}</name><value>{{ $value }}</value></property>
-{{- end }}
-{{- end }}
+    {{- end }}
+
+    {{- if index .Values.conf "hiveSite" }}
+    {{- range $key, $value := index .Values.conf "hiveSite" }}
+    <property>
+        <name>{{ $key }}</name>
+        <value>{{ $value }}</value>
+    </property>
+    {{- end }}
+    {{- end }}
 </configuration>
