@@ -2,7 +2,7 @@ FROM debian:9-slim
 
 MAINTAINER itzhang89 <itzhang89@163.com>
 
-ENV HADOOP_VERSION 3.2.3
+ENV HADOOP_VERSION=${HADOOP_VERSION:-3.2.3}
 ENV HADOOP_URL https://www.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 ENV HADOOP_HOME /opt/hadoop
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/

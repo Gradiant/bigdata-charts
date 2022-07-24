@@ -20,7 +20,7 @@ WORKDIR /opt
 RUN apt-get update && apt-get install -y wget procps && \
 	wget https://archive.apache.org/dist/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	tar -xzvf apache-hive-$HIVE_VERSION-bin.tar.gz -C /opt && \
-	mv apache-hive-$HIVE_VERSION-bin hive && \
+	ln -s apache-hive-$HIVE_VERSION-bin hive && \
     curl -kfSL https://jdbc.postgresql.org/download/postgresql-$PG_LIB_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar && \
 	rm apache-hive-$HIVE_VERSION-bin.tar.gz && \
 	apt-get --purge remove -y wget && \
@@ -28,7 +28,9 @@ RUN apt-get update && apt-get install -y wget procps && \
 	rm -rf /var/lib/apt/lists/*
 
 # replace the low version guava jar on hive
-RUN rm -rf $HIVE_HOME/lib/guava-19.0.jar && cp $HADOOP_HOME/share/hadoop/common/lib/guava-27.0-jre.jar $HIVE_HOME/lib/ && rm -rf $HIVE_HOME/lib/postgresql-9.4.1208.jre7.jar
+RUN rm -rf $HIVE_HOME/lib/guava-19.0.jar \
+    && cp $HADOOP_HOME/share/hadoop/common/lib/guava-27.0-jre.jar $HIVE_HOME/lib/ \
+    && rm -rf $HIVE_HOME/lib/postgresql-9.4.1208.jre7.jar
 
 #Custom configuration goes here
 ADD conf/hive-site.xml $HIVE_HOME/conf
