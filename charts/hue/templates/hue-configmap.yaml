@@ -3,20 +3,20 @@ kind: ConfigMap
 metadata:
   name: {{ include "hue.fullname" . }}-config
 data:
-  hue-ini: |
+  z-hue-ini: |
     [desktop]
 
     [[database]]
-    engine={{ .Values.hue.database.engine }}
-    host={{ .Values.hue.database.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}
-    port={{ .Values.hue.database.port }}
-    user={{ .Values.hue.database.user }}
-{{- if .Values.hue.database.password_script }}
-    password_script={{ .Values.hue.database.password_script }}
+    engine=postgresql_psycopg2
+    host={{ .Values.postgresql.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}
+    port={{ .Values.postgresql.port }}
+    user={{ .Values.postgresql.auth.user }}
+{{- if .Values.postgresql.auth.password_script }}
+    password_script={{ .Values.postgresql.auth.password_script }}
 {{- else }}
-    password={{ .Values.hue.database.password }}
+    password={{ .Values.postgresql.auth.password }}
 {{- end }}
-    name={{ .Values.hue.database.name }}
+    name={{ .Values.postgresql.name }}
 
     [aws]
     [[aws_accounts]]
@@ -30,7 +30,7 @@ data:
     [[[postgresql]]]
     name = postgresql
     interface=sqlalchemy
-    options='{"url": "postgresql://{{ .Values.hue.database.user }}:{{ .Values.hue.database.password }}@{{ .Values.hue.database.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}:{{ .Values.hue.database.port }}/{{ .Values.hue.database.name }}"}'
+    options='{"url": "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Values.postgresql.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.auth.database }}"}'
     {{- if .Values.hue.interpreters }}
     {{ .Values.hue.interpreters | indent 4 }}
     {{- end }}

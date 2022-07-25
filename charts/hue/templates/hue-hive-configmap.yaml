@@ -8,7 +8,12 @@ data:
     <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
     <configuration>
-
-    {{ .Values.hive.site | indent 4 | trim }}
-
+        {{- if index .Values.conf "hiveSite" }}
+        {{- range $key, $value := index .Values.conf "hiveSite" }}
+        <property>
+            <name>{{ $key }}</name>
+            <value>{{ $value }}</value>
+        </property>
+        {{- end }}
+        {{- end }}
     </configuration>

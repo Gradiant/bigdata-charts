@@ -30,23 +30,21 @@ spec:
 {{ toYaml . | indent 8 }}
 {{- end }}
     spec:
-{{ if eq .Values.hue.database.engine "postgresql_psycopg2" }}
       initContainers:
         - name: hue-init
-          image: {{ .Values.image.registry }}/hue:{{ .Values.image.tag }}
+          image: {{ .Values.image.registry }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - /bin/sh
             - -c
             - >
               set -x;
-              while [ $(curl -s --connect-timeout 1 {{ .Values.hue.database.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}:{{ .Values.hue.database.port }} || echo $?) -ne 52 ]; do
+              while [ $(curl -s --connect-timeout 1 {{ .Values.postgresql.host | default (printf "%s-postgres" (include "hue.fullname" .)) }}:{{ .Values.postgresql.port }} || echo $?) -ne 52 ]; do
                 sleep 1;
               done
-{{ end }}
       containers:
       - name: hue
-        image: {{ .Values.image.registry }}/hue:{{ .Values.image.tag }}
+        image: {{ .Values.image.registry }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
           - containerPort: 8888
@@ -57,10 +55,10 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /usr/share/hue/desktop/conf/z-hue.ini
-          subPath: hue-ini
+          subPath: z-hue-ini
         - name: config-volume-extra
           mountPath: /usr/share/hue/desktop/conf/zz-hue.ini
-          subPath: hue-ini
+          subPath: zz-hue-ini
         - name: hive-config-volume
           mountPath: /etc/hive/conf/hive-site.xml
           subPath: hive-site
@@ -77,7 +75,7 @@ spec:
             name: {{ include "hue.fullname" . }}-config
         - name: config-volume-extra
           configMap:
-            name: {{ include "hue.fullname" . }}-config-extra
+            name: {{ include "hue.fullname" . }}-extra-config
         - name: hive-config-volume
           configMap:
             name: {{ include "hue.fullname" . }}-hive-config
