@@ -1,6 +1,9 @@
 # The base hadoop image to use for all components.
 # See this repo for image build details: https://github.com/Comcast/kube-yarn/tree/master/image
 postgresql:
+  enabled: true
+  host: ~
+  port: 5432
   auth:
     postgresPassword: "postgres"
     database: "metastore"

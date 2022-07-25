@@ -15,6 +15,7 @@ sources:
   - https://github.com/yutianaiqingtian/bigdata-charts
 version: 0.1.4
 dependencies:
-  - name: postgresql
+  - condition: postgresql.enabled
+    name: postgresql
     version: ~11.6.0
     repository: https://charts.bitnami.com/bitnami

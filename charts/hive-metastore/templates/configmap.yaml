@@ -12,7 +12,11 @@ data:
     <configuration>
         <property>
             <name>javax.jdo.option.ConnectionURL</name>
+            {{- if not .Values.postgresql.enabled }}
+            <value>jdbc:postgresql://{{ .Values.postgresql.host }}:{{ .Values.postgresql.port }}/{{ .Values.postgresql.auth.database }}</value>
+            {{- else -}}
             <value>jdbc:postgresql://{{ .Release.Name }}-postgresql/{{ .Values.postgresql.auth.database }}</value>
+            {{- end }}
         </property>
         <property>
             <name>javax.jdo.option.ConnectionDriverName</name>
@@ -37,7 +41,7 @@ data:
         {{- if not (index .Values.conf "hiveSite" "hive.metastore.uris")  }}
         <property>
             <name>hive.metastore.uris</name>
-            <value>thrift://{{ .Release.Name }}-postgresql:9083</value>
+            <value>thrift://{{ include "hiveMetastore.fullname" . }}:9083</value>
         </property>
       {{- end }}
       {{- if index .Values.conf "hiveSite" }}
