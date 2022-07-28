@@ -72,3 +72,15 @@ Usage:
         {{- tpl (.value | toYaml) .context }}
     {{- end }}
 {{- end -}}
+
+{{/*
+Standard Labels from Helm documentation https://helm.sh/docs/chart_best_practices/#labels-and-annotations
+*/}}
+
+{{- define "openldap.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+app.kubernetes.io/instance: {{ .Release.Name | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/part-of: {{ .Chart.Name }}
+{{- end -}}

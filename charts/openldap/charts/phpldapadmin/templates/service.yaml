@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: {{ template "phpldapadmin.fullname" . }}
   labels:
-    app: {{ template "phpldapadmin.name" . }}
-    chart: {{ template "phpldapadmin.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "phpldapadmin.name" . }}
+    app.kubernetes.io/component: phpldapadmin
+    {{- include "phpldapadmin.labels" . | nindent 4 }}
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}

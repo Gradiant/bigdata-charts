@@ -19,8 +19,6 @@ tls:
   CA:
     enabled: false
     secret: ""  # The name of a generic secret to use for custom CA certificate (ca.crt)
-## Add additional labels to all resources
-extraLabels: { }
 ## Add additional annotations to pods
 podAnnotations: { }
 service:
@@ -124,12 +122,6 @@ test:
     tag: 0.4.0
 ltb-passwd:
   enabled: false
-  ingress:
-    enabled: false
-    annotations: { }
-    path: /
-    hosts:
-      - "ssl-ldap2.example"
   ldap:
     server: ldap://openldap
     searchBase: dc=example,dc=org
@@ -138,10 +130,5 @@ ltb-passwd:
 
 phpldapadmin:
   enabled: true
-  ingress:
-    enabled: false
-    path: /
-    hosts:
-      - phpldapadmin.example
-  env: []
+  env: { }
 #    PHPLDAPADMIN_LDAP_HOSTS: openldap

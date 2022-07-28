@@ -8,13 +8,9 @@ metadata:
   name: {{ template "openldap.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ template "openldap.fullname" . }}
-    chart: {{ template "openldap.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-{{- if .Values.extraLabels }}
-{{ toYaml .Values.extraLabels | indent 4 }}
-{{- end }}
+    app.kubernetes.io/name: {{ include "openldap.name" . }}
+    app.kubernetes.io/component: openldap
+    {{- include "openldap.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   {{- if and (eq .Values.service.type "LoadBalancer") .Values.service.loadBalancerIP }}

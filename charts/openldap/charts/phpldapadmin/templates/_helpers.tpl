@@ -30,3 +30,15 @@ Create chart name and version as used by the chart label.
 {{- define "phpldapadmin.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Standard Labels from Helm documentation https://helm.sh/docs/chart_best_practices/#labels-and-annotations
+*/}}
+
+{{- define "phpldapadmin.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+app.kubernetes.io/instance: {{ .Release.Name | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/part-of: {{ .Chart.Name }}
+{{- end -}}

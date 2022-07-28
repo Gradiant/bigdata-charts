@@ -4,11 +4,9 @@ kind: Deployment
 metadata:
   name: {{ template "phpldapadmin.fullname" . }}
   labels:
-    app: {{ template "phpldapadmin.name" . }}
-    chart: {{ template "phpldapadmin.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-
+    app.kubernetes.io/name: {{ include "phpldapadmin.name" . }}
+    app.kubernetes.io/component: phpldapadmin
+    {{- include "phpldapadmin.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -36,7 +34,7 @@ spec:
         {{- end }}
         {{- range $key, $value := .Values.env }}
         - name: {{ $key }}
-          value: {{ $value }}
+          value: {{ $value | quote }}
         {{- end }}
         livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 12 }}

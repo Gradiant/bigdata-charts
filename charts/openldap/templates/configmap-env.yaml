@@ -9,13 +9,9 @@ kind: ConfigMap
 metadata:
   name: {{ template "openldap.fullname" . }}-env
   labels:
-    app: {{ template "openldap.name" . }}
-    chart: {{ template "openldap.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-{{- if .Values.extraLabels }}
-{{ toYaml .Values.extraLabels | indent 4 }}
-{{- end }}
+    app.kubernetes.io/name: {{ include "openldap.name" . }}
+    app.kubernetes.io/component: openldap
+    {{- include "openldap.labels" . | nindent 4 }}
 data:
 {{ toYaml .Values.env | indent 2 }}
 {{- if .Values.replication.enabled }}

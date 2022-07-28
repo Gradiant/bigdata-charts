@@ -3,13 +3,9 @@ kind: StatefulSet
 metadata:
   name:  {{ template "openldap.fullname" . }}
   labels:
-    app: {{ template "openldap.fullname" . }}
-    chart: {{ template "openldap.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-{{- if .Values.extraLabels }}
-{{ toYaml .Values.extraLabels | indent 4 }}
-{{- end }}
+    app.kubernetes.io/name: {{ include "openldap.name" . }}
+    app.kubernetes.io/component: openldap
+    {{- include "openldap.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
