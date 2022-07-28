@@ -38,3 +38,7 @@ hue:
 conf:
   hiveSite: {}
     # hive.support.concurrency: false
+aws:
+  accessKeyId: ""
+  secretAccessKey: ""
+  awsRegion: "us-east-1"
