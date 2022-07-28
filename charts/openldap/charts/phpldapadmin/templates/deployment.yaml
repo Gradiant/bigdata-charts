@@ -29,9 +29,15 @@ spec:
         - name: http
           containerPort: 80
           protocol: TCP
-        envFrom:
-        - configMapRef:
-            name: {{ template "phpldapadmin.fullname" . }}
+        env:
+        {{- if not (index .Values.env "PHPLDAPADMIN_LDAP_HOSTS" ) }}
+        - name: PHPLDAPADMIN_LDAP_HOSTS
+          value: {{ .Release.Name }}
+        {{- end }}
+        {{- range $key, $value := .Values.env }}
+        - name: {{ $key }}
+          value: {{ $value }}
+        {{- end }}
         livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 12 }}
         readinessProbe:

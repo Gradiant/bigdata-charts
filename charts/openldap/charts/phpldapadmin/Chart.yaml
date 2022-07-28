@@ -8,6 +8,7 @@ keywords:
 - openldap
 - userrights
 maintainers:
-- name: Jean-Philippe Gouin
+  - email: itzhang89@163.com
+    name: itzhang89
 name: phpldapadmin
 version: 0.1.2
