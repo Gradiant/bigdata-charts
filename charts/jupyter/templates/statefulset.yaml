@@ -119,9 +119,15 @@ spec:
         {{- end }}
         {{- end }}
         {{- if not .Values.persistence.enabled }}
+        {{- if .Values.existingPersistence.enabled }}
+        - name: jupyter
+          persistentVolumeName:
+            claimName: {{ .Values.existingPersistence.claimName }}
+        {{- else }}
         - name: jupyter
           emptyDir: {}
-      {{- end }}
+        {{- end }}
+        {{- end }}
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
   - metadata:
