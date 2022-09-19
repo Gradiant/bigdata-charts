@@ -107,6 +107,35 @@ entries:
       category: bigdata
     apiVersion: v2
     appVersion: 6.0.3
+    created: "2022-09-19T14:00:32.02955255Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Helm for jupyter single server with pyspark support
+    digest: d30f29a86d36b489da65769b63de3cea6368d7b3610e25a138c0ddaf235f19e5
+    home: https://jupyter.org
+    icon: https://jupyter.org/assets/main-logo.svg
+    keywords:
+    - juypter
+    - notebook
+    - spark
+    maintainers:
+    - email: cgiraldo@gradiant.org
+      name: cgiraldo
+    name: jupyter
+    sources:
+    - https://github.com/gradiant/charts
+    - https://github.com/astrobounce/helm-jupyter
+    urls:
+    - https://github.com/Gradiant/bigdata-charts/releases/download/jupyter-0.1.9/jupyter-0.1.9.tgz
+    version: 0.1.9
+  - annotations:
+      category: bigdata
+    apiVersion: v2
+    appVersion: 6.0.3
     created: "2021-09-07T07:49:06.958977269Z"
     dependencies:
     - name: common
@@ -229,4 +258,4 @@ entries:
     urls:
     - https://github.com/Gradiant/bigdata-charts/releases/download/spark-standalone-0.1.0/spark-standalone-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-07T07:49:06.958987069Z"
+generated: "2022-09-19T14:00:32.02956295Z"
