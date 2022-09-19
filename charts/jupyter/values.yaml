@@ -291,7 +291,7 @@ ingress:
   secrets: []
 
 persistence:
-  enabled: false
+  enabled: true
   storageClass:
   accessMode: ReadWriteOnce
   size: 50Gi
