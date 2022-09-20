@@ -121,7 +121,7 @@ spec:
         {{- if not .Values.persistence.enabled }}
         {{- if .Values.existingPersistence.enabled }}
         - name: jupyter
-          persistentVolumeName:
+          persistentVolumeClaim:
             claimName: {{ .Values.existingPersistence.claimName }}
         {{- else }}
         - name: jupyter
