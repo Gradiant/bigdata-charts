@@ -72,6 +72,9 @@ spec:
           args:
             - start-notebook.sh
             - --ip=0.0.0.0
+            {{ range .Values.arguments }}
+            - {{ . }}
+            {{ end }}
           ports:
             - name: http
               containerPort: {{ .Values.containerPorts.http }}

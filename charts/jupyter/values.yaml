@@ -40,6 +40,7 @@ clusterDomain: cluster.local
 ##
 extraDeploy: []
 
+arguments: []
 
 image:
   registry: docker.io
